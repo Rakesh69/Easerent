@@ -15,8 +15,6 @@ Update guide - see: [https://update.angular.io](https://update.angular.io)
 
 ### Clone repo
 
-**Only customers with [Membership Plan](https://coreui.io/pro/#buy) have access to private github repository.**
-
 ``` bash
 # clone the repo
 $ git clone 
