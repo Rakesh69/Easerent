@@ -1,0 +1,82 @@
+// If you want to override variables do it here
+@import "variables";
+// Import styles with default layout.
+// If you are going to use dark layout please comment next line
+@import "~@coreui/coreui-pro/scss/coreui";
+// Import styles with dark layout
+// If you want to use dark layout uncomment next line
+//@import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
+// If you want to add something do it here
+@import "custom";
+// Spinkit
+$spinkit-spinner-color: $body-color;
+@import '~spinkit/scss/spinkit.scss';
+.icon-report {
+    height: 30px;
+    background: url("/assets/img/avatars/nophoto.png") no-repeat;
+    display: inline-block;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.cm-btn-action {
+    width: 30px !important;
+    height: 30px !important;
+    border: 1px solid #4680ff;
+    margin: 0px 2px;
+    display: flex;
+    align-items: center;
+    float: left;
+    justify-content: center;
+    cursor: pointer;
+    .fa-edit:before,
+    .fa-picture-o:before {
+        color: #4680ff;
+    }
+    i {
+        margin-right: 0;
+    }
+}
+
+.sar-image {
+    height: 150px;
+    width: 150px;
+}
+
+.text-black{
+color: black;
+}
+
+.image-name {
+    word-break: break-all;
+}
+
+.overflow-block {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.circle-border {
+    border-radius: 50%;
+    border: 1px solid !important;
+    background: #2f353a !important;
+    color: white !important;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    h3 {
+        margin: 0;
+        line-height: 40px;
+    }
+}
+
+.cm-profile-name {
+    width: 160px;
+    li {
+        width: 100%;
+        .row {
+            align-items: center;
+        }
+    }
+}

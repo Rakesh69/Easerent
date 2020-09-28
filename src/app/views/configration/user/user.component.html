@@ -1,0 +1,219 @@
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <i class="fa fa-align-justify"></i> User
+            <button class="btn btn-primary pull-right" type="button" (click)="ngOnInit()">
+        <i class="fa fa-refresh"></i>
+      </button>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4 offset-md-6">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search" />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-success" type="button" (click)="Add()">Add New</button>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-responsive-lg" [mfData]="UserList | userFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th>
+                            <mfDefaultSorter by="FirstName">First Name</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="LastName">Last Name</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="Mobile">Mobile</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="EmailAddress">Email</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="RoleName">Role</mfDefaultSorter>
+                        </th>
+                        <th style="width: 10%">Status</th>
+                        <th style="width: 15%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of mf.data; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{item.FirstName}}</td>
+                        <td>{{item.LastName}}</td>
+                        <td>{{item.Mobile}}</td>
+                        <td>{{item.EmailAddress}}</td>
+                        <td>{{item.RoleName}}</td>
+                        <td> <span *ngIf="item.IsActive">Active</span>
+                            <span *ngIf="!item.IsActive">InActive</span></td>
+                        <td>
+                            <a class="btn btn-icon wdthnone cm-btn-action" (click)="Edit(item.Id)">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a class="btn btn-icon wdthnone cm-btn-action" (click)="Delete(item.Id)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Add/Edit Popup-->
+<ng-template #User let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{title}} User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form #user="ngForm" novalidate>
+            <div class="row">
+                <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">First Name <span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="firstName" placeholder="FirstName" name="firstName" #firstName="ngModel" [(ngModel)]="UserModel.FirstName" required maxlength="255">
+                                <div *ngIf="firstName.errors?.required && (firstName.touched || isSubmitted)" class="text-danger">
+                                    First Name is required.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Last Name <span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="lastName" placeholder="LastName" name="lastName" #lastName="ngModel" [(ngModel)]="UserModel.LastName" required maxlength="255">
+                                <div *ngIf="lastName.errors?.required && (lastName.touched || isSubmitted)" class="text-danger">
+                                    Last Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Email<span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" [pattern]="emailPattren" id="emailAddress" placeholder="Email" name="emailAddress" #emailAddress="ngModel" [(ngModel)]="UserModel.EmailAddress" required maxlength="255">
+                                <div *ngIf="emailAddress.invalid && (emailAddress.touched || isSubmitted)" class="text-danger">
+                                    <span *ngIf="emailAddress.errors.required" class="text-red">
+                    Email is required.
+                  </span>
+                                    <span *ngIf="emailAddress.errors.pattern" class="text-red">
+                    please enter valid email
+                  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Display Name <span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="name" placeholder="Display Name" name="displayName" #displayName="ngModel" [(ngModel)]="UserModel.DisplayName" required maxlength="255">
+                                <div *ngIf="displayName.errors?.required && (displayName.touched || isSubmitted)" class="text-danger">
+                                    Display Name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="!UserModel.Id">
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Password<span class="text-danger"> *</span></label>
+                                <input type="password" class="form-control" id="Password" placeholder="Password" name="Password" #Password="ngModel" [(ngModel)]="UserModel.Password" required maxlength="255" [pattern]="passwordPattern">
+
+
+                                <div *ngIf="Password.invalid && (Password.touched || isSubmitted)" class="text-danger">
+                                    <span *ngIf="Password.errors.required" class="text-red">
+                    Password is required.
+                  </span>
+                                    <span *ngIf="Password.errors.pattern" class="text-red">
+                    Password must be contain 1 uppercase, 1 lowercase,1 number and 1 special character and must be 6
+                    character.
+                  </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Confirm Password<span class="text-danger"> *</span></label>
+                                <input type="password" class="form-control" id="CPassword" placeholder="Confirm Password" name="CPassword" #CPassword="ngModel" [(ngModel)]="UserModel.CPassword" required maxlength="255">
+                                <div *ngIf="CPassword.errors?.required && (CPassword.touched || isSubmitted)" class="text-danger">
+                                    Confirm Password is required.</div>
+                                <div *ngIf="UserModel.CPassword !=UserModel.Password" class="text-danger">
+                                    Confirm Password and Password miss match.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="isActive">User Role <span class="text-danger"> *</span></label>
+                                <select [(ngModel)]="UserModel.Role" id="role" name="role" class="form-control">
+                  <option [ngValue]="null" selected>Select Role</option>
+                  <option *ngFor="let c of userRoleList" [ngValue]="c.Id">{{c.Name}}</option>
+                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">Mobile <span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="mobile" placeholder="mobile" name="mobile" #mobile="ngModel" [(ngModel)]="UserModel.Mobile" required maxlength="15" (keypress)="numberOnly($event)">
+                                <div *ngIf="mobile.errors?.required && (mobile.touched || isSubmitted)" class="text-danger">
+                                    Mobile number is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="name">User Principal Name <span class="text-danger"> *</span></label>
+                                <textarea class="form-control" id="userPrincipalName" placeholder="User Principal Name" name="userPrincipalName" #userPrincipalName="ngModel" [(ngModel)]="UserModel.UserPrincipalName" required maxlength="400"></textarea>
+                                <div *ngIf="userPrincipalName.errors?.required && (userPrincipalName.touched || isSubmitted)" class="text-danger">
+                                    User Principal Name is required.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xl-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="isActive">Is Active?</label>
+                                <select [(ngModel)]="UserModel.IsActive" id="isActive" name="isActive" class="form-control">
+                  <option *ngFor="let c of statusList" [ngValue]="c.value">{{c.name}}</option>
+                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Cancel</button>
+        <button type="button" class="btn btn-outline-dark" (click)="SaveUserDetail(user)">Save</button>
+    </div>
+</ng-template>
+<!--End Add/Edit Popup-->

@@ -1,0 +1,133 @@
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-align-justify"></i> Role
+      <button class="btn btn-primary pull-right" type="button" (click)="ngOnInit()">
+        <i class="fa fa-refresh"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4 offset-md-6">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search" />
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-block btn-success" type="button" (click)="Add()">Add New</button>
+        </div>
+      </div>
+      <table class="table table-striped table-hover table-responsive-lg" [mfData]="RoleList | roleFilter : filterQuery"
+        #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 70%">
+              <mfDefaultSorter by="Name">Name</mfDefaultSorter>
+            </th>
+            <th style="width: 10%">Status</th>
+            <th style="width: 15%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.Name}}</td>
+            <td> <span *ngIf="item.IsActive">Active</span>
+              <span *ngIf="!item.IsActive">InActive</span></td>
+            <td>
+              <a class="btn btn-icon wdthnone cm-btn-action" (click)="Edit(item.Id)">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a class="btn btn-icon wdthnone cm-btn-action" (click)="Delete(item.Id)">
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Add/Edit Popup-->
+<ng-template #Role let-c="close" let-d="dismiss">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}} Role</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #role="ngForm" novalidate>
+      <div class="row">
+        <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="name">Name <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control" id="name" placeholder="Name" name="name" #name="ngModel"
+                [(ngModel)]="RoleModel.Name" required maxlength="255">
+              <div *ngIf="name.errors?.required && (name.touched || isSubmitted)" class="text-danger">
+                Name is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="isActive">Is Active?</label>
+              <select [(ngModel)]="RoleModel.IsActive" id="isActive" name="isActive" class="form-control">
+                <option *ngFor="let c of statusList" [ngValue]="c.value">{{c.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <table class="table table-striped table-hover table-responsive-lg" [mfData]="ModuleList" #mfModule="mfDataTable"
+              [mfRowsOnPage]="10">
+              <thead>
+                <tr>
+                  <th style="width: 5%"></th>
+                  <th style="width: 5%">#</th>
+                  <th style="width: 90%">
+                    <mfDefaultSorter by="Name">Name</mfDefaultSorter>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mfModule.data; let i = index">
+                  <td><input type="checkbox" [(ngModel)]="item.IsSelected" name="{{item.Id}}_{{i}}"> </td>
+                  <td>{{i+1}}</td>
+                  <td>{{item.Name}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Cancel</button>
+    <button type="button" class="btn btn-outline-dark" (click)="SaveRole(role)">Save</button>
+  </div>
+</ng-template>
+<!--End Add/Edit Popup-->
