@@ -9,6 +9,7 @@ import {AuthGuard} from './common/auth.guard'
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
+import { PropertiesComponent } from './views/properties/properties.component';
 
 export const routes: Routes = [
   {
@@ -57,6 +58,11 @@ export const routes: Routes = [
         data: {
           title: 'dashboard'
         },
+        canActivate:[AuthGuard],
+      },
+      {
+        path: 'properties',
+        loadChildren: () => import('./views/properties/properties.module').then(m => m.PropertiesModule),
         canActivate:[AuthGuard],
       },
       {

@@ -55,6 +55,7 @@ import {  NgxFileDropModule } from 'ngx-file-drop';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
+import { PropertiesComponent } from './views/properties/properties.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -77,7 +78,7 @@ import { SignupComponent } from './views/signup/signup.component';
     DataTableModule,
     NgbModule.forRoot(),
     NgxFileDropModule,
-    TagInputModule 
+    TagInputModule
     //NgbTypeaheadModule
   ],
   declarations: [
@@ -100,7 +101,7 @@ import { SignupComponent } from './views/signup/signup.component';
     {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter},
     BsModalService
     ],
-    
+
   bootstrap: [ AppComponent ]
 
 })

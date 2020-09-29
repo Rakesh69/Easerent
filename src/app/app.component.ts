@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { ToasterConfig } from 'angular2-toaster';
 
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: '<router-outlet></router-outlet>'
+  template: '<router-outlet></router-outlet> '
 })
 export class AppComponent implements OnInit {
+
+  public toasterconfig: ToasterConfig = new ToasterConfig({ tapToDismiss: true, timeout: 5000 });
   constructor(private router: Router) { }
 
   ngOnInit() {

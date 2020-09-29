@@ -11,6 +11,8 @@
 // Spinkit
 $spinkit-spinner-color: $body-color;
 @import '~spinkit/scss/spinkit.scss';
+@import 'node_modules/angular2-toaster/toaster';
+
 .icon-report {
     height: 30px;
     background: url("/assets/img/avatars/nophoto.png") no-repeat;

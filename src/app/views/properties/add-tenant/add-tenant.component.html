@@ -1,0 +1,21 @@
+<div class="animated fadeIn">
+    <form class="fromData" role="form" [formGroup]="inviteForm" *ngIf="inviteForm"  (submit)="formSubmit()" autocomplete="off" >
+        <div class="row bg-white py-3 rounded">
+            <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                    <label for="ownerEmail">Owner Email</label>
+                    <input type="text" class="form-control" id="ownerEmail" formControlName="ownerEmail" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('ownerEmail') }" placeholder="Enter owner email" maxlength="100" >
+                    
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('ownerEmail')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('ownerEmail', 'required')">Owner email is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" >Invite</button>
+            </div>
+        </div>
+    </form>
+</div>
