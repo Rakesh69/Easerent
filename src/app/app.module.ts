@@ -56,6 +56,7 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { PropertiesComponent } from './views/properties/properties.component';
+import { ToasterModule } from 'angular2-toaster';
 @NgModule({
   imports: [
     BrowserModule,
@@ -72,6 +73,7 @@ import { PropertiesComponent } from './views/properties/properties.component';
     ChartsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    ToasterModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
     FormsModule,

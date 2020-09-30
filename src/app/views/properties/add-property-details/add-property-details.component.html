@@ -1,0 +1,283 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="addAttachment.show()" >Add Attachments</button>
+        </div>
+  
+        <div class="col-12 mt-3 table-responsive" *ngIf="attachments && attachments.length > 0" >
+            <table class="table table-hover bg-white">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Attachment</th>
+                        <th scope="col">Living Room / Hall</th>
+                        <th scope="col">Kitchen</th>
+                        <th scope="col">Bedroom</th>
+                        <th scope="col">Bathroom</th>
+                        <th scope="col">Additional Rooms</th>
+                        <th scope="col">Furnished</th>
+                        <th scope="col">Fan</th>
+                        <th scope="col">Sofa</th>
+                        <th scope="col">TV</th>
+                        <th scope="col">Bed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let attachment of attachments;let i = index" >
+                        <th scope="row">{{i + 1}}</th>
+                        <td><i class="fa fa-eye" aria-hidden="true" (click)="showLigthBox(attachment['attachment'])" ></i></td>
+                        <td>{{attachment['isLivingRoom'] ? 'Yes' : 'No'}}</td>
+                        <td>{{attachment['isKitchen'] ? 'Yes' : 'No'}}</td>
+                        <td>{{attachment['bedroom']}}</td>
+                        <td>{{attachment['bathroom']}}</td>
+                        <td>{{attachment['additionalRooms']}}</td>
+                        <td>{{attachment['isFurnished'] ? 'Yes' : 'No'}}</td>
+                        <td>{{attachment['fan']}}</td>
+                        <td>{{attachment['sofa']}}</td>
+                        <td>{{attachment['tv']}}</td>
+                        <td>{{attachment['bed']}}</td>
+                    </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div bsModal #addAttachment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Attachment</h4>
+          <button type="button" class="close" (click)="addAttachment.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="formSubmit()" autocomplete="off" >
+                <div class="d-flex flex-row justify-content-center align-items-center w-100 h-100">
+                    <button type="button" class="btn btn-labeled btn-primary mx-2 attachmentBtn">
+                        <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                    </button>
+
+                    <button type="button" class="btn btn-labeled btn-primary mx-2 attachmentBtn" (click)="photoFromDevice.click()">
+                        <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device 
+                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
+                    </button>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col-12 d-flex flex-row my-3">
+                        <div class="custom-control custom-checkbox mr-3">
+                            <input type="checkbox" class="custom-control-input" id="isLivingRoom" formControlName="isLivingRoom" >
+                            <label class="custom-control-label" for="isLivingRoom">Living Room / Hall</label>
+                        </div>
+
+                        <div class="custom-control custom-checkbox mr-3">
+                            <input type="checkbox" class="custom-control-input" id="isKitchen" formControlName="isKitchen" >
+                            <label class="custom-control-label" for="isKitchen">Kitchen</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="bedroom">Bedroom</label>
+                            <select class="form-control" id="bedroom" formControlName="bedroom" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('bedroom') }">
+                                <option value="0" >0</option>
+                                <option value="1" >1</option>
+                                <option value="2" >2</option>
+                                <option value="3" >3</option>
+                                <option value="4" >4</option>
+                                <option value="5" >5</option>
+                                <option value="6" >6</option>
+                                <option value="7" >7</option>
+                                <option value="8" >8</option>
+                                <option value="9" >9</option>
+                                <option value="10" >10</option>
+                            </select>
+
+                            <!-- <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="bathroom">Bathroom</label>
+                            <select class="form-control" id="bathroom" formControlName="bathroom" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('bathroom') }">
+                                <option value="0" >0</option>
+                                <option value="1" >1</option>
+                                <option value="2" >2</option>
+                                <option value="3" >3</option>
+                                <option value="4" >4</option>
+                                <option value="5" >5</option>
+                                <option value="6" >6</option>
+                                <option value="7" >7</option>
+                                <option value="8" >8</option>
+                                <option value="9" >9</option>
+                                <option value="10" >10</option>
+                            </select>
+
+                            <!-- <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="additionalRooms">additionalRooms</label>
+                            <select class="form-control" id="additionalRooms" formControlName="additionalRooms" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('additionalRooms') }">
+                                <option value="0" >0</option>
+                                <option value="1" >1</option>
+                                <option value="2" >2</option>
+                                <option value="3" >3</option>
+                                <option value="4" >4</option>
+                                <option value="5" >5</option>
+                                <option value="6" >6</option>
+                                <option value="7" >7</option>
+                                <option value="8" >8</option>
+                                <option value="9" >9</option>
+                                <option value="10" >10</option>
+                            </select>
+
+                            <!-- <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="furnished" formControlName="isFurnished" [value]="true" class="custom-control-input">
+                            <label class="custom-control-label" for="furnished">Furnished</label>
+                        </div>
+                        
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="unfurnished" formControlName="isFurnished" [value]="false" class="custom-control-input">
+                            <label class="custom-control-label" for="unfurnished">Unfurnished</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <fieldset class="border p-2">
+                            <legend class="w-auto px-2 h6 text-muted">Group Name</legend>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <label for="fan">Fan</label>
+                                        <select class="form-control" id="fan" formControlName="fan" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('fan') }">
+                                            <option value="0" >0</option>
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                            <option value="5" >5</option>
+                                            <option value="6" >6</option>
+                                            <option value="7" >7</option>
+                                            <option value="8" >8</option>
+                                            <option value="9" >9</option>
+                                            <option value="10" >10</option>
+                                        </select>
+            
+                                        <!-- <span class="required">*</span>
+                                        <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                            <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <label for="sofa">Sofa</label>
+                                        <select class="form-control" id="sofa" formControlName="sofa" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('sofa') }">
+                                            <option value="0" >0</option>
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                            <option value="5" >5</option>
+                                            <option value="6" >6</option>
+                                            <option value="7" >7</option>
+                                            <option value="8" >8</option>
+                                            <option value="9" >9</option>
+                                            <option value="10" >10</option>
+                                        </select>
+            
+                                        <!-- <span class="required">*</span>
+                                        <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                            <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <label for="tv">Tv</label>
+                                        <select class="form-control" id="tv" formControlName="tv" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('tv') }">
+                                            <option value="0" >0</option>
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                            <option value="5" >5</option>
+                                            <option value="6" >6</option>
+                                            <option value="7" >7</option>
+                                            <option value="8" >8</option>
+                                            <option value="9" >9</option>
+                                            <option value="10" >10</option>
+                                        </select>
+            
+                                        <!-- <span class="required">*</span>
+                                        <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                            <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="form-group">
+                                        <label for="bed">Bed</label>
+                                        <select class="form-control" id="bed" formControlName="bed" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('bed') }">
+                                            <option value="0" >0</option>
+                                            <option value="1" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                            <option value="5" >5</option>
+                                            <option value="6" >6</option>
+                                            <option value="7" >7</option>
+                                            <option value="8" >8</option>
+                                            <option value="9" >9</option>
+                                            <option value="10" >10</option>
+                                        </select>
+            
+                                        <!-- <span class="required">*</span>
+                                        <div *ngIf="isFormSubmittedAndError('bedroom')" class="invalid-feedback">
+                                            <div *ngIf="isFormSubmittedAndError('bedroom', 'required')">Bedroom is required.</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="addAttachment.hide()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="formSubmit()" >Done</button>
+        </div>
+      </div>
+    </div>
+</div>

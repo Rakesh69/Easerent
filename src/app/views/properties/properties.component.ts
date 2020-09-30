@@ -7,16 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertiesComponent implements OnInit {
 
-  PropertyData = [];
+  PropertyData: any = [];
   constructor() { }
 
   ngOnInit() {
-    for (var i = 0; i < 10; i++) {
-      var data = {
-        PropertyName: "Property #" + i
-      }
-      this.PropertyData.push(data);
-    }
+    // for (var i = 0; i < 10; i++) {
+    //   var data = {
+    //     PropertyName: "Property #" + i
+    //   }
+    //   this.PropertyData.push(data);
+    // }
   }
 
 }

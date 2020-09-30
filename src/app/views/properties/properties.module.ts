@@ -7,6 +7,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PropertiesComponent } from './properties.component';
+import { LightboxModule } from 'ngx-lightbox';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PropertiesComponent } from './properties.component';
     PropertiesRoutingModule,
     ChartsModule,
     BsDropdownModule,
+    LightboxModule,
     ButtonsModule.forRoot()
   ]
 })

@@ -5,7 +5,8 @@ import { ToasterConfig } from 'angular2-toaster';
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: '<router-outlet></router-outlet> '
+  template: '<router-outlet></router-outlet> <toaster-container [toasterconfig]="toasterconfig"></toaster-container>',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
 

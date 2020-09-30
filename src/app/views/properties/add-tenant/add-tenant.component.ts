@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ToasterService, ToasterConfig } from 'angular2-toaster';
+import { Globals } from './../../../globals';
 
 @Component({
   selector: 'app-add-tenant',
@@ -9,14 +10,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddTenantComponent implements OnInit {
 
-
+  
   inviteForm: FormGroup;
   isFormSubmitted: boolean = false;
   addedProperty: any = {};
 
+ 
 
-
-  constructor(public formBuilder: FormBuilder, public toasterService: ToastrService) { }
+  constructor(public formBuilder: FormBuilder, public toasterService: ToasterService) { }
 
   ngOnInit() {
     this.createForm();
@@ -30,22 +31,18 @@ export class AddTenantComponent implements OnInit {
 
   formSubmit(): void {
     this.isFormSubmitted = true;
-    this.toasterService.success('success', 'Invitation sent successfully.');
-
+   
     if(this.inviteForm.valid) {
       this.addedProperty = this.inviteForm.value;
       this.inviteForm.reset();
       this.isFormSubmitted = false;
+
+      this.toasterService.pop('success', 'Success', 'Invitation sent successfully.');
     }
   }
 
-
+  
   isFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
-    const otherError: any = this.inviteForm.controls[controlName].errors;
-
-    if (this.isFormSubmitted && otherError) {
-        return errorName == '' ? true : (otherError ? !Object.keys(otherError).some(err => notError.includes(err)) : true) ? this.inviteForm.controls[controlName].hasError(errorName) : false;
-    }
-    return false;
+    return Globals.isFormSubmittedAndError(this.inviteForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);               
   }
 }

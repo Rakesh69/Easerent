@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PropertiesComponent } from './properties.component';
-import { AddPropertyComponent } from './add-property/add-property.component';
-import { AuthGuard } from '../../common/auth.guard';
 
 const routes: Routes = [
   {
@@ -37,6 +35,10 @@ const routes: Routes = [
       {
         path: 'addTenant',
         loadChildren: () => import('./add-tenant/add-tenant.module').then(m => m.AddTenantModule)
+      },
+      {
+        path: 'addPropertyDetails',
+        loadChildren: () => import('./add-property-details/add-property-details.module').then(m => m.AddPropertyDetailsModule)
       }
     ]
   }
