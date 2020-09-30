@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Globals } from './../../../globals';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-owner-broker',
@@ -15,7 +17,7 @@ export class AddOwnerBrokerComponent implements OnInit {
 
   @ViewChild('successModal', {static: false}) public successModal: ModalDirective;
   
-  constructor(public formBuilder: FormBuilder) { }
+  constructor(public formBuilder: FormBuilder, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.createForm();
@@ -23,6 +25,7 @@ export class AddOwnerBrokerComponent implements OnInit {
 
   createForm(): void {
     this.addProperty = this.formBuilder.group({
+      coverImage: new FormControl(''),
       propertyName: new FormControl('propertyName', [Validators.required, Validators.maxLength(100)]),
       propertyType: new FormControl('Retail', [Validators.required]),
       address: new FormControl('address', [Validators.required, Validators.maxLength(300)]),
@@ -52,4 +55,21 @@ export class AddOwnerBrokerComponent implements OnInit {
     } 
     return false;                
   } 
+
+  async onChangePropertyCoverImage(event: any) {
+    console.log('Event : ', event.target.files);
+
+    if(event.target.files && event.target.files.length > 0) {
+      let attachmentBlobUrls = [];
+      for (const key in event.target.files) {
+        if (Object.prototype.hasOwnProperty.call(event.target.files, key)) {
+          const file = event.target.files[key];
+          const blobUrl = await Globals.fileToBlobUrl(file);
+          console.log('blobUrl : ', blobUrl);
+
+          this.addProperty.get('coverImage').setValue(this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl));
+        }
+      }   
+    }
+  }
 }

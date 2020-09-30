@@ -1,83 +1,99 @@
 <div class="animated fadeIn">
-    <form class="fromData" role="form" [formGroup]="addProperty" *ngIf="addProperty"  (submit)="formSubmit()" autocomplete="off" >
-        <div class="row bg-white py-3 rounded">
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="propertyName">Property Name</label>
-                    <input type="text" class="form-control" id="propertyName" formControlName="propertyName" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyName') }" placeholder="Enter your property name" maxlength="100" >
-                    
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('propertyName')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('propertyName', 'required')">Property name is required.</div>
-                    </div>
-                </div>
+    <form class="fromData bg-white p-3 rounded" role="form" [formGroup]="addProperty" *ngIf="addProperty"  (submit)="formSubmit()" autocomplete="off" >
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mb-3 mt-2">
+                    <input type="file" hidden #propertyCoverImage (change)="onChangePropertyCoverImage($event)" accept="image/*" >
+        
+                    <button type="button" class="btn btn-labeled btn-outline-primary mx-2 btn-lg propertyCoverImageBtn" (click)="propertyCoverImage.click()" *ngIf="!addProperty.get('coverImage').value">
+                        <span class="btn-label"><i class="fa fa-home"></i></span><br/>Upload a Cover Image 
+                    </button>
+        
+                    <img [src]="addProperty.get('coverImage').value" *ngIf="addProperty.get('coverImage').value" (click)="propertyCoverImage.click()" alt="..." class="img-thumbnail propertyCoverImage">
+                </div>        
             </div>
 
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="propertyType">Property Type</label>
-                    <select class="form-control" id="propertyType" formControlName="propertyType" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyType') }">
-                        <option value="" >Select your property type</option>
-                        <option value="House/Villa" >House/Villa</option>
-                        <option value="Commercial Property" >Commercial Property</option>
-                        <option value="Office" >Office</option>
-                        <option value="Retail" >Retail</option>
-                        <option value="Storage" >Storage</option>
-                        <option value="Hospitality" >Hospitality</option>
-                    </select>
-
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('propertyType')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('propertyType', 'required')">Property type is required.</div>
+            <div class="col-sm-12 col-lg-8">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="propertyName">Property Name</label>
+                            <input type="text" class="form-control" id="propertyName" formControlName="propertyName" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyName') }" placeholder="Enter your property name" maxlength="100" >
+                            
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('propertyName')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('propertyName', 'required')">Property name is required.</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" formControlName="address" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('address') }" placeholder="Enter your address" maxlength="300" >
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="propertyType">Property Type</label>
+                            <select class="form-control" id="propertyType" formControlName="propertyType" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyType') }">
+                                <option value="" >Select your property type</option>
+                                <option value="House/Villa" >House/Villa</option>
+                                <option value="Commercial Property" >Commercial Property</option>
+                                <option value="Office" >Office</option>
+                                <option value="Retail" >Retail</option>
+                                <option value="Storage" >Storage</option>
+                                <option value="Hospitality" >Hospitality</option>
+                            </select>
 
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('address')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('address', 'required')">Address is required.</div>
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('propertyType')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('propertyType', 'required')">Property type is required.</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }" placeholder="Enter your city name" maxlength="100">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" formControlName="address" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('address') }" placeholder="Enter your address" maxlength="300" >
 
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('city')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('city', 'required')">City name is required.</div>
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('address')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('address', 'required')">Address is required.</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input type="text" class="form-control" id="state" formControlName="state" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('state') }" placeholder="Enter your state name" maxlength="100">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }" placeholder="Enter your city name" maxlength="100">
 
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('state')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('state', 'required')">State name is required.</div>
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('city')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('city', 'required')">City name is required.</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-sm-12 col-lg-6">
-                <div class="form-group">
-                    <label for="pincode">Pincode</label>
-                    <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('pincode') }" placeholder="Enter your pincode" minlength="6" maxlength="6">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" id="state" formControlName="state" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('state') }" placeholder="Enter your state name" maxlength="100">
 
-                    <span class="required">*</span>
-                    <div *ngIf="isFormSubmittedAndError('pincode')" class="invalid-feedback">
-                        <div *ngIf="isFormSubmittedAndError('pincode', 'required')">Pincode is required.</div>
-                        <div *ngIf="isFormSubmittedAndError('pincode', 'minlength', ['required'])">Pincode is must be 6 digit.</div>
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('state')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('state', 'required')">State name is required.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('pincode') }" placeholder="Enter your pincode" minlength="6" maxlength="6">
+
+                            <span class="required">*</span>
+                            <div *ngIf="isFormSubmittedAndError('pincode')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('pincode', 'required')">Pincode is required.</div>
+                                <div *ngIf="isFormSubmittedAndError('pincode', 'minlength', ['required'])">Pincode is must be 6 digit.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

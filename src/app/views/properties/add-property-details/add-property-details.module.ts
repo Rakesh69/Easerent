@@ -6,6 +6,7 @@ import { AddPropertyDetailsComponent } from './add-property-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LightboxModule } from 'ngx-lightbox';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LightboxModule } from 'ngx-lightbox';
     CommonModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    PerfectScrollbarModule,
     LightboxModule,
     AddPropertyDetailsRoutingModule
   ]

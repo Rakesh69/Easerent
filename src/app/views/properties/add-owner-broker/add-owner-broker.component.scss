@@ -24,4 +24,18 @@
         right: 10px;
         top: 38px;
     }
+
+    .propertyCoverImageBtn, .propertyCoverImageBtn  {
+        width: 300px;
+        max-width: 300px;
+        height: 300px;
+        max-height: 300px;
+
+        .btn-label {
+            .fa {
+                font-size: 10rem;
+                padding-bottom: 1rem;
+            }
+        }
+    }
 }
