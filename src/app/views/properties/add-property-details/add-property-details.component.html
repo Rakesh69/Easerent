@@ -1,5 +1,5 @@
 <div class="animated fadeIn">
-    <div class="row">
+    <div class="row bg-white py-3">
         <div class="col-12 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary" (click)="addAttachment.show()" >Add Attachments</button>
         </div>
@@ -213,55 +213,35 @@
         </div>
 
         <div class="col-sm-12 col-lg-4">
-            <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addPropertyDetailForm.get('attachments').value.length === 0" >
+            <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="attachments && attachments.length === 0" >
                 <div class="h6 text-muted">
                     Please select attachment.
                 </div>
             </div>
 
-            <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3" [perfectScrollbar] *ngIf="addPropertyDetailForm.get('attachments').value.length > 0">
-                <div *ngFor="let attachment of addPropertyDetailForm.get('attachments').value; let i = index"  (click)="showLigthBox(i)" >
-                    <img [src]="attachment" alt="..." class="img-thumbnail selectedAttachmentImg m-3" >
+            <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="attachments && attachments.length > 0" >
+                <div class="table-responsive w-100" >
+                    <table class="table table-hover bg-white">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Room Type</th>
+                                <th scope="col">Attachment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let attachment of attachments;let i = index" >
+                                <th scope="row">{{i + 1}}</th>
+                                <td>{{attachment['roomType']}}</td>
+                                <td>
+                                    <i class="fa fa-eye" aria-hidden="true" (click)="showLigthBox(0);" ></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="col-12 mt-3 table-responsive" *ngIf="attachments && attachments.length > 0" >
-            <table class="table table-hover bg-white">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Attachment</th>
-                        <th scope="col">Living Room / Hall</th>
-                        <th scope="col">Kitchen</th>
-                        <th scope="col">Bedroom</th>
-                        <th scope="col">Bathroom</th>
-                        <th scope="col">Additional Rooms</th>
-                        <th scope="col">Furnished</th>
-                        <th scope="col">Fan</th>
-                        <th scope="col">Sofa</th>
-                        <th scope="col">TV</th>
-                        <th scope="col">Bed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let attachment of attachments;let i = index" >
-                        <th scope="row">{{i + 1}}</th>
-                        <td><i class="fa fa-eye" aria-hidden="true" (click)="showLigthBox(attachment['attachment'])" ></i></td>
-                        <td>{{attachment['isLivingRoom'] ? 'Yes' : 'No'}}</td>
-                        <td>{{attachment['isKitchen'] ? 'Yes' : 'No'}}</td>
-                        <td>{{attachment['bedroom']}}</td>
-                        <td>{{attachment['bathroom']}}</td>
-                        <td>{{attachment['additionalRooms']}}</td>
-                        <td>{{attachment['isFurnished'] ? 'Yes' : 'No'}}</td>
-                        <td>{{attachment['fan']}}</td>
-                        <td>{{attachment['sofa']}}</td>
-                        <td>{{attachment['tv']}}</td>
-                        <td>{{attachment['bed']}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
     </div>
 </div>
 
@@ -269,38 +249,117 @@
 
 
 <div bsModal #addAttachment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Add Attachment</h4>
-          <button type="button" class="close" (click)="addAttachment.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="addAttachment.hide();addAttachmentForm.reset();" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
             <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="formSubmit()" autocomplete="off" >
-                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100">
-                    <button type="button" class="btn btn-labeled btn-primary mx-2 attachmentBtn">
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addAttachmentForm.get('attachment').valid" >
+                    <img [src]="addAttachmentForm.get('attachment').value" alt="..." class="img-thumbnail selectedAttachmentImg">
+                </div>
+               
+                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="takePhotoModal.show()" >
                         <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
                     </button>
+                    <!-- <webcam></webcam> -->
 
-                    <button type="button" class="btn btn-labeled btn-primary mx-2 attachmentBtn" (click)="photoFromDevice.click()">
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="photoFromDevice.click()">
                         <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device 
-                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" multiple accept="image/*" >
+                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
                     </button>
                 </div>
 
                 <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
-                    <div *ngFor="let attachment of addAttachmentForm.get('attachment').value" >
-                        <img [src]="attachment" alt="..." class="img-thumbnail selectedAttachmentImg m-3">
+                    <div class="form-group w-100 noLabel">
+                        <select class="form-control" id="roomType" formControlName="roomType" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('roomType') }">
+                            <option value="" >Please select room type</option>
+                            <option value="bedroom" >Bedroom</option>
+                            <option value="bathroom" >Bathroom</option>
+                            <option value="additionalRooms" >Additional Rooms</option>
+                            <option value="fan" >Fan</option>
+                            <option value="sofa" >Sofa</option>
+                            <option value="tv" >Tv</option>
+                            <option value="bed" >Bed</option>                           
+                        </select>
+
+                        <span class="required">*</span>
+                        <div *ngIf="isAddAttachmentFormSubmittedAndError('roomType')" class="invalid-feedback">
+                            <div *ngIf="isAddAttachmentFormSubmittedAndError('roomType', 'required')">Room type is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-success w-100" [disabled]="addAttachmentForm.invalid" (click)="formSubmit()" >Upload</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="addAttachment.hide();addAttachmentForm.reset();">Close</button>
+          <button type="button" class="btn btn-primary" (click)="attachmentSubmit()" >Done</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+<div bsModal #takePhotoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Take Photo</h4>
+          <button type="button" class="close" (click)="takePhotoModal.hide();takePhotoForm.reset()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="takePhotoForm" *ngIf="takePhotoForm"  (submit)="formSubmit()" autocomplete="off" >
+                <div class="row" >
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="img-thumbnail" >
+                            <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                            [allowCameraSwitch]="true" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
+                            (initError)="handleInitError($event)"></webcam>
+                        </div>
+
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 mt-3">
+                            <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="triggerSnapshot()" >
+                                <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                            </button>
+                            <!-- <webcam></webcam> -->
+        
+                            <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="showNextWebcam(true);">
+                                <span class="btn-label"><i class="fa fa-refresh"></i></span> Switch Camera 
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100"  *ngIf="!takePhotoForm.get('attachment').valid">
+                            <div class="h6 text-muted">
+                                Please take photo.
+                            </div>
+                        </div>
+            
+                        <img [src]="takePhotoForm.get('attachment').value" alt="..." class="img-thumbnail takePhotoAttachmentImg w-100" *ngIf="takePhotoForm.get('attachment').valid">
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="addAttachment.hide()">Close</button>
-          <button type="button" class="btn btn-primary" (click)="formSubmit()" >Done</button>
+          <button type="button" class="btn btn-secondary" (click)="takePhotoModal.hide();takePhotoForm.reset()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="takePhotoSubmit()" >Done</button>
         </div>
       </div>
     </div>

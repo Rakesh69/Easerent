@@ -25,10 +25,10 @@
         top: 38px;
     }
 
-    .propertyCoverImageBtn, .propertyCoverImageBtn  {
-        width: 300px;
+    .propertyCoverImageBtn, .propertyCoverImage  {
+        min-width: 300px;
         max-width: 300px;
-        height: 300px;
+        min-height: 300px;
         max-height: 300px;
 
         .btn-label {

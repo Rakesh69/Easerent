@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LightboxModule } from 'ngx-lightbox';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     ModalModule.forRoot(),
     PerfectScrollbarModule,
     LightboxModule,
+    WebcamModule,
     AddPropertyDetailsRoutingModule
   ]
 })

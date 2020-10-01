@@ -1,9 +1,15 @@
 .attachmentBtn {
-    min-width: 200px;
-    max-width: 200px;
+   width: 48%;
 }
 
 .selectedAttachmentImg {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
+
+.table {
+    .fa {
+        cursor: pointer;
+    }
+}
+

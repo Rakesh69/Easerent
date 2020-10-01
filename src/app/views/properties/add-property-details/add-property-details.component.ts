@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from 'angular2-toaster';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Globals } from './../../../globals';
 import { Lightbox } from 'ngx-lightbox';
 import { DomSanitizer } from '@angular/platform-browser';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-property-details',
@@ -15,10 +17,20 @@ export class AddPropertyDetailsComponent implements OnInit {
 
   addPropertyDetailForm: FormGroup;
   addAttachmentForm: FormGroup;
+  takePhotoForm: FormGroup;
   isFormSubmitted: boolean = false;
   attachments: any = [];
+  deviceId: string;
+  public multipleWebcamsAvailable = false;
+  public errors: WebcamInitError[] = [];
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
   @ViewChild('addAttachment', {static: false}) public addAttachment: ModalDirective;
+  @ViewChild('takePhotoModal', {static: false}) public takePhotoModal: ModalDirective;
   
   constructor(
     public formBuilder: FormBuilder,
@@ -28,6 +40,10 @@ export class AddPropertyDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    WebcamUtil.getAvailableVideoInputs()
+    .then((mediaDevices: MediaDeviceInfo[]) => {
+      this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+    });
     this.createForm();
   }
 
@@ -47,7 +63,12 @@ export class AddPropertyDetailsComponent implements OnInit {
     })
 
     this.addAttachmentForm = this.formBuilder.group({
-      attachment: new FormControl([])
+      attachment: new FormControl('', [Validators.required]),
+      roomType: new FormControl('', [Validators.required])
+    });
+
+    this.takePhotoForm = this.formBuilder.group({
+      attachment: new FormControl('', [Validators.required])
     });
   }
 
@@ -58,13 +79,22 @@ export class AddPropertyDetailsComponent implements OnInit {
     if(this.addAttachmentForm.valid) {
       // this.attachments.push(this.addAttachmentForm.value);
 
-      this.addPropertyDetailForm.get('attachments').setValue([...this.addPropertyDetailForm.get('attachments').value, ...this.addAttachmentForm.get('attachment').value])
+      this.attachments.push(this.addAttachmentForm.value);
       this.addAttachmentForm.reset();
-      this.addAttachmentForm.get('attachment').setValue([]);
+      this.isFormSubmitted = false;
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+    }
+  }
+
+  attachmentSubmit(): void {
+    this.isFormSubmitted = true;
+    
+    if(this.addAttachmentForm.valid || this.attachments.length > 0) {
       this.isFormSubmitted = false;
       this.addAttachment.hide();
       
-      this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
+      // this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
     } else {
       this.toasterService.pop('error', 'Error', 'Please select attachment.');
     }
@@ -107,32 +137,32 @@ export class AddPropertyDetailsComponent implements OnInit {
     console.log('Event : ', event.target.files);
 
     if(event.target.files && event.target.files.length > 0) {
-      let attachmentBlobUrls = [];
       for (const key in event.target.files) {
         if (Object.prototype.hasOwnProperty.call(event.target.files, key)) {
           const file = event.target.files[key];
           const blobUrl = await Globals.fileToBlobUrl(file);
           console.log('blobUrl : ', blobUrl);
 
-          attachmentBlobUrls.push(this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl));
+          this.addAttachmentForm.get('attachment').setValue(this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl));   
         }
       }
-
-      this.addAttachmentForm.get('attachment').setValue([...this.addAttachmentForm.get('attachment').value, ...attachmentBlobUrls]);   
     }
   }
 
-  showLigthBox(index: number): void {
-    if(index) {
-      const attachments = this.addPropertyDetailForm.get('attachments').value || [];
+  showLigthBox(index: number = -1): void {
+    console.log('index : ', index);
+    
+    if(index >= 0) {
       let images = [];
-      for (const key in attachments) {
-        if (Object.prototype.hasOwnProperty.call(attachments, key)) {
-          const attachment = attachments[key];
+      for (const key in this.attachments) {
+        if (Object.prototype.hasOwnProperty.call(this.attachments, key)) {
+          const attachment = this.attachments[key];
+          console.log('attachment : ', attachment);
+          
           const image = {
-            src: attachment,
-            caption: 'caption / file name',
-            thumb: attachment
+            src: attachment['attachment'],
+            caption: attachment['roomType'],
+            thumb: attachment['attachment']
           };
 
           images.push(image);
@@ -141,5 +171,55 @@ export class AddPropertyDetailsComponent implements OnInit {
 
       this.lightbox.open(images, index);
     }
+  }
+
+
+  takePhotoSubmit(): void {
+    this.isFormSubmitted = true;
+    console.log('addAttachmentForm : ', this.takePhotoForm.value);
+    
+    if(this.takePhotoForm.valid) {
+      this.addAttachmentForm.get('attachment').setValue(this.takePhotoForm.get('attachment').value);
+      this.takePhotoForm.reset();
+      this.isFormSubmitted = false;
+      this.takePhotoModal.hide();
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+    }
+  }
+  
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public showNextWebcam(directionOrDeviceId: boolean|string): void {
+    // true => move forward through devices
+    // false => move backwards through devices
+    // string => move to device with given deviceId
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage.imageAsDataUrl);
+    this.takePhotoForm.get('attachment').setValue(webcamImage.imageAsDataUrl);
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    console.log('active device: ' + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.nextWebcam.asObservable();
   }
 }
