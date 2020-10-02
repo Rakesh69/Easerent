@@ -34,7 +34,7 @@
             vertical-align: middle;
             height: 11px;
             position: absolute;
-            right: 10px;
+            right: -5px;
             top: 38px;
         }
     }
@@ -49,4 +49,176 @@
             height: auto;
         }
     }
+
+
+
+
+
+
+
+/***********add css for cateagory sction*************/
+.box16 {
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+.box16 .box-content {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    padding: 20px;
+    margin-bottom: 20px;
+    bottom: 0;
+    z-index: 1;
+}
+.box16:after {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    content: "";
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.08) 69%, rgba(0, 0, 0, 0.76) 100%);
+    top: 0;
+    transition: all 0.5s ease 0s;
+}
+.box16 .title {
+    transform: translateY(145px);
+    transition: all 0.4s cubic-bezier(0.13, 0.62, 0.81, 0.91) 0s;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+}
+.box16:hover:after {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0, rgba(0, 0, 0, 0.09) 11%, rgba(0, 0, 0, 0.12) 13%, rgba(0, 0, 0, 0.19) 20%, rgba(0, 0, 0, 0.29) 28%, rgba(0, 0, 0, 0.29) 29%, rgba(0, 0, 0, 0.42) 38%, rgba(0, 0, 0, 0.46) 43%, rgba(0, 0, 0, 0.53) 47%, rgba(0, 0, 0, 0.75) 69%, rgba(0, 0, 0, 0.87) 84%, rgba(0, 0, 0, 0.98) 99%, rgba(0, 0, 0, 0.94) 100%);
+}
+.box16:hover .title {
+    transform: translateY(38px);
+}
+.box16 svg {
+    width: 100%;
+    height: auto;
+    fill: #20a8d8;
+}
+.box16 .post {
+    display: block;
+    padding: 8px 0;
+    font-size: 15px;
+}
+.box16 .social li {
+    display: inline-block;
+}
+.box16 .social li a {
+    border-radius: 50%;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+    width: 25px;
+    height: 25px;
+    line-height: 26px;
+    background: #6d3795;
+    margin-right: 10px;
+    transition: all 0.3s ease 0s;
+}
+.box16 .social li a:hover {
+    background: #bea041;
+}
+.box16 .social li:last-child a {
+    margin-right: 0;
+}
+.category-box {
+    background-color: #2cabe1;
+    height: 100px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition-duration: 0.3s;
+    overflow: hidden;
+}
+.category-box:hover {
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    background: #72c7a6;
+    top: 0px;
+    transition-duration: 0.3s;
+}
+.category-box:hover .box-content .social {
+    bottom: 15px;
+    transition-duration: 0.3s;
+}
+.category-box:hover .box-content .social li a.disabled {
+    opacity: 0.5;
+}
+.category-box .box-content .social {
+    width: 100px;
+    margin: auto;
+    padding: 0px;
+    position: absolute;
+    bottom: -30px;
+    transition-duration: 0.3s;
+    left: 0px;
+    right: 0px;
+}
+.category-box .box-content .social:before {
+    display: none;
+}
+.category-box svg {
+    width: 40px;
+    margin-top: 14px;
+    transition-duration: 0.3s;
+    opacity: 1;
+}
+.category-box:hover svg {
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+.category-box:hover:after {
+    background: none;
+}
+.category-box:hover h3.title {
+    color: #fff;
+    font-size: 16px;
+    transform: translateY(7px);
+}
+.category-box:hover .post {
+    color: #fff;
+}
+.category-box:after {
+    background: none;
+}
+.box-content h3.title {
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+    text-transform: capitalize;
+    transform: translateY(52px);
+}
+.box16 .box-content {
+    padding: 15px 5px 0px 5px;
+    height: 100%;
+    margin-bottom: 0;
+}
+.box16 .post {
+    color: #000;
+    margin-top: 20px;
+}
+.box16 .social li a {
+    font-size: 13px;
+    background-color: #2cabe1;
+    margin: 0;
+}
+.box16 .social li a:hover {
+    background: #1e8bb9;
+}
+.number-item{    display: inline-block;width:40px; text-align: center; font-size: 18px;    }
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+@media only screen and (max-width: 990px) {
+    .box16 {
+        margin-bottom: 30px;
+   }
+}
+
 }

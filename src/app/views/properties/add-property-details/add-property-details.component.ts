@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from 'angular2-toaster';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Globals } from './../../../globals';
@@ -20,7 +20,12 @@ export class AddPropertyDetailsComponent implements OnInit {
   takePhotoForm: FormGroup;
   isFormSubmitted: boolean = false;
   attachments: any = [];
+  tempAttachments: any = [];
   deviceId: string;
+  config = {
+    keyboard: true,
+    ignoreBackdropClick: false
+  };
   public multipleWebcamsAvailable = false;
   public errors: WebcamInitError[] = [];
 
@@ -52,14 +57,14 @@ export class AddPropertyDetailsComponent implements OnInit {
       attachments: new FormControl([]),
       isLivingRoom: new FormControl(true),
       isKitchen: new FormControl(false),
-      bedroom: new FormControl('3'),
-      bathroom: new FormControl('1'),
-      additionalRooms: new FormControl('2'),
-      isFurnished: new FormControl(false),
-      fan: new FormControl('3'),
-      sofa: new FormControl('2'),
-      tv: new FormControl('1'),
-      bed: new FormControl('3')
+      bedroom: new FormControl(3),
+      bathroom: new FormControl(1),
+      additionalRooms: new FormArray([]),
+      isFurnished: new FormControl(true),
+      fan: new FormControl(3),
+      sofa: new FormControl(2),
+      tv: new FormControl(1),
+      bed: new FormControl(3)
     })
 
     this.addAttachmentForm = this.formBuilder.group({
@@ -70,6 +75,20 @@ export class AddPropertyDetailsComponent implements OnInit {
     this.takePhotoForm = this.formBuilder.group({
       attachment: new FormControl('', [Validators.required])
     });
+
+    this.addAditionalRoomCtrl();
+  }
+
+  addAditionalRoomCtrl(): void {
+    let additionalRooms= this.addPropertyDetailForm.get('additionalRooms') as FormArray;
+
+    if(additionalRooms.length < 10) {
+      additionalRooms.push(
+        new FormControl()
+      );
+    } else {
+      this.toasterService.pop('error', 'Error', 'Maximum 10 additional property limit.');
+    }
   }
 
   formSubmit(): void {
@@ -79,7 +98,7 @@ export class AddPropertyDetailsComponent implements OnInit {
     if(this.addAttachmentForm.valid) {
       // this.attachments.push(this.addAttachmentForm.value);
 
-      this.attachments.push(this.addAttachmentForm.value);
+      this.tempAttachments.push(this.addAttachmentForm.value);
       this.addAttachmentForm.reset();
       this.isFormSubmitted = false;
     } else {
@@ -90,10 +109,10 @@ export class AddPropertyDetailsComponent implements OnInit {
   attachmentSubmit(): void {
     this.isFormSubmitted = true;
     
-    if(this.addAttachmentForm.valid || this.attachments.length > 0) {
+    if(this.addAttachmentForm.valid || this.tempAttachments.length > 0) {
       this.isFormSubmitted = false;
       this.addAttachment.hide();
-      
+      this.attachments = [...this.attachments, ...this.tempAttachments];
       // this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
     } else {
       this.toasterService.pop('error', 'Error', 'Please select attachment.');

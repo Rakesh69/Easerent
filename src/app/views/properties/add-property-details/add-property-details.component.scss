@@ -13,3 +13,12 @@
     }
 }
 
+.additionalRooms {
+    .fa.fa-plus-circle {
+        font-size: 35px !important;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
