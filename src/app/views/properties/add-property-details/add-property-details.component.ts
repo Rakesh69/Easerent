@@ -82,12 +82,16 @@ export class AddPropertyDetailsComponent implements OnInit {
   addAditionalRoomCtrl(): void {
     let additionalRooms= this.addPropertyDetailForm.get('additionalRooms') as FormArray;
 
-    if(additionalRooms.length < 10) {
+    if(additionalRooms.valid && additionalRooms.length < 10) {
       additionalRooms.push(
-        new FormControl()
+        new FormControl('', [Validators.required])
       );
     } else {
-      this.toasterService.pop('error', 'Error', 'Maximum 10 additional property limit.');
+      if(additionalRooms.invalid) {
+        this.toasterService.pop('error', 'Error', 'Please enter addition room value.');
+      } else {
+        this.toasterService.pop('error', 'Error', 'Maximum 10 additional property limit.');
+      }
     }
   }
 
