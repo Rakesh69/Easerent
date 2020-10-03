@@ -66,6 +66,11 @@ export const routes: Routes = [
         canActivate:[AuthGuard],
       },
       {
+        path: 'rentPayment',
+        loadChildren: () => import('./views/rent-payment/rent-payment.module').then(m => m.RentPaymentModule),
+        canActivate:[AuthGuard],
+      },
+      {
         path: 'configration',
         loadChildren: () => import('./views/configration/configration.module').then(m => m.ConfigrationModule)
       },

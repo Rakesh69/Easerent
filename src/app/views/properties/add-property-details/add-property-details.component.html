@@ -6,7 +6,7 @@
   
         <div class="col-sm-12 col-lg-8 border-right">
             <form class="fromData" role="form" [formGroup]="addPropertyDetailForm" *ngIf="addPropertyDetailForm"  (submit)="formSubmit()" autocomplete="off" >
-                <div class="row my-3">
+                <div class="row">
                     <div class="col-12 d-flex flex-row my-3">
                         <div class="custom-control custom-checkbox mr-3">
                             <input type="checkbox" class="custom-control-input" id="isLivingRoom" formControlName="isLivingRoom" >
@@ -79,8 +79,8 @@
                     </div>
 
                     <div class="col-12 my-3" *ngIf="addPropertyDetailForm.get('isFurnished').value" >
-                        <fieldset class="border p-2">
-                            <legend class="w-auto px-2 h6 text-muted">Group Name</legend>
+                        <fieldset class="border p-3">
+                            <legend class="w-auto px-2 h6 text-muted mb-0">Group Name</legend>
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-3">

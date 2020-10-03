@@ -44,7 +44,7 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Rent Payment',
-    url: '/dashboard',
+    url: '/rentPayment',
     icon: 'icon-speedometer',
   },
   {
