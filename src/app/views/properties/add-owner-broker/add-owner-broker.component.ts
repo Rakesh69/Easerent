@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Globals } from './../../../globals';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-owner-broker',
@@ -17,7 +18,7 @@ export class AddOwnerBrokerComponent implements OnInit {
 
   @ViewChild('successModal', {static: false}) public successModal: ModalDirective;
   
-  constructor(public formBuilder: FormBuilder, public sanitizer: DomSanitizer) { }
+  constructor(public formBuilder: FormBuilder, public sanitizer: DomSanitizer, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.createForm();
@@ -40,10 +41,15 @@ export class AddOwnerBrokerComponent implements OnInit {
     this.isFormSubmitted = true;
 
     if(this.addProperty.valid) {
+      this.spinner.show();
       this.addedProperty = this.addProperty.value;
       this.addProperty.reset();
       this.successModal.show()
       this.isFormSubmitted = false;
+
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 5000);
     }
   }
 
