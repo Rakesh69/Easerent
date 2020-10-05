@@ -167,7 +167,8 @@
                                 <th scope="row">{{i + 1}}</th>
                                 <td>{{attachment['roomType']}}</td>
                                 <td>
-                                    <i class="fa fa-eye" aria-hidden="true" (click)="showLigthBox(i);" ></i>
+                                    <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i);" ></i>
+                                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteAttachment(i);" ></i>
                                 </td>
                             </tr>
                         </tbody>

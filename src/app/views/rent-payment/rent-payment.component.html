@@ -9,28 +9,76 @@
 <div class="animated fadeIn h-100 bg-white rounded" *ngIf="isStartRenting" >
     <div id="stepper1" class="bs-stepper">
         <div class="bs-stepper-header">
-          <div class="step" data-target="#rentalAgreement">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">1</span>
-              <span class="bs-stepper-label">Rental Agreement</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#addYourTenants">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">2</span>
-              <span class="bs-stepper-label">Add your tenants</span>
-            </button>
-          </div>
-          <div class="line"></div>
-          <div class="step" data-target="#monthlyRentInfo">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">3</span>
-              <span class="bs-stepper-label">Monthly Rent Info</span>
-            </button>
-          </div>
+            <div class="step" data-target="#accountInfo">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">1</span>
+                    <span class="bs-stepper-label">Account</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#rentalAgreement">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">2</span>
+                    <span class="bs-stepper-label">Agreement</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#addYourTenants">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">3</span>
+                    <span class="bs-stepper-label">Tenants</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#monthlyRentInfo">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">4</span>
+                    <span class="bs-stepper-label">Monthly</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#securityDeposit">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">5</span>
+                    <span class="bs-stepper-label">Security</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#shareDocuments">
+                <button class="step-trigger">
+                    <span class="bs-stepper-circle">6</span>
+                    <span class="bs-stepper-label">Documents</span>
+                </button>
+            </div>
         </div>
         <div class="bs-stepper-content">
+            <div id="accountInfo" class="content">
+                <form class="fromData" role="form" [formGroup]="accountInfoForm" *ngIf="accountInfoForm"  (submit)="onSubmit()" autocomplete="off" >
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="account">Rents should be deposited to below account</label>
+                                <select class="form-control" id="account" formControlName="account" [ngClass]="{ 'isInvalid': isAccountInfoFormSubmittedAndError('account') }" >
+                                    <option value="" >Please select your accouont information.</option>
+                                    <option [value]="accountInfo" *ngFor="let accountInfo of accountInfos" >{{accountInfo['accountHolderName']}}-{{accountInfo['ifscCode']}}-{{accountInfo['accountNumber']}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12" >
+                            <button type="button" class="btn btn-labeled btn-primary" (click)="addNewAccountInfoForm()" >
+                                <span class="btn-label"><i class="fa fa-user-plus"></i></span> Add New Account
+                            </button>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end mt-3">
+                            <button (click)="isStartRenting = false" class="btn btn-primary mr-3">Previous</button>
+                            <button (click)="next()" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div id="rentalAgreement" class="content">
                 <form class="fromData" role="form" [formGroup]="rentalAgreementForm" *ngIf="rentalAgreementForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div class="row">
@@ -56,7 +104,7 @@
                         </div>
 
                         <div class="col-12 d-flex justify-content-end mt-3">
-                            <button (click)="isStartRenting = false" class="btn btn-primary mr-3">Previous</button>
+                            <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
                             <button (click)="next()" class="btn btn-primary">Continue</button>
                         </div>
                     </div>
@@ -67,7 +115,7 @@
                 <form class="fromData" role="form" [formGroup]="addYourTenantForm" *ngIf="addYourTenantForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div formArrayName="tenants">
                         <fieldset class="border p-3 mb-3" *ngFor="let tenant of addYourTenantForm.get('tenants').controls;let i = index; let last = last">
-                            <legend class="w-auto px-2 h6 text-muted mb-0">Tenant {{i + 1}}</legend>
+                            <legend class="w-auto px-2 h6 text-muted mb-0">Tenant {{i + 1}} <i class="fa fa-trash ml-2 text-danger" aria-hidden="true" (click)="deleteTenant(i)" ></i></legend>
                         
                             <div class="row" [formGroup]="tenant" >
                                 <div class="col-sm-12 col-lg-6">
@@ -137,8 +185,8 @@
 
                         <div class="col-sm-12 col-lg-4">
                             <div class="form-group">
-                                <label for="rentColletionStartOn">Ren Collection Start On</label>
-                                <input type="date" class="form-control" id="rentColletionStartOn" formControlName="rentColloetionStartOn" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('rentColletionStartOn') }" placeholder="Enter rent colletion start on" maxlength="100" required />
+                                <label for="rentColletionStartOn">Rent Collection Start On</label>
+                                <input type="date" class="form-control" id="rentColletionStartOn" formControlName="rentColletionStartOn" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('rentColletionStartOn') }" placeholder="Enter rent colletion start on" maxlength="100" required />
                             </div>
                         </div>
                     </div>
@@ -151,14 +199,14 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-4">
+                        <div class="col-sm-12 col-lg-4" *ngIf="monthlyRentInfoForm.get('isCollectProratedRent').value" >
                             <div class="form-group">
                                 <label for="prorateRentDueDate">Prorate Rent Due Date</label>
                                 <input type="date" class="form-control" id="prorateRentDueDate" formControlName="prorateRentDueDate" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('prorateRentDueDate') }" placeholder="Enter prorated rent due date" maxlength="100" required />
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-4">
+                        <div class="col-sm-12 col-lg-4" *ngIf="monthlyRentInfoForm.get('isCollectProratedRent').value">
                             <div class="form-group">
                                 <label for="prorateRentAmount">Prorated Rent Amount</label>
                                 <input type="text" class="form-control" id="prorateRentAmount" formControlName="prorateRentAmount" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('prorateRentAmount') }" placeholder="Enter prorated rent amount" maxlength="100" required />
@@ -174,17 +222,17 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-4">
+                        <div class="col-sm-12 col-lg-4" *ngIf="monthlyRentInfoForm.get('isAutomaticLateFees').value">
                             <div class="form-group">
                                 <label for="addFee">Add a Fee</label>
                                 <input type="text" class="form-control" id="addFee" formControlName="addFee" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('addFee') }" placeholder="Enter add a fee" maxlength="100" required />
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-4">
+                        <div class="col-sm-12 col-lg-4" *ngIf="monthlyRentInfoForm.get('isAutomaticLateFees').value">
                             <div class="form-group">
-                                <label for="LateFeeAmount">Late Fee Amount</label>
-                                <input type="text" class="form-control" id="LateFeeAmount" formControlName="LateFeeAmount" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('LateFeeAmount') }" placeholder="Enter late fee amount" maxlength="100" required />
+                                <label for="lateFeeAmount">Late Fee Amount</label>
+                                <input type="text" class="form-control" id="lateFeeAmount" formControlName="lateFeeAmount" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('lateFeeAmount') }" placeholder="Enter late fee amount" maxlength="100" required />
                             </div>
                         </div>
                     </div>
@@ -197,6 +245,180 @@
                     </div>
                 </form>
             </div>
+
+            <div id="securityDeposit" class="content">
+                <form class="fromData" role="form" [formGroup]="securityDepositForm" *ngIf="securityDepositForm"  (submit)="onSubmit()" autocomplete="off" >
+                    <div class="row border-bottom mt-3">
+                        <div class="col-12 d-flex justify-content-start">
+                            <div class="custom-control custom-switch mb-2">
+                                <input type="checkbox" class="custom-control-input" id="isCollectSecurityDeposit" formControlName="isCollectSecurityDeposit" >
+                                <label class="custom-control-label" for="isCollectSecurityDeposit">Collect Security Deposit</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" *ngIf="securityDepositForm.get('isCollectSecurityDeposit').value" >
+                            <div class="form-group">
+                                <label for="securityDepositDueDate">Security Deposit Due Date</label>
+                                <input type="date" class="form-control" id="securityDepositDueDate" formControlName="securityDepositDueDate" [ngClass]="{ 'isInvalid': isSecurityDepositFormSubmittedAndError('securityDepositDueDate') }" placeholder="Enter security deposit due date" maxlength="100" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" *ngIf="securityDepositForm.get('isCollectSecurityDeposit').value">
+                            <div class="form-group">
+                                <label for="securityDepositAmount">Security Deposit Amount</label>
+                                <input type="text" class="form-control" id="securityDepositAmount" formControlName="securityDepositAmount" [ngClass]="{ 'isInvalid': isSecurityDepositFormSubmittedAndError('securityDepositAmount') }" placeholder="Enter security deposit amount" maxlength="100" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex justify-content-start">
+                            <div class="custom-control custom-switch mb-2">
+                                <input type="checkbox" class="custom-control-input" id="isAdditionalMoveInCost" formControlName="isAdditionalMoveInCost" >
+                                <label class="custom-control-label" for="isAdditionalMoveInCost">Additional Move-in costs</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" *ngIf="securityDepositForm.get('isAdditionalMoveInCost').value">
+                            <div class="form-group">
+                                <label for="memo">Memo/Reference</label>
+                                <input type="text" class="form-control" id="memo" formControlName="memo" [ngClass]="{ 'isInvalid': isSecurityDepositFormSubmittedAndError('memo') }" placeholder="Enter memo/reference" maxlength="100" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" *ngIf="securityDepositForm.get('isAdditionalMoveInCost').value" >
+                            <div class="form-group">
+                                <label for="dueDate">Due Date</label>
+                                <input type="date" class="form-control" id="dueDate" formControlName="dueDate" [ngClass]="{ 'isInvalid': isSecurityDepositFormSubmittedAndError('dueDate') }" placeholder="Enter due date" maxlength="100" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" *ngIf="securityDepositForm.get('isAdditionalMoveInCost').value">
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="text" class="form-control" id="amount" formControlName="amount" [ngClass]="{ 'isInvalid': isSecurityDepositFormSubmittedAndError('amount') }" placeholder="Enter amount" maxlength="100" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end mt-3">
+                            <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
+                            <button (click)="next()" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="shareDocuments" class="content">
+                <form class="fromData bg-white p-3 rounded" role="form" [formGroup]="shareDocumentsForm" *ngIf="shareDocumentsForm" autocomplete="off" >
+                    <div class="d-flex justify-content-start">
+                        <label>Upload any documents you would like to share with tenants</label> 
+                    </div>
+
+                    <div class="d-flex justify-content-start border-bottom">
+                        <div class="d-flex mr-3 mb-3" *ngFor="let document of shareDocumentsForm.get('documents').value">
+                            <img [src]="document" *ngIf="document" alt="..." class="img-thumbnail documnetImage p-1">
+                        </div>
+
+                        <div class="d-flex mb-3">
+                            <input type="file" hidden #documentsImage (change)="onChangeUploadShareDocumentImages($event)" accept="image/*" multiple >
+                
+                            <button type="button" class="btn btn-labeled btn-outline-primary btn-lg documnetImageBtn" (click)="documentsImage.click()">
+                                <span class="btn-label"><i class="fa fa-cloud-upload"></i></span><br/>Upload documents
+                            </button>
+                        </div>     
+                    </div>
+
+                    <div class="d-flex justify-content-start">
+                        <div class="d-flex mt-3">
+                            <input type="file" hidden #rentalAgreementImage (change)="onChangeRentalAgreementImage($event)" accept="image/*" >
+                
+                            <button type="button" class="btn btn-labeled btn-outline-primary btn-lg documnetImageBtn" (click)="rentalAgreementImage.click()" *ngIf="!shareDocumentsForm.get('rentalAgreement').value">
+                                <span class="btn-label"><i class="fa fa-paperclip"></i></span><br/>Rental Agreement
+                            </button>
+
+                            <img [src]="shareDocumentsForm.get('rentalAgreement').value" *ngIf="shareDocumentsForm.get('rentalAgreement').value" (click)="rentalAgreementImage.click()" alt="..." class="img-thumbnail documnetImage p-1">
+                        </div>     
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
+                        <button (click)="next()" class="btn btn-primary">Continue</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+<div bsModal #addNewAccountInfo="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add New Account</h4>
+          <button type="button" class="close" (click)="addNewAccountInfo.hide();" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="newAccountInfoForm" *ngIf="newAccountInfoForm"  (submit)="formSubmit()" autocomplete="off" >
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="accountHolderName">Account Holder Name</label>
+                            <input type="text" class="form-control" id="accountHolderName" formControlName="accountHolderName" [ngClass]="{ 'isInvalid': isNewAccountInfoFormSubmittedAndError('accountHolderName') }" placeholder="Enter account holder name" maxlength="100" required />
+
+                            <span class="required">*</span>
+                            <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountHolderName')" class="invalid-feedback">
+                                <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountHolderName', 'required')">Account holder name is required.</div>
+                                <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountHolderName', 'isAlphabet', ['required'])">Account holder name is alphabets only.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number</label>
+                            <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber" [ngClass]="{ 'isInvalid': isNewAccountInfoFormSubmittedAndError('accountNumber') }" placeholder="Enter account number" maxlength="100" required />
+
+                            <span class="required">*</span>
+                            <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountNumber')" class="invalid-feedback">
+                                <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountNumber', 'required')">Account number is required.</div>
+                                <div *ngIf="isNewAccountInfoFormSubmittedAndError('accountNumber', 'isNumber', ['required'])">Account number is digit only.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="ifscCode">IFSC Code</label>
+                            <input type="text" class="form-control" id="ifscCode" formControlName="ifscCode" [ngClass]="{ 'isInvalid': isNewAccountInfoFormSubmittedAndError('ifscCode') }" placeholder="Enter ifsc code" maxlength="100" required />
+                            
+                            <span class="required">*</span>
+                            <div *ngIf="isNewAccountInfoFormSubmittedAndError('ifscCode')" class="invalid-feedback">
+                                <div *ngIf="isNewAccountInfoFormSubmittedAndError('ifscCode', 'required')">IFSC code is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="addNewAccountInfo.hide();">Close</button>
+          <button type="button" class="btn btn-primary" (click)="newAccountInfoFormSubmit()" >Add Account</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+

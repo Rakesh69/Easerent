@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RentPaymentRoutingModule } from './rent-payment-routing.module';
 import { RentPaymentComponent } from './rent-payment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RentPaymentRoutingModule
+    RentPaymentRoutingModule,
+    ModalModule.forRoot(),
   ]
 })
 export class RentPaymentModule { }

@@ -156,6 +156,10 @@ export class AddPropertyDetailsComponent implements OnInit {
     return false;                
   }
 
+  deleteAttachment(i: number): void {
+    this.attachments.splice(i, 1);
+  }
+
   async onChangePhotoFromDevice(event: any) {
     console.log('Event : ', event.target.files);
 

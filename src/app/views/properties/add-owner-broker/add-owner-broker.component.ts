@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Globals } from './../../../globals';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
+import csc from 'country-state-city'
 
 @Component({
   selector: 'app-add-owner-broker',
@@ -15,6 +16,8 @@ export class AddOwnerBrokerComponent implements OnInit {
   addProperty: FormGroup;
   isFormSubmitted: boolean = false;
   addedProperty: any = {};
+  states: any = [];
+  cities: any = [];
 
   @ViewChild('successModal', {static: false}) public successModal: ModalDirective;
   
@@ -22,6 +25,7 @@ export class AddOwnerBrokerComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.getDefaultState();
   }
 
   createForm(): void {
@@ -31,10 +35,14 @@ export class AddOwnerBrokerComponent implements OnInit {
       propertyType: new FormControl('Retail', [Validators.required]),
       addressLine1: new FormControl('address 1', [Validators.required, Validators.maxLength(300)]),
       addressLine2: new FormControl('address 2', [Validators.required, Validators.maxLength(300)]),
-      city: new FormControl('city', [Validators.required, Validators.maxLength(100)]),
-      state: new FormControl('state', [Validators.required, Validators.maxLength(100)]),
-      pincode: new FormControl('123456', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
+      city: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      state: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      pincode: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
     })
+
+    this.addProperty.get('state').valueChanges.distinctUntilChanged().subscribe(selectedState => {
+      this.getCitiesByStateId(selectedState);
+    });
   }
 
   formSubmit(): void {
@@ -49,7 +57,7 @@ export class AddOwnerBrokerComponent implements OnInit {
 
       setTimeout(() => {
         this.spinner.hide();
-      }, 5000);
+      }, 1000);
     }
   }
 
@@ -78,5 +86,16 @@ export class AddOwnerBrokerComponent implements OnInit {
         }
       }   
     }
+  }
+
+  getDefaultState(countryCode: string = 'IN'): void {
+    const selectedCountry = csc.getCountryByCode(countryCode);
+    console.log('selectedCountry : ', selectedCountry);
+    
+    this.states = csc.getStatesOfCountry(selectedCountry['id']);
+  }
+
+  getCitiesByStateId(stateId: string = ''): void {
+    this.cities = csc.getCitiesOfState(stateId);
   }
 }

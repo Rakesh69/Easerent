@@ -74,7 +74,10 @@
                     <div class="col-sm-12 col-lg-6">
                         <div class="form-group">
                             <label for="state">State</label>
-                            <input type="text" class="form-control" id="state" formControlName="state" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('state') }" placeholder="Enter your state name" maxlength="100">
+                            <select class="form-control" id="state" formControlName="state" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('state') }">
+                                <option value="" >Select your state</option>
+                                <option [value]="state['id']" *ngFor="let state of states" >{{state['name']}}</option>
+                            </select>
 
                             <span class="required">*</span>
                             <div *ngIf="isFormSubmittedAndError('state')" class="invalid-feedback">
@@ -86,8 +89,11 @@
                     <div class="col-sm-12 col-lg-6">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }" placeholder="Enter your city name" maxlength="100">
-
+                            <select class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }">
+                                <option value="" >Select your city</option>
+                                <option [value]="city['id']" *ngFor="let city of cities" >{{city['name']}}</option>
+                            </select>
+                        
                             <span class="required">*</span>
                             <div *ngIf="isFormSubmittedAndError('city')" class="invalid-feedback">
                                 <div *ngIf="isFormSubmittedAndError('city', 'required')">City name is required.</div>
