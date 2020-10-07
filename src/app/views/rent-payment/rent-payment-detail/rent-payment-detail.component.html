@@ -183,6 +183,32 @@
                     </table>
                 </fieldset>
 
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['brokerAccountInfoForm'] && rentPaymentData['brokerAccountInfoForm']['account']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Broker Account Information
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(7)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Account Holder Name</th>
+                            <th>Account Number</th>
+                            <th>IFSC Code</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{rentPaymentData['brokerAccountInfoForm']['account']['accountHolderName']}}</td>
+                                <td>{{rentPaymentData['brokerAccountInfoForm']['account']['accountNumber']}}</td>
+                                <td>{{rentPaymentData['brokerAccountInfoForm']['account']['ifscCode']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
                 <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['brokerFeesForm'] && rentPaymentData['brokerFeesForm']['brokerFeesDueDate'] && rentPaymentData['brokerFeesForm']['brokerFees']">
                     <legend class="w-auto px-2 h6 text-muted mb-0">
                         Broker Fees
@@ -241,7 +267,7 @@
                             <li class="list-group-item">Verify bank accounts (can take 2-3 business days)</li>                        
                         </ul>
                     </div>
-                    <button type="button" class="btn btn-primary w-100 mt-3 mb-4" >Go to Payments</button>
+                    <button type="button" class="btn btn-primary w-100 mt-3 mb-4" [routerLink]="['/payments']" >Go to Payments</button>
                 </div>
             </div>
         </div>

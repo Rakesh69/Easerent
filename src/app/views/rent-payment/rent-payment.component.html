@@ -20,7 +20,7 @@
 
 <div class="animated fadeIn h-100 bg-white rounded" *ngIf="isStartRenting" >
     <div id="stepper1" class="bs-stepper">
-        <div class="bs-stepper-header">
+        <div class="bs-stepper-header d-none">
             <div class="step" data-target="#accountInfo" tooltip="Account Info">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">1</span>
@@ -72,6 +72,7 @@
         </div>
         <div class="bs-stepper-content">
             <div id="accountInfo" class="content">
+                <h3 class="pt-3" >Account Info</h3>
                 <form class="fromData" role="form" [formGroup]="accountInfoForm" *ngIf="accountInfoForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
@@ -99,6 +100,7 @@
             </div>
 
             <div id="rentalAgreement" class="content">
+                <h3 class="pt-3" >Rental Agreement</h3>
                 <form class="fromData" role="form" [formGroup]="rentalAgreementForm" *ngIf="rentalAgreementForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
@@ -131,6 +133,7 @@
             </div>
 
             <div id="addYourTenants" class="content">
+                <h3 class="pt-3" >Add Your Tenants</h3>
                 <form class="fromData" role="form" [formGroup]="addYourTenantForm" *ngIf="addYourTenantForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div formArrayName="tenants">
                         <fieldset class="border p-3 mb-3" *ngFor="let tenant of addYourTenantForm.get('tenants').controls;let i = index; let last = last">
@@ -207,6 +210,7 @@
             </div>
 
             <div id="monthlyRentInfo" class="content">
+                <h3 class="pt-3" >Monthly Rent Info</h3>
                 <form class="fromData" role="form" [formGroup]="monthlyRentInfoForm" *ngIf="monthlyRentInfoForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div class="row border-bottom">
                         <div class="col-sm-12 col-lg-4">
@@ -295,6 +299,7 @@
             </div>
 
             <div id="securityDeposit" class="content">
+                <h3 class="pt-3" >Security Deposit</h3>
                 <form class="fromData" role="form" [formGroup]="securityDepositForm" *ngIf="securityDepositForm"  (submit)="onSubmit()" autocomplete="off" >
                     <div class="row border-bottom mt-3">
                         <div class="col-12 d-flex justify-content-start">
@@ -359,6 +364,7 @@
             </div>
 
             <div id="shareDocuments" class="content">
+                <h3 class="pt-3" >Share Documents</h3>
                 <form class="fromData" role="form" [formGroup]="shareDocumentsForm" *ngIf="shareDocumentsForm" autocomplete="off" >
                     <div class="d-flex justify-content-between">
                         <label>Upload any documents you would like to share with tenants</label> 
@@ -425,33 +431,64 @@
             </div>
 
             <div id="brokerFees" class="content">
-                <form class="fromData" role="form" [formGroup]="brokerFeesForm" *ngIf="brokerFeesForm"  (submit)="onSubmit()" autocomplete="off" >
-                    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isCollectBrokerFees" >
-                        <div class="w-100 h5 text-muted">Do you want to collect Broker fees too ?.</div>
-                        <button type="button" class="btn btn-primary mt-3 mb-4" (click)="isCollectBrokerFees = true" >Yes, let's do it</button>
-                    </div>    
-                    
-                    <div class="row mt-3" *ngIf="isCollectBrokerFees" >
-                        <div class="col-sm-12 col-lg-4" >
-                            <div class="form-group">
-                                <label for="brokerFeesDueDate">Broker Fees Due Date</label>
-                                <input type="date" class="form-control" id="brokerFeesDueDate" formControlName="brokerFeesDueDate" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFeesDueDate') }" placeholder="Enter broker fees due date" maxlength="100" required />
+                <div *ngIf="isCollectBrokerFees === 1" >
+                    <h3 class="pt-3" >Enter Account information for Broker Fees collection <br/> (usually Broker or Property Manager's account)</h3>
+                    <form class="fromData" role="form" [formGroup]="brokerAccountInfoForm" *ngIf="brokerAccountInfoForm"  (submit)="onSubmit()" autocomplete="off" >
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="account">Rents should be deposited to below account</label>
+                                    <select class="form-control" id="account" formControlName="account" [ngClass]="{ 'isInvalid': isBrokerAccountInfoFormSubmittedAndError('account') }" >
+                                        <option value="" >Please select your accouont information.</option>
+                                        <option [value]="accountInfo" *ngFor="let accountInfo of accountInfos" >{{accountInfo['accountHolderName']}}-{{accountInfo['ifscCode']}}-{{accountInfo['accountNumber']}}</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                            <div class="col-12" >
+                                <button type="button" class="btn btn-labeled btn-primary" (click)="addNewAccountInfoForm()" >
+                                    <span class="btn-label"><i class="fa fa-user-plus"></i></span> Add New Account
+                                </button>
+                            </div>
+    
+                            <div class="col-12 d-flex justify-content-end mt-3">
+                                <button (click)="isCollectBrokerFees = 0" class="btn btn-primary mr-3">Previous</button>
+                                <button (click)="isCollectBrokerFees = 2" class="btn btn-primary">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div *ngIf="isCollectBrokerFees !== 1" >
+                    <h3 class="pt-3" >Broker Fees</h3>
+                    <form class="fromData" role="form" [formGroup]="brokerFeesForm" *ngIf="brokerFeesForm"  (submit)="onSubmit()" autocomplete="off" >
+                        <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isCollectBrokerFees" >
+                            <div class="w-100 h5 text-muted">Do you want to collect Broker fees too ?.</div>
+                            <button type="button" class="btn btn-primary mt-3 mb-4" (click)="isCollectBrokerFees = 1" >Yes, let's do it</button>
+                        </div>    
+                        
+                        <div class="row mt-3" *ngIf="isCollectBrokerFees === 2" >
+                            <div class="col-sm-12 col-lg-4" >
+                                <div class="form-group">
+                                    <label for="brokerFeesDueDate">Broker Fees Due Date</label>
+                                    <input type="date" class="form-control" id="brokerFeesDueDate" formControlName="brokerFeesDueDate" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFeesDueDate') }" placeholder="Enter broker fees due date" maxlength="100" required />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-lg-4" >
+                                <div class="form-group">
+                                    <label for="brokerFees">Broker Fees</label>
+                                    <input type="text" class="form-control" id="brokerFees" formControlName="brokerFees" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFees') }" placeholder="Enter broker fees" maxlength="100" required />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-lg-4" >
-                            <div class="form-group">
-                                <label for="brokerFees">Broker Fees</label>
-                                <input type="text" class="form-control" id="brokerFees" formControlName="brokerFees" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFees') }" placeholder="Enter broker fees" maxlength="100" required />
-                            </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
+                            <button (click)="rentPaymentSubmit()" class="btn btn-primary">{{isCollectBrokerFees ? 'Continue' : 'Skip for now'}}</button>
                         </div>
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
-                        <button (click)="rentPaymentSubmit()" class="btn btn-primary">{{isCollectBrokerFees ? 'Continue' : 'Skip for now'}}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

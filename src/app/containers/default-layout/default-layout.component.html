@@ -5,10 +5,11 @@
 
         <li class="nav-item dropdown" dropdown placement="bottom right">
             <a class="nav-link circle-border" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-                <h3>{{userShortName}}</h3>
+                <h3>AB</h3>
             </a>
             <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-                <a class="dropdown-item" href="javascript:;"><i class="fa fa-user"></i> {{username}}</a>
+                <a class="dropdown-item" href="javascript:;" [routerLink]="['/profile']"><i class="fa fa-user"></i>Profile</a>
+                <a class="dropdown-item" href="javascript:;" [routerLink]="['/changePassword']"><i class="fa fa-key"></i>Change Password</a>
                 <a class="dropdown-item" href="javascript:;" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
             </div>
         </li>

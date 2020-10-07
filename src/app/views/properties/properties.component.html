@@ -6,52 +6,31 @@
 </div>
 
 <div class="animated fadeIn bg-white rounded p-3" *ngIf="PropertyData && PropertyData.length > 0" >
-    <div class="row">
-      <div class="col-md-12 mb-10" style="text-align:right;margin-bottom:20px">
-        <button class="btn btn-primary" type="button" [routerLink]="['/properties/add']" >Add property</button>
-      </div>
+  <div class="row">
+    <div class="col-md-12 mb-10" style="text-align:right;margin-bottom:20px">
+      <button class="btn btn-primary" type="button" [routerLink]="['/properties/add']" >Add property</button>
     </div>
-  
-    <div class="row">
-      <div class="col-sm-6 col-md-4"  *ngFor="let item of PropertyData; let i = index" >
-        <div class="card">
-          <div class="card-body">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-between">
+    <div class="card" *ngFor="let item of PropertyData; let i = index" >
+      <img class="card-img-top propertyImage" src="assets\img\Properties\{{item['propertyImage']}}" alt="Card image cap">
+      
+      <div class="card-body">
+        <h5 class="card-title">{{item['propertyName']}}</h5>
+        <div class="card-text">
+          <div class="d-flex justify-content-start">
+            <div class="flex-fill"><i class="fa fa-check-circle fa-lg fa-fw" aria-hidden="true"></i> {{item['label1']}}</div>
+            <div class="flex-fill"><i class="fa fa-check-circle fa-lg fa-fw" aria-hidden="true"></i> {{item['label2']}}</div>
           </div>
-          <div class="card-footer">
-            {{item.PropertyName}}
-            <div class="btn-group" dropdown style="float:right">
-              <button dropdownToggle type="button" class="btn dropdownToggle">
-                ... <span class="caret"></span>
-              </button>
-              <ul *dropdownMenu class="dropdown-menu" role="menu">
-                <li role="menuitem">
-                  <a class="dropdown-item" href="#">
-                    Rent Payment
-                  </a>
-                </li>
-                <li role="menuitem">
-                  <a class="dropdown-item" href="#">Documents</a>
-                </li>
-                <li role="menuitem">
-                  <a class="dropdown-item" href="#">
-                    Move-in / Move-out
-                  </a>
-                </li>
-                <li class="divider dropdown-divider"></li>
-                <li role="menuitem">
-                  <a class="dropdown-item" href="#">Edit Property</a>
-                </li>
-              </ul>
-            </div>
+          
+          <div class="d-flex justify-content-start">
+            <div class="flex-fill"><i class="fa fa-times-circle fa-lg fa-fw" aria-hidden="true"></i> {{item['label3']}}</div>
+            <div class="flex-fill"><i class="fa fa-times-circle fa-lg fa-fw" aria-hidden="true"></i> {{item['label4']}}</div>
           </div>
         </div>
-      </div><!--/.col-->
-  
-  
-  
-  
-    </div><!--/.row-->
-  
-  </div>
+      </div>
+    </div>
+  </div><!--/.row-->
+</div>
   

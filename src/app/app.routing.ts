@@ -71,6 +71,21 @@ export const routes: Routes = [
         canActivate:[AuthGuard],
       },
       {
+        path: 'payments',
+        loadChildren: () => import('./views/payments/payments.module').then(m => m.PaymentsModule),
+        canActivate:[AuthGuard],
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule),
+        canActivate:[AuthGuard],
+      },
+      {
+        path: 'changePassword',
+        loadChildren: () => import('./views/change-password/change-password.module').then(m => m.ChangePasswordModule),
+        canActivate:[AuthGuard],
+      },
+      {
         path: 'configration',
         loadChildren: () => import('./views/configration/configration.module').then(m => m.ConfigrationModule)
       },

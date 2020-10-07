@@ -11,12 +11,23 @@ export class PropertiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // for (var i = 0; i < 10; i++) {
-    //   var data = {
-    //     PropertyName: "Property #" + i
-    //   }
-    //   this.PropertyData.push(data);
-    // }
+    let imgCount = 1;
+    for (var i = 1; i <= 12; i++) {
+      var data = {
+        propertyImage: imgCount + ".jpg",
+        propertyName: "Property #" + i,
+        label1: "Label " + i,
+        label2: "Title " + i,
+        label3: "Detail " + i,
+        label4: "Data " + i
+      }
+      imgCount++;
+
+      if(imgCount > 6) {
+        imgCount = 1;
+      }
+      this.PropertyData.push(data);
+    }
   }
 
 }

@@ -1,0 +1,48 @@
+<div class="animated fadeIn bg-white rounded p-3" >
+    <form class="fromData" role="form" [formGroup]="profileForm" *ngIf="profileForm"  (submit)="formSubmit()" autocomplete="off" >
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('name') }" placeholder="Enter name" maxlength="100" >
+                    
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('name')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('name', 'required')">Name is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('email') }" placeholder="Enter email" maxlength="100" >
+                    
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('email')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('email', 'required')">Email is required.</div>
+                        <div *ngIf="isFormSubmittedAndError('email', 'isValidEmail', ['required'])">Email is not valid.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('phoneNumber') }" placeholder="Enter phone number" minlength="10" maxlength="10" >
+                    
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('phoneNumber')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('phoneNumber', 'required')">Phone number is required.</div>
+                        <div *ngIf="isFormSubmittedAndError('phoneNumber', 'isNumber', ['required'])">Phone number is digit only.</div>
+                        <div *ngIf="isFormSubmittedAndError('phoneNumber', 'minlength', ['required', 'isNumber'])">Phone number is must be 10 digit.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" >Update</button>
+            </div>
+        </div>
+    </form>
+</div>

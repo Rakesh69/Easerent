@@ -27,10 +27,11 @@ export class RentPaymentComponent implements OnInit {
   monthlyRentInfoForm: FormGroup;
   securityDepositForm: FormGroup;
   shareDocumentsForm: FormGroup;
+  brokerAccountInfoForm: FormGroup;
   brokerFeesForm: FormGroup;
   addAttachmentForm: FormGroup;
   takePhotoForm: FormGroup;
-  isCollectBrokerFees: boolean = false;
+  isCollectBrokerFees: number = 0;
 
   attachments: any = [];
   tempAttachments: any = [];
@@ -62,6 +63,10 @@ export class RentPaymentComponent implements OnInit {
       "accountHolderName": "Test User",
       "accountNumber": "565656565656",
       "ifscCode": "ICIC0002323"
+    }, {
+      "accountHolderName": "Demo User",
+      "accountNumber": "656655656656",
+      "ifscCode": "SBI00002323"
     }]
   }
 
@@ -146,6 +151,10 @@ export class RentPaymentComponent implements OnInit {
 
     this.shareDocumentsForm = this.formBuilder.group({
       documents: new FormControl([]),
+    });
+
+    this.brokerAccountInfoForm = this.formBuilder.group({
+      account: new FormControl(this.accountInfos[1], [Validators.required])
     });
 
     this.brokerFeesForm = this.formBuilder.group({
@@ -326,6 +335,7 @@ export class RentPaymentComponent implements OnInit {
       monthlyRentInfoForm: this.monthlyRentInfoForm.value,
       securityDepositForm: this.securityDepositForm.value,
       shareDocumentsForm: this.shareDocumentsForm.value,
+      brokerAccountInfoForm: this.brokerAccountInfoForm.value,
       brokerFeesForm: this.brokerFeesForm.value,
     }
 
@@ -440,6 +450,10 @@ export class RentPaymentComponent implements OnInit {
 
   isSecurityDepositFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
     return Globals.isFormSubmittedAndError(this.securityDepositForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);               
+  }
+
+  isBrokerAccountInfoFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
+    return Globals.isFormSubmittedAndError(this.brokerAccountInfoForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);               
   }
 
   isBrokerFeesFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
