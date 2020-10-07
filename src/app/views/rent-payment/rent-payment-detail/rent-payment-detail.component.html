@@ -1,0 +1,254 @@
+<div class="animated fadeIn h-100 bg-white rounded py-3" >
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <div class="w-100 h4 mt-4">Property #1</div>
+                <div class="w-100 h5 text-muted">Confrm all information is accurate on the summary section.</div>
+                <div class="w-100 h5 text-muted">Ready to send out invite to your tenant ?</div>
+                <button type="button" class="btn btn-primary mt-3 mb-4" (click)="successModal.show()" >Let's Go</button>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="text-center w-100">
+                Rent payment summary to be displayed here
+            </div>
+            <!-- {{rentPaymentData | json}} -->
+            <div *ngIf="rentPaymentData" class="ml-3 mr-3 mt-3" >
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['accountInfoForm'] && rentPaymentData['accountInfoForm']['account']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Account Information
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(1)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Account Holder Name</th>
+                            <th>Account Number</th>
+                            <th>IFSC Code</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{rentPaymentData['accountInfoForm']['account']['accountHolderName']}}</td>
+                                <td>{{rentPaymentData['accountInfoForm']['account']['accountNumber']}}</td>
+                                <td>{{rentPaymentData['accountInfoForm']['account']['ifscCode']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['rentalAgreementForm']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Rental Agreement
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(2)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{rentPaymentData['rentalAgreementForm']['startDate']}}</td>
+                                <td>{{rentPaymentData['rentalAgreementForm']['endDate']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['addYourTenantForm'] && rentPaymentData['addYourTenantForm']['tenants']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Your Tenants
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(3)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let tenant of rentPaymentData['addYourTenantForm']['tenants']">
+                                <td>{{tenant['firstName']}}</td>
+                                <td>{{tenant['lastName']}}</td>
+                                <td>{{tenant['email']}}</td>
+                                <td>{{tenant['phoneNumber']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['monthlyRentInfoForm']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Monthly Rent Information
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(4)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Monthly Due Date</th>
+                            <th>Monthly Rent Amount</th>
+                            <th>Rent Collection Start On</th>
+                            <th *ngIf="rentPaymentData['monthlyRentInfoForm']['isCollectProratedRent']">Prorate Due Date</th>
+                            <th *ngIf="rentPaymentData['monthlyRentInfoForm']['isCollectProratedRent']">Prorate Rent Amount</th>
+                            <th *ngIf="rentPaymentData['monthlyRentInfoForm']['isAutomaticLateFees']">Add a Fee</th>
+                            <th *ngIf="rentPaymentData['monthlyRentInfoForm']['isAutomaticLateFees']">Late Fee Amount</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{rentPaymentData['monthlyRentInfoForm']['monthlyDueDate']}}</td>                               
+                                <td>{{rentPaymentData['monthlyRentInfoForm']['monthlyRentAmount']}}</td>                               
+                                <td>{{rentPaymentData['monthlyRentInfoForm']['prorateRentDueDate']}}</td>   
+                                <td *ngIf="rentPaymentData['monthlyRentInfoForm']['isCollectProratedRent']">{{rentPaymentData['monthlyRentInfoForm']['prorateRentDueDate']}}</td>                               
+                                <td *ngIf="rentPaymentData['monthlyRentInfoForm']['isCollectProratedRent']">{{rentPaymentData['monthlyRentInfoForm']['prorateRentAmount']}}</td>                                 
+                                <td *ngIf="rentPaymentData['monthlyRentInfoForm']['isAutomaticLateFees']">{{rentPaymentData['monthlyRentInfoForm']['addFee']}}</td>                               
+                                <td *ngIf="rentPaymentData['monthlyRentInfoForm']['isAutomaticLateFees']">{{rentPaymentData['monthlyRentInfoForm']['lateFeeAmount']}}</td>       
+                            </tr>
+                        </tbody>
+                    </table>                  
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['securityDepositForm']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Security Deposit
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(5)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th *ngIf="rentPaymentData['securityDepositForm']['isCollectSecurityDeposit']">Security Deposit Due Date</th>
+                            <th *ngIf="rentPaymentData['securityDepositForm']['isCollectSecurityDeposit']">Security Deposit Amount</th>
+                            <th *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">Memo/Reference</th>
+                            <th *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">Due Date</th>
+                            <th *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">Amount</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td *ngIf="rentPaymentData['securityDepositForm']['isCollectSecurityDeposit']">{{rentPaymentData['securityDepositForm']['dueDate']}}</td>                               
+                                <td *ngIf="rentPaymentData['securityDepositForm']['isCollectSecurityDeposit']">{{rentPaymentData['securityDepositForm']['amount']}}</td>                                 
+                                <td *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">{{rentPaymentData['securityDepositForm']['memo']}}</td>                               
+                                <td *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">{{rentPaymentData['securityDepositForm']['securityDepositDueDate']}}</td>                               
+                                <td *ngIf="rentPaymentData['securityDepositForm']['isAdditionalMoveInCost']">{{rentPaymentData['securityDepositForm']['securityDepositAmount']}}</td>       
+                            </tr>
+                        </tbody>
+                    </table>                  
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['shareDocumentsForm'] && rentPaymentData['shareDocumentsForm']['documents']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Share Documents
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(6)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Document Type</th>
+                            <th>Document Name</th>
+                            <th>Attachment</th>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let document of rentPaymentData['shareDocumentsForm']['documents']; let i = index;">
+                                <td>{{document['documentType']}}</td>
+                                <td>{{document['documentName']}}</td>
+                                <td><i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i);" ></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset class="border p-3 mb-3" *ngIf="rentPaymentData['brokerFeesForm'] && rentPaymentData['brokerFeesForm']['brokerFeesDueDate'] && rentPaymentData['brokerFeesForm']['brokerFees']">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">
+                        Broker Fees
+
+                        <span class="text-primary" style="cursor: pointer;" (click)="editRentPaymentInformation(7)">
+                            <i class="fa fa-pencil-square-o text-primary" aria-hidden="true" ></i> Edit
+                        </span>
+                    </legend>
+
+                    <table class="w-100">
+                        <thead>
+                            <th>Broker Fees Due Date</th>
+                            <th>Broker Fees</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{rentPaymentData['brokerFeesForm']['brokerFeesDueDate']}}</td>
+                                <td>{{rentPaymentData['brokerFeesForm']['brokerFees']}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+
+            <div class="col-12">
+                <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="successModal.show()" >Let's Go</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-success" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center w-100">Great Job !! You have successfully invited your tenant.</h4>
+          <!-- <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 d-flex flex-column text-center justify-content-between align-items-stretch">
+                    <div class="w-100 h4 mt-4">We’ve sent email invites to your tenants. They will need to:</div>
+                    <div class="w-100 h5 text-justify text-muted">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Create an account</li>
+                            <li class="list-group-item">Set up their payments</li>
+                            <li class="list-group-item">Add their bank accounts</li>
+                            <li class="list-group-item">Verify bank accounts (can take 2-3 business days)</li>                        
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 mt-3 mb-4" >Go to Payments</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
+        </div> -->
+      </div>
+    </div>
+</div>

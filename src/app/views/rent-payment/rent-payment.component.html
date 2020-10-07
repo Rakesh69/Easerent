@@ -1,53 +1,72 @@
-<div class="animated fadeIn h-100 bg-white rounded" *ngIf="!isStartRenting" >
-    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
-        <div class="w-100 h4 mt-4">Collect Rent</div>
-        <div class="w-100 h5 text-muted">Set up payments, connect your bank account and invite your tenants to pay rent.</div>
-        <button type="button" class="btn btn-primary mt-3 mb-4" (click)="initStepper()" >Start Rent Collection</button>
+<div class="animated fadeIn h-100 bg-white rounded py-3" *ngIf="!isStartRenting" >
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 border-right">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <div class="w-100 h4 mt-4">Collect Rent</div>
+                <div class="w-100 h5 text-muted">Set up payments, connect your bank account and invite your tenants to pay rent.</div>
+                <button type="button" class="btn btn-primary mt-3 mb-4" (click)="initStepper()" >Start Rent Collection</button>
+            </div>  
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <div class="w-100 h4 mt-4">Collect Broker Fees</div>
+                <div class="w-100 h5 text-muted">Set up your accounts to collect your broker fees.</div>
+                <button type="button" class="btn btn-primary mt-3 mb-4" (click)="initStepper(7)" >Start Broker Fees Collection</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="animated fadeIn h-100 bg-white rounded" *ngIf="isStartRenting" >
     <div id="stepper1" class="bs-stepper">
         <div class="bs-stepper-header">
-            <div class="step" data-target="#accountInfo">
+            <div class="step" data-target="#accountInfo" tooltip="Account Info">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">1</span>
-                    <span class="bs-stepper-label">Account</span>
+                    <span class="bs-stepper-label d-none">Account</span>
                 </button>
             </div>
             <div class="line"></div>
-            <div class="step" data-target="#rentalAgreement">
+            <div class="step" data-target="#rentalAgreement" tooltip="Rental Agreement">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">2</span>
-                    <span class="bs-stepper-label">Agreement</span>
+                    <span class="bs-stepper-label d-none">Agreement</span>
                 </button>
             </div>
             <div class="line"></div>
-            <div class="step" data-target="#addYourTenants">
+            <div class="step" data-target="#addYourTenants" tooltip="Add Your Tenants">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">3</span>
-                    <span class="bs-stepper-label">Tenants</span>
+                    <span class="bs-stepper-label d-none">Tenants</span>
                 </button>
             </div>
             <div class="line"></div>
-            <div class="step" data-target="#monthlyRentInfo">
+            <div class="step" data-target="#monthlyRentInfo" tooltip="Monthly Rent Info">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">4</span>
-                    <span class="bs-stepper-label">Monthly</span>
+                    <span class="bs-stepper-label d-none">Monthly</span>
                 </button>
             </div>
             <div class="line"></div>
-            <div class="step" data-target="#securityDeposit">
+            <div class="step" data-target="#securityDeposit" tooltip="Security Deposit">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">5</span>
-                    <span class="bs-stepper-label">Security</span>
+                    <span class="bs-stepper-label d-none">Security</span>
                 </button>
             </div>
             <div class="line"></div>
-            <div class="step" data-target="#shareDocuments">
+            <div class="step" data-target="#shareDocuments" tooltip="Share Documents">
                 <button class="step-trigger">
                     <span class="bs-stepper-circle">6</span>
-                    <span class="bs-stepper-label">Documents</span>
+                    <span class="bs-stepper-label d-none">Documents</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#brokerFees" tooltip="Broker Fees">
+                <button class="step-trigger"> 
+                    <span class="bs-stepper-circle">7</span>
+                    <span class="bs-stepper-label d-none">Broker Fees</span>
                 </button>
             </div>
         </div>
@@ -122,6 +141,11 @@
                                     <div class="form-group">
                                         <label for="firstName">First Name</label>
                                         <input type="text" class="form-control" id="firstName" formControlName="firstName" [ngClass]="{ 'isInvalid': isAddYourTenantFormSubmittedAndError(tenant, 'firstName') }" placeholder="Enter First Name" maxlength="100" required />
+
+                                        <span class="required">*</span>
+                                        <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'firstName')" class="invalid-feedback">
+                                            <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'firstName', 'required')">First name is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -129,6 +153,11 @@
                                     <div class="form-group">
                                         <label for="lastName">Last Name</label>
                                         <input type="text" class="form-control" id="lastName" formControlName="lastName" [ngClass]="{ 'isInvalid': isAddYourTenantFormSubmittedAndError(tenant, 'lastName') }" placeholder="Enter Last Name" maxlength="100" required />
+
+                                        <span class="required">*</span>
+                                        <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'lastName')" class="invalid-feedback">
+                                            <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'lastName', 'required')">Last name is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -136,6 +165,11 @@
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{ 'isInvalid': isAddYourTenantFormSubmittedAndError(tenant, 'email') }" placeholder="Enter Email" maxlength="100" required />
+
+                                        <span class="required">*</span>
+                                        <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'email')" class="invalid-feedback">
+                                            <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'email', 'required')">Email is required.</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -143,6 +177,12 @@
                                     <div class="form-group">
                                         <label for="phoneNumber">Phone Number</label>
                                         <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber" [ngClass]="{ 'isInvalid': isAddYourTenantFormSubmittedAndError(tenant, 'phoneNumber') }" placeholder="Enter Phone Number" minlength="10" maxlength="10" required />
+
+                                        <span class="required">*</span>
+                                        <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'phoneNumber')" class="invalid-feedback">
+                                            <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'phoneNumber', 'required')">Phone number is required.</div>
+                                            <div *ngIf="isAddYourTenantFormSubmittedAndError(tenant, 'phoneNumber', 'minlength', ['required'])">Phone number is must be 10 digit.</div>
+                                        </div>
                                     </div>
                                 </div>                                
                             </div>                        
@@ -225,7 +265,15 @@
                         <div class="col-sm-12 col-lg-4" *ngIf="monthlyRentInfoForm.get('isAutomaticLateFees').value">
                             <div class="form-group">
                                 <label for="addFee">Add a Fee</label>
-                                <input type="text" class="form-control" id="addFee" formControlName="addFee" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('addFee') }" placeholder="Enter add a fee" maxlength="100" required />
+                                <select class="form-control" id="addFee" formControlName="addFee" [ngClass]="{ 'isInvalid': isMonthlyRentInfoFormSubmittedAndError('addFee') }" >
+                                    <option value="" >Please select add a fee.</option>
+                                    <option value="5 days after the rent is due" >5 days after the rent is due</option>
+                                    <option value="10 days after the rent is due" >10 days after the rent is due</option>
+                                    <option value="15 days after the rent is due" >15 days after the rent is due</option>
+                                    <option value="20 days after the rent is due" >20 days after the rent is due</option>
+                                    <option value="25 days after the rent is due" >25 days after the rent is due</option>
+                                    <option value="30 days after the rent is due" >30 days after the rent is due</option>
+                                </select>
                             </div>
                         </div>
 
@@ -311,12 +359,39 @@
             </div>
 
             <div id="shareDocuments" class="content">
-                <form class="fromData bg-white p-3 rounded" role="form" [formGroup]="shareDocumentsForm" *ngIf="shareDocumentsForm" autocomplete="off" >
-                    <div class="d-flex justify-content-start">
+                <form class="fromData" role="form" [formGroup]="shareDocumentsForm" *ngIf="shareDocumentsForm" autocomplete="off" >
+                    <div class="d-flex justify-content-between">
                         <label>Upload any documents you would like to share with tenants</label> 
+                        <button type="button" class="btn btn-primary" (click)="addAttachment.show();tempAttachments = [];" >Add Attachments</button>
                     </div>
 
-                    <div class="d-flex justify-content-start border-bottom">
+                    <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="attachments && attachments.length > 0" >
+                        <div class="table-responsive w-100" >
+                            <table class="table table-hover bg-white">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Document Type</th>
+                                        <th scope="col">Document Name</th>
+                                        <th scope="col">Attachment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let attachment of attachments;let i = index" >
+                                        <th scope="row">{{i + 1}}</th>
+                                        <td>{{attachment['documentType']}}</td>
+                                        <td>{{attachment['documentName']}}</td>
+                                        <td>
+                                            <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i);" ></i>
+                                            <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteAttachment(i);" ></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- <div class="d-flex justify-content-start border-bottom">
                         <div class="d-flex mr-3 mb-3" *ngFor="let document of shareDocumentsForm.get('documents').value">
                             <img [src]="document" *ngIf="document" alt="..." class="img-thumbnail documnetImage p-1">
                         </div>
@@ -340,11 +415,41 @@
 
                             <img [src]="shareDocumentsForm.get('rentalAgreement').value" *ngIf="shareDocumentsForm.get('rentalAgreement').value" (click)="rentalAgreementImage.click()" alt="..." class="img-thumbnail documnetImage p-1">
                         </div>     
-                    </div>
+                    </div> -->
 
                     <div class="d-flex justify-content-end mt-3">
                         <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
                         <button (click)="next()" class="btn btn-primary">Continue</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="brokerFees" class="content">
+                <form class="fromData" role="form" [formGroup]="brokerFeesForm" *ngIf="brokerFeesForm"  (submit)="onSubmit()" autocomplete="off" >
+                    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isCollectBrokerFees" >
+                        <div class="w-100 h5 text-muted">Do you want to collect Broker fees too ?.</div>
+                        <button type="button" class="btn btn-primary mt-3 mb-4" (click)="isCollectBrokerFees = true" >Yes, let's do it</button>
+                    </div>    
+                    
+                    <div class="row mt-3" *ngIf="isCollectBrokerFees" >
+                        <div class="col-sm-12 col-lg-4" >
+                            <div class="form-group">
+                                <label for="brokerFeesDueDate">Broker Fees Due Date</label>
+                                <input type="date" class="form-control" id="brokerFeesDueDate" formControlName="brokerFeesDueDate" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFeesDueDate') }" placeholder="Enter broker fees due date" maxlength="100" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4" >
+                            <div class="form-group">
+                                <label for="brokerFees">Broker Fees</label>
+                                <input type="text" class="form-control" id="brokerFees" formControlName="brokerFees" [ngClass]="{ 'isInvalid': isBrokerFeesFormSubmittedAndError('brokerFees') }" placeholder="Enter broker fees" maxlength="100" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
+                        <button (click)="rentPaymentSubmit()" class="btn btn-primary">{{isCollectBrokerFees ? 'Continue' : 'Skip for now'}}</button>
                     </div>
                 </form>
             </div>
@@ -422,3 +527,131 @@
 
 
 
+<div bsModal #addAttachment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Attachment</h4>
+          <button type="button" class="close" (click)="addAttachment.hide();addAttachmentForm.reset();" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="addDocumentSubmit()" autocomplete="off" >
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addAttachmentForm.get('attachment').valid" >
+                    <img [src]="addAttachmentForm.get('attachment').value" alt="..." class="img-thumbnail selectedAttachmentImg">
+                </div>
+               
+                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="takePhotoModal.show()" >
+                        <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                    </button>
+                    <!-- <webcam></webcam> -->
+
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="photoFromDevice.click()">
+                        <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device 
+                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
+                    </button>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <div class="form-group w-100 noLabel">
+                        <select class="form-control" id="documentType" formControlName="documentType" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('documentType') }">
+                            <option value="" >Please select document type</option>
+                            <option value="aadhar card" >Aadhar Card</option>                   
+                            <option value="pan card" >Pan Card</option>                   
+                            <option value="driving licence" >Driving Licence</option>                   
+                            <option value="electricity bill" >Electricity Bill</option>                   
+                        </select>
+
+                        <span class="required">*</span>
+                        <div *ngIf="isAddAttachmentFormSubmittedAndError('documentType')" class="invalid-feedback">
+                            <div *ngIf="isAddAttachmentFormSubmittedAndError('documentType', 'required')">Document type is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100">
+                    OR
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <div class="form-group w-100 noLabel">
+                        <input type="text" class="form-control" id="documentName" formControlName="documentName" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('documentName') }"  placeholder="Enter document name" maxlength="100" >
+                        
+                        <span class="required">*</span>
+                        <div *ngIf="isAddAttachmentFormSubmittedAndError('documentName')" class="invalid-feedback">
+                            <div *ngIf="isAddAttachmentFormSubmittedAndError('documentName', 'required')">Document name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-success w-100" [disabled]="addAttachmentForm.invalid" (click)="addDocumentSubmit()" >Upload</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="addAttachment.hide();addAttachmentForm.reset();">Close</button>
+          <button type="button" class="btn btn-primary" (click)="attachmentSubmit()" >Done</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+<div bsModal #takePhotoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Take Photo</h4>
+          <button type="button" class="close" (click)="takePhotoModal.hide();takePhotoForm.reset()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="takePhotoForm" *ngIf="takePhotoForm"  (submit)="formSubmit()" autocomplete="off" >
+                <div class="row" >
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="img-thumbnail" >
+                            <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                            [allowCameraSwitch]="true" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
+                            (initError)="handleInitError($event)"></webcam>
+                        </div>
+
+                        <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 mt-3">
+                            <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="triggerSnapshot()" >
+                                <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                            </button>
+                            <!-- <webcam></webcam> -->
+        
+                            <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="showNextWebcam(true);">
+                                <span class="btn-label"><i class="fa fa-refresh"></i></span> Switch Camera 
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100"  *ngIf="!takePhotoForm.get('attachment').valid">
+                            <div class="h6 text-muted">
+                                Please take photo.
+                            </div>
+                        </div>
+            
+                        <img [src]="takePhotoForm.get('attachment').value" alt="..." class="img-thumbnail takePhotoAttachmentImg w-100" *ngIf="takePhotoForm.get('attachment').valid">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="takePhotoModal.hide();takePhotoForm.reset()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="takePhotoSubmit()" >Done</button>
+        </div>
+      </div>
+    </div>
+</div>

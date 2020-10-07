@@ -29,9 +29,7 @@ export class AddPropertyDetailsComponent implements OnInit {
   public multipleWebcamsAvailable = false;
   public errors: WebcamInitError[] = [];
 
-  // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
-  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
   @ViewChild('addAttachment', {static: false}) public addAttachment: ModalDirective;

@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import Stepper from 'bs-stepper';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Lightbox } from 'ngx-lightbox';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject } from 'rxjs';
 import { Globals } from '../../globals';
 import { isAlphabet, isNumber } from '../../shared/ngbd-modal-content/validators/custom.validator';
 
@@ -23,16 +27,36 @@ export class RentPaymentComponent implements OnInit {
   monthlyRentInfoForm: FormGroup;
   securityDepositForm: FormGroup;
   shareDocumentsForm: FormGroup;
+  brokerFeesForm: FormGroup;
+  addAttachmentForm: FormGroup;
+  takePhotoForm: FormGroup;
+  isCollectBrokerFees: boolean = false;
+
+  attachments: any = [];
+  tempAttachments: any = [];
 
   accountInfos: any = [];
   private stepper: Stepper;
+  stepTo: number = -1;
+
+  public multipleWebcamsAvailable = false;
+  public errors: WebcamInitError[] = [];
+  deviceId: string;
+
+  private trigger: Subject<void> = new Subject<void>();
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
   @ViewChild('addNewAccountInfo', {static: false}) public addNewAccountInfo: ModalDirective;
+  @ViewChild('addAttachment', {static: false}) public addAttachment: ModalDirective;
+  @ViewChild('takePhotoModal', {static: false}) public takePhotoModal: ModalDirective;
 
   constructor(
     public formBuilder: FormBuilder,
     public toasterService: ToasterService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public lightbox: Lightbox,
+    public route: ActivatedRoute,
+    public router: Router,
   ) {
     this.accountInfos = [{
       "accountHolderName": "Test User",
@@ -42,10 +66,21 @@ export class RentPaymentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+        this.stepTo = params['step'] || -1;
+        if(this.stepTo > 0) {
+          this.initStepper(this.stepTo);
+        }
+    });
+
+    WebcamUtil.getAvailableVideoInputs()
+    .then((mediaDevices: MediaDeviceInfo[]) => {
+      this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+    });
     this.createForm();
   }
 
-  initStepper(): void {
+  initStepper(stepperTo: number = -1): void {
     this.isStartRenting = true;
 
     setTimeout(() => {
@@ -59,18 +94,25 @@ export class RentPaymentComponent implements OnInit {
         }
       });
 
-      // this.stepper.to(6);
+      console.log('stepperTo : ', stepperTo);
+      
+      if(stepperTo > 0) {
+        this.stepper.to(stepperTo);
+      }
     }, 100);
   }
 
   createForm(): void {
+    const todayDate = new Date();
+    const todayDateStr = (todayDate).toISOString().substring(0,10);
+
     this.accountInfoForm = this.formBuilder.group({
-      account: new FormControl('', [Validators.required])
+      account: new FormControl(this.accountInfos[0], [Validators.required])
     });
 
     this.rentalAgreementForm = this.formBuilder.group({
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
+      startDate: new FormControl(todayDateStr),
+      endDate: new FormControl(todayDateStr),
       isNoEndDate: new FormControl(''),
     });
 
@@ -81,45 +123,66 @@ export class RentPaymentComponent implements OnInit {
     }); 
 
     this.monthlyRentInfoForm =  this.formBuilder.group({
-      monthlyDueDate: new FormControl(''),
-      monthlyRentAmount: new FormControl(''),
-      rentColletionStartOn: new FormControl(''),
+      monthlyDueDate: new FormControl(todayDateStr),
+      monthlyRentAmount: new FormControl('5000'),
+      rentColletionStartOn: new FormControl(todayDateStr),
       isCollectProratedRent: new FormControl(true),
-      prorateRentDueDate: new FormControl(''),
-      prorateRentAmount: new FormControl(''),
+      prorateRentDueDate: new FormControl(todayDateStr),
+      prorateRentAmount: new FormControl('1000'),
       isAutomaticLateFees: new FormControl(true),
-      addFee: new FormControl(''),
-      lateFeeAmount: new FormControl(''),
+      addFee: new FormControl('5 days after the rent is due'),
+      lateFeeAmount: new FormControl('500'),
     });
 
     this.securityDepositForm = this.formBuilder.group({
       isCollectSecurityDeposit: new FormControl(true),
-      securityDepositDueDate: new FormControl(''),
-      securityDepositAmount: new FormControl(''),
+      securityDepositDueDate: new FormControl(todayDateStr),
+      securityDepositAmount: new FormControl('5000'),
       isAdditionalMoveInCost: new FormControl(true),
-      memo: new FormControl(''),
-      dueDate: new FormControl(''),
-      amount: new FormControl(''),
+      memo: new FormControl('Memo1'),
+      dueDate: new FormControl(todayDateStr),
+      amount: new FormControl('500'),
     });
 
     this.shareDocumentsForm = this.formBuilder.group({
       documents: new FormControl([]),
-      rentalAgreement: new FormControl('')
+    });
+
+    this.brokerFeesForm = this.formBuilder.group({
+      brokerFeesDueDate: new FormControl(todayDateStr),
+      brokerFees: new FormControl('600'),
+    });
+
+    this.addAttachmentForm = this.formBuilder.group({
+      attachment: new FormControl('', [Validators.required]),
+      documentType: new FormControl(''),
+      documentName: new FormControl('')
+    });
+
+    this.takePhotoForm = this.formBuilder.group({
+      attachment: new FormControl('', [Validators.required])
     });
   }
 
   createFormAddYourTenantForm(): FormGroup {
     return this.formBuilder.group({
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      email: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      firstName: new FormControl('test', [Validators.required]),
+      lastName: new FormControl('user', [Validators.required]),
+      email: new FormControl('test@user.com', [Validators.required]),
+      phoneNumber: new FormControl('4545454545', [Validators.required]),
     });
   }
 
   addAnotherTenantForm(): void {
     const tenants = this.addYourTenantForm.get('tenants') as FormArray;
-    tenants.push(this.createFormAddYourTenantForm());
+    this.isFormSubmitted = true;
+
+    if(tenants.valid) {
+      this.isFormSubmitted = false;
+      tenants.push(this.createFormAddYourTenantForm());
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please enter valid value.');
+    }
   }
 
   addNewAccountInfoForm(): void {
@@ -192,12 +255,163 @@ export class RentPaymentComponent implements OnInit {
   }
 
 
+  addDocumentSubmit(): void {
+    this.isFormSubmitted = true;
+    console.log('addAttachmentForm : ', this.addAttachmentForm.value);
+    
+    if(this.addAttachmentForm.valid) {
+      // this.attachments.push(this.addAttachmentForm.value);
+      const addAttachmentFormData = this.addAttachmentForm.value;
+      if(addAttachmentFormData && (addAttachmentFormData['documentType'] || addAttachmentFormData['documentName'])) {
+        this.tempAttachments.push(this.addAttachmentForm.value);
+        this.addAttachmentForm.reset();
+        this.isFormSubmitted = false;
+      } else {
+        this.toasterService.pop('error', 'Error', 'Please select document type OR enter document name.');
+      }
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+    }
+  }
+
+  attachmentSubmit(): void {
+    this.isFormSubmitted = true;
+    
+    if(this.addAttachmentForm.valid || this.tempAttachments.length > 0) {
+      this.isFormSubmitted = false;
+      this.addAttachment.hide();
+      this.attachments = [...this.attachments, ...this.tempAttachments];
+      this.shareDocumentsForm.get('documents').setValue(this.attachments);
+      // this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+    }
+  }
+
+  async onChangePhotoFromDevice(event: any) {
+    console.log('Event : ', event.target.files);
+
+    if(event.target.files && event.target.files.length > 0) {
+      for (const key in event.target.files) {
+        if (Object.prototype.hasOwnProperty.call(event.target.files, key)) {
+          const file = event.target.files[key];
+          const blobUrl = await Globals.fileToBlobUrl(file);
+          console.log('blobUrl : ', blobUrl);
+
+          this.addAttachmentForm.get('attachment').setValue(this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl));   
+        }
+      }
+    }
+  }
+
+  takePhotoSubmit(): void {
+    this.isFormSubmitted = true;
+    console.log('addAttachmentForm : ', this.takePhotoForm.value);
+    
+    if(this.takePhotoForm.valid) {
+      this.addAttachmentForm.get('attachment').setValue(this.takePhotoForm.get('attachment').value);
+      this.takePhotoForm.reset();
+      this.isFormSubmitted = false;
+      this.takePhotoModal.hide();
+    } else {
+      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+    }
+  }
+
+  rentPaymentSubmit(): void {
+    const rentPayment = {
+      accountInfoForm: this.accountInfoForm.value,
+      rentalAgreementForm: this.rentalAgreementForm.value,
+      addYourTenantForm: this.addYourTenantForm.value,
+      monthlyRentInfoForm: this.monthlyRentInfoForm.value,
+      securityDepositForm: this.securityDepositForm.value,
+      shareDocumentsForm: this.shareDocumentsForm.value,
+      brokerFeesForm: this.brokerFeesForm.value,
+    }
+
+    localStorage.setItem('rentPayment', JSON.stringify(rentPayment));
+
+    this.router.navigateByUrl('/rentPayment/summary');
+  }
+
+  deleteAttachment(i: number): void {
+    this.attachments.splice(i, 1);
+  }
+
+  showLigthBox(index: number = -1): void {
+    console.log('index : ', index);
+    
+    if(index >= 0) {
+      let images = [];
+      for (const key in this.attachments) {
+        if (Object.prototype.hasOwnProperty.call(this.attachments, key)) {
+          const attachment = this.attachments[key];
+          console.log('attachment : ', attachment);
+          
+          const image = {
+            src: attachment['attachment'],
+            caption: attachment['documentType'] || attachment['documentName'],
+            thumb: attachment['attachment']
+          };
+
+          images.push(image);
+        }
+      }
+
+      this.lightbox.open(images, index);
+    }
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public showNextWebcam(directionOrDeviceId: boolean|string): void {
+    // true => move forward through devices
+    // false => move backwards through devices
+    // string => move to device with given deviceId
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage.imageAsDataUrl);
+    this.takePhotoForm.get('attachment').setValue(webcamImage.imageAsDataUrl);
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    console.log('active device: ' + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.nextWebcam.asObservable();
+  }
+
   previous() {
-    this.stepper.previous();
+    this.isFormSubmitted = false;
+    if(this.stepTo > -1) {
+      this.rentPaymentSubmit();
+    } else {
+      this.stepper.previous();
+    }
   }
 
   next() {
-    this.stepper.next();
+    this.isFormSubmitted = false;
+    if(this.stepTo > -1) {
+      this.rentPaymentSubmit();
+    } else {
+      this.stepper.next();
+    }
   }
 
   onSubmit() {
@@ -226,5 +440,13 @@ export class RentPaymentComponent implements OnInit {
 
   isSecurityDepositFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
     return Globals.isFormSubmittedAndError(this.securityDepositForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);               
+  }
+
+  isBrokerFeesFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
+    return Globals.isFormSubmittedAndError(this.brokerFeesForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);               
+  }
+
+  isAddAttachmentFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
+    return Globals.isFormSubmittedAndError(this.addAttachmentForm, this.isFormSubmitted ? 1 : 0, controlName, errorName, notError);                       
   }
 }

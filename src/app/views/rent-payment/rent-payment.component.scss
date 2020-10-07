@@ -15,3 +15,17 @@
         }
     }
 }
+
+#stepper1 {
+    .step {
+        &.active {
+            .bs-stepper-label {
+                display: block !important;
+            }
+        }
+    }
+}
+
+.attachmentBtn {
+    width: 48%;
+ }

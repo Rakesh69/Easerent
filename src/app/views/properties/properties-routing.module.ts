@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'list',
         component: PropertiesComponent,
         data: {
-          title: 'Properties'
+          title: 'Property list'
         }
       },
       {

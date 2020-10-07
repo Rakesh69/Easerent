@@ -18,9 +18,16 @@ const routes: Routes = [
         path: 'start',
         component: RentPaymentComponent,
         data: {
-          title: 'Rent Payment'
+          title: ''
         }
-      }
+      },
+      {
+        path: 'summary',
+        loadChildren: () => import('./rent-payment-detail/rent-payment-detail.module').then(m => m.RentPaymentDetailModule),
+        data: {
+          title: 'Rent Payment Summary'
+        }
+      },
     ]
   }
 ];
