@@ -1,0 +1,62 @@
+<div class="animated fadeIn h-100 bg-white rounded py-3" >
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <div class="w-100 h4 m-0 mt-3">Are you ready to move-in your tenants ?</div>
+                <div class="w-100 h4 m-0 my-3">OR</div>
+                <div class="w-100 h4 m-0 mb-3">Are they ready to vacate ?</div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="moveInOutModal.show()" >Move-Out</button>
+            </div>  
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="moveInOutModal.show()" >Move-In</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div bsModal #moveInOutModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend">
+                <div class="w-100 h4 m-0 mt-3">Code Logic - Ensure additional property details are entered already.</div>
+                <div class="w-100 h4 m-0 my-3">If no, show only button to add property details.</div>
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/properties/add']" >Add Property</button>
+            </div>
+
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend">
+                <div class="w-100 h4 m-0 mt-3">If yes, show this button to start move-in or move-out (Code Logic - show move-in or move-out button based on what was clicked by user earlier)</div>
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="isEmailInvitestionSend = true" >Kick-off Move-In/Move-Out</button>
+            </div>
+
+            <div class="d-flex flex-column justify-content-start align-items-start w-100 h-100" *ngIf="isEmailInvitestionSend">
+                <div class="w-100 h4 m-0 mb-3 text-center">We’ve sent email invites to your tenants.</div>
+
+                <div class="w-100 h4 m-0 mt-3 mb-2">They will need to:</div>
+                <ul class="list-group list-group-flush w-100">
+                    <li class="list-group-item">Create an account (if not done yet)</li>
+                    <li class="list-group-item">Enter details for move-in.</li>
+                </ul>
+
+                <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100"   >
+                    <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/moveInOut/moveIn']" >Let's Go</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

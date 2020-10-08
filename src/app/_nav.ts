@@ -49,7 +49,7 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Move-in/Move-Out',
-    url: '/dashboard',
+    url: '/moveInOut',
     icon: 'icon-speedometer',
   },
   {

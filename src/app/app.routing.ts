@@ -86,6 +86,11 @@ export const routes: Routes = [
         canActivate:[AuthGuard],
       },
       {
+        path: 'moveInOut',
+        loadChildren: () => import('./views/move-in-out/move-in-out.module').then(m => m.MoveInOutModule),
+        canActivate:[AuthGuard],
+      },
+      {
         path: 'configration',
         loadChildren: () => import('./views/configration/configration.module').then(m => m.ConfigrationModule)
       },
