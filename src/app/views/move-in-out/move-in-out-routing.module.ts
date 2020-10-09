@@ -24,6 +24,13 @@ const routes: Routes = [
           title: 'Move-Id'
         }
       },
+      {
+        path: 'summary',
+        loadChildren: () => import('./move-in-summary/move-in-summary.module').then(m => m.MoveInSummaryModule),
+        data: {
+          title: 'Summary'
+        }
+      },
     ]
   }
 ];

@@ -39,7 +39,7 @@
                         </div>
             
                         <div class="col-sm-12 col-lg-4">
-                            <div class="alert alert-success m-0 text-center rounded-lg" role="alert">
+                            <div (click)="next()" class="alert alert-success m-0 text-center rounded-lg" role="alert">
                                 <h4 class="alert-heading">Good</h4>
                                 <p class="mb-0" >Everything inspected !!</p>
                             </div>
@@ -212,7 +212,7 @@
                     <div class="row mt-4">
                         <div class="col-12 d-flex justify-content-end">
                             <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
-                            <button (click)="next()" class="btn btn-primary">Submit</button>
+                            <button [routerLink]="['/moveInOut/summary']" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
