@@ -15,6 +15,6 @@ export class LoginService {
   constructor(public _commonService: CommonService, public http: HttpClient) { }
 
   login(data) {
-    return this.http.post(urlConstant.accountModule.LoggedIn, data)
+    // return this.http.post(urlConstant.accountModule.LoggedIn, data)
   }
 }

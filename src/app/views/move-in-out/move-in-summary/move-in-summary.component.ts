@@ -32,7 +32,7 @@ export class MoveInSummaryComponent implements OnInit {
 
   showLigthBox(index: number = -1, isWarning: boolean = false): void {
     console.log('index : ', index);
-    
+
     if(index >= 0) {
       let images = [];
       const attachments = this.dangerAttachments;
@@ -40,7 +40,7 @@ export class MoveInSummaryComponent implements OnInit {
         if (Object.prototype.hasOwnProperty.call(attachments, key)) {
           const attachment = attachments[key];
           console.log('attachment : ', attachment);
-          
+
           const image = {
             src: attachment['attachment'],
             caption: attachment['comments'],
@@ -53,6 +53,10 @@ export class MoveInSummaryComponent implements OnInit {
 
       this.lightbox.open(images, index);
     }
+  }
+
+  next() {
+
   }
 
 }
