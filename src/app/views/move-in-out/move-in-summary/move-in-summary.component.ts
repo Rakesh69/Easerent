@@ -11,11 +11,15 @@ import { Lightbox } from 'ngx-lightbox';
 export class MoveInSummaryComponent implements OnInit {
 
   dangerAttachments: any = [];
+  attchmentComments: any = [];
+
   constructor(
     public lightbox: Lightbox,
     public toasterService: ToasterService,
     public sanitizer: DomSanitizer,
-  ) { }
+  ) { 
+    this.attchmentComments = [false, false, false, false, false, false, false, false, false, false]
+  }
 
   ngOnInit() {
     this.dangerAttachments = [

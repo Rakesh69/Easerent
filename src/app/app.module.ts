@@ -77,7 +77,7 @@ import { ToasterModule } from 'angular2-toaster';
     HttpClientModule,
     FormsModule,
     DataTableModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxFileDropModule,
     TagInputModule
     //NgbTypeaheadModule

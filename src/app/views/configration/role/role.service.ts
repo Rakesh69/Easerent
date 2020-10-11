@@ -6,6 +6,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { debounce } from "rxjs/operator/debounce";
 import { map } from "rxjs/operators";
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,33 +16,39 @@ export class RoleService {
   constructor(public _commonService:CommonService, public http:HttpClient) { }
 
   GetRoleList() {
-    return this._commonService.get(urlConstant.Role.GetRoleList)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.get(urlConstant.Role.GetRoleList)
+    //   .pipe(map((x: Response) => x));
   }
 
   GetAllRoleList() {
-    return this._commonService.get(urlConstant.Role.GetAllRoleList)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.get(urlConstant.Role.GetAllRoleList)
+    //   .pipe(map((x: Response) => x));
   }
 
   GetRoleGetById(Id) {
-    return this._commonService.get(urlConstant.Role.GetRoleGetById+"?Id="+Id)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.get(urlConstant.Role.GetRoleGetById+"?Id="+Id)
+    //   .pipe(map((x: Response) => x));
   }
 
   RoleSave(model) {
-    return this._commonService.post(urlConstant.Role.RoleSave,model)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.post(urlConstant.Role.RoleSave,model)
+    //   .pipe(map((x: Response) => x));
   }
 
   DeleteRole(Id) {
-    return this._commonService.get(urlConstant.Role.DeleteRole+"?Id="+Id)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.get(urlConstant.Role.DeleteRole+"?Id="+Id)
+    //   .pipe(map((x: Response) => x));
   }
 
   GetModuleList() {
-    return this._commonService.get(urlConstant.Module.GetModuleList)
-      .pipe(map((x: Response) => x));
+    return of('');
+    // return this._commonService.get(urlConstant.Module.GetModuleList)
+    //   .pipe(map((x: Response) => x));
   }
 
 }
