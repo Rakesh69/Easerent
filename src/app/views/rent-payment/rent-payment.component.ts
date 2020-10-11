@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from 'angular2-toaster';
 import Stepper from 'bs-stepper';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -9,6 +10,7 @@ import { Lightbox } from 'ngx-lightbox';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { Globals } from '../../globals';
+import { TakePhotoModalComponent } from '../../shared/ngbd-modal-content/custom-components/take-photo-modal/take-photo-modal.component';
 import { isAlphabet, isNumber } from '../../shared/ngbd-modal-content/validators/custom.validator';
 
 @Component({
@@ -30,7 +32,6 @@ export class RentPaymentComponent implements OnInit {
   brokerAccountInfoForm: FormGroup;
   brokerFeesForm: FormGroup;
   addAttachmentForm: FormGroup;
-  takePhotoForm: FormGroup;
   isCollectBrokerFees: number = 0;
 
   attachments: any = [];
@@ -40,17 +41,9 @@ export class RentPaymentComponent implements OnInit {
   private stepper: Stepper;
   stepTo: number = -1;
 
-  public multipleWebcamsAvailable = false;
-  public errors: WebcamInitError[] = [];
-  deviceId: string;
-
-  private trigger: Subject<void> = new Subject<void>();
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
-
   @ViewChild('addNewAccountInfo', {static: false}) public addNewAccountInfo: ModalDirective;
   @ViewChild('addAttachment', {static: false}) public addAttachment: ModalDirective;
-  @ViewChild('takePhotoModal', {static: false}) public takePhotoModal: ModalDirective;
-
+ 
   constructor(
     public formBuilder: FormBuilder,
     public toasterService: ToasterService,
@@ -58,6 +51,7 @@ export class RentPaymentComponent implements OnInit {
     public lightbox: Lightbox,
     public route: ActivatedRoute,
     public router: Router,
+    public modalService: NgbModal
   ) {
     this.accountInfos = [{
       "accountHolderName": "Test User",
@@ -78,10 +72,6 @@ export class RentPaymentComponent implements OnInit {
         }
     });
 
-    WebcamUtil.getAvailableVideoInputs()
-    .then((mediaDevices: MediaDeviceInfo[]) => {
-      this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-    });
     this.createForm();
   }
 
@@ -166,10 +156,6 @@ export class RentPaymentComponent implements OnInit {
       attachment: new FormControl('', [Validators.required]),
       documentType: new FormControl(''),
       documentName: new FormControl('')
-    });
-
-    this.takePhotoForm = this.formBuilder.group({
-      attachment: new FormControl('', [Validators.required])
     });
   }
 
@@ -313,17 +299,24 @@ export class RentPaymentComponent implements OnInit {
     }
   }
 
-  takePhotoSubmit(): void {
-    this.isFormSubmitted = true;
-    console.log('addAttachmentForm : ', this.takePhotoForm.value);
-    
-    if(this.takePhotoForm.valid) {
-      this.addAttachmentForm.get('attachment').setValue(this.takePhotoForm.get('attachment').value);
-      this.takePhotoForm.reset();
-      this.isFormSubmitted = false;
-      this.takePhotoModal.hide();
+  takePhotoModalOpen() {
+    const modalRef = this.modalService.open(TakePhotoModalComponent,  { size: 'lg' })
+    modalRef.result.then((result) => {
+      if(result) {
+        this.addAttachmentForm.get('attachment').setValue(result);
+      }
+    }, (reason) => {
+      console.log('this.getDismissReason(reason) : ', this.getDismissReason(reason));
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
     } else {
-      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+      return `with: ${reason}`;
     }
   }
 
@@ -371,41 +364,6 @@ export class RentPaymentComponent implements OnInit {
       this.lightbox.open(images, index);
     }
   }
-
-  public triggerSnapshot(): void {
-    this.trigger.next();
-  }
-
-
-  public handleInitError(error: WebcamInitError): void {
-    this.errors.push(error);
-  }
-
-  public showNextWebcam(directionOrDeviceId: boolean|string): void {
-    // true => move forward through devices
-    // false => move backwards through devices
-    // string => move to device with given deviceId
-    this.nextWebcam.next(directionOrDeviceId);
-  }
-
-  public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage.imageAsDataUrl);
-    this.takePhotoForm.get('attachment').setValue(webcamImage.imageAsDataUrl);
-  }
-
-  public cameraWasSwitched(deviceId: string): void {
-    console.log('active device: ' + deviceId);
-    this.deviceId = deviceId;
-  }
-
-  public get triggerObservable(): Observable<void> {
-    return this.trigger.asObservable();
-  }
-
-  public get nextWebcamObservable(): Observable<boolean|string> {
-    return this.nextWebcam.asObservable();
-  }
-
   previous() {
     this.isFormSubmitted = false;
     if(this.stepTo > -1) {

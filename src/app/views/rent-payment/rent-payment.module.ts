@@ -9,6 +9,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { WebcamModule } from 'ngx-webcam';
 import { LightboxModule } from 'ngx-lightbox';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgbRootModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     WebcamModule,
+    NgbRootModule,
     LightboxModule,
     PerfectScrollbarModule,
   ]

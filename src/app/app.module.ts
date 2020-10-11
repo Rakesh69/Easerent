@@ -47,7 +47,7 @@ import { LoginComponent } from './views/login/login.component';
 import { LoginService } from './views/login/login.service';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ToastrModule } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from 'angular2-datatable';
 import { NgbdModalContentComponent } from './shared/ngbd-modal-content/ngbd-modal-content.component';
 import { NgbDateCustomParserFormatter } from './common/dateformat';
@@ -56,6 +56,8 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { ToasterModule } from 'angular2-toaster';
+import { TakePhotoModalComponent } from './shared/ngbd-modal-content/custom-components/take-photo-modal/take-photo-modal.component';
+import { WebcamModule } from 'ngx-webcam';
 @NgModule({
   imports: [
     BrowserModule,
@@ -79,7 +81,9 @@ import { ToasterModule } from 'angular2-toaster';
     DataTableModule,
     NgbModule,
     NgxFileDropModule,
-    TagInputModule
+    TagInputModule,
+    ReactiveFormsModule,
+    WebcamModule
     //NgbTypeaheadModule
   ],
   declarations: [
@@ -90,9 +94,10 @@ import { ToasterModule } from 'angular2-toaster';
     NgbdModalContentComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    SignupComponent
+    SignupComponent,
+    TakePhotoModalComponent
   ],
-  entryComponents: [NgbdModalContentComponent],
+  entryComponents: [NgbdModalContentComponent, TakePhotoModalComponent],
   providers: [AuthGuard,LoginService,
     {
       provide: HTTP_INTERCEPTORS,

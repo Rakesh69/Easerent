@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterService } from 'angular2-toaster';
 import Stepper from 'bs-stepper';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -8,6 +9,7 @@ import { Lightbox } from 'ngx-lightbox';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { Globals } from '../../../globals';
+import { TakePhotoModalComponent } from '../../../shared/ngbd-modal-content/custom-components/take-photo-modal/take-photo-modal.component';
 
 @Component({
   selector: 'app-move-in',
@@ -22,7 +24,6 @@ export class MoveInComponent implements OnInit {
   waringDocumentsForm: FormGroup;
   dangerDocumentsForm: FormGroup;
   addAttachmentForm: FormGroup;
-  takePhotoForm: FormGroup;
 
   private stepper: Stepper;
 
@@ -30,31 +31,18 @@ export class MoveInComponent implements OnInit {
   dangerAttachments: any = [];
   tempAttachments: any = [];
 
-  
-  public multipleWebcamsAvailable = false;
-  public errors: WebcamInitError[] = [];
-  deviceId: string;
-
-  private trigger: Subject<void> = new Subject<void>();
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
-
   @ViewChild('addAttachment', {static: false}) public addAttachment: ModalDirective;
-  @ViewChild('takePhotoModal', {static: false}) public takePhotoModal: ModalDirective;
 
   constructor(
     public formBuilder: FormBuilder,
     public lightbox: Lightbox,
     public toasterService: ToasterService,
     public sanitizer: DomSanitizer,
+    public modalService: NgbModal
   ) { }
 
   ngOnInit() {
-    WebcamUtil.getAvailableVideoInputs()
-    .then((mediaDevices: MediaDeviceInfo[]) => {
-      this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-    });
-    
-    this.createForm();
+   this.createForm();
   }
 
   initStepper(stepperTo: number = -1): void {
@@ -91,10 +79,6 @@ export class MoveInComponent implements OnInit {
     this.addAttachmentForm = this.formBuilder.group({
       attachment: new FormControl('', [Validators.required]),
       comments: new FormControl('', [Validators.required])
-    });
-
-    this.takePhotoForm = this.formBuilder.group({
-      attachment: new FormControl('', [Validators.required])
     });
   }
 
@@ -149,17 +133,24 @@ export class MoveInComponent implements OnInit {
     }
   }
 
-  takePhotoSubmit(): void {
-    this.isFormSubmitted = true;
-    console.log('addAttachmentForm : ', this.takePhotoForm.value);
-    
-    if(this.takePhotoForm.valid) {
-      this.addAttachmentForm.get('attachment').setValue(this.takePhotoForm.get('attachment').value);
-      this.takePhotoForm.reset();
-      this.isFormSubmitted = false;
-      this.takePhotoModal.hide();
+  takePhotoModalOpen() {
+    const modalRef = this.modalService.open(TakePhotoModalComponent,  { size: 'lg' })
+    modalRef.result.then((result) => {
+      if(result) {
+        this.addAttachmentForm.get('attachment').setValue(result);
+      }
+    }, (reason) => {
+      console.log('this.getDismissReason(reason) : ', this.getDismissReason(reason));
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
     } else {
-      this.toasterService.pop('error', 'Error', 'Please select attachment.');
+      return `with: ${reason}`;
     }
   }
 
@@ -195,40 +186,6 @@ export class MoveInComponent implements OnInit {
 
       this.lightbox.open(images, index);
     }
-  }
-
-  public triggerSnapshot(): void {
-    this.trigger.next();
-  }
-
-
-  public handleInitError(error: WebcamInitError): void {
-    this.errors.push(error);
-  }
-
-  public showNextWebcam(directionOrDeviceId: boolean|string): void {
-    // true => move forward through devices
-    // false => move backwards through devices
-    // string => move to device with given deviceId
-    this.nextWebcam.next(directionOrDeviceId);
-  }
-
-  public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage.imageAsDataUrl);
-    this.takePhotoForm.get('attachment').setValue(webcamImage.imageAsDataUrl);
-  }
-
-  public cameraWasSwitched(deviceId: string): void {
-    console.log('active device: ' + deviceId);
-    this.deviceId = deviceId;
-  }
-
-  public get triggerObservable(): Observable<void> {
-    return this.trigger.asObservable();
-  }
-
-  public get nextWebcamObservable(): Observable<boolean|string> {
-    return this.nextWebcam.asObservable();
   }
 
   previous() {

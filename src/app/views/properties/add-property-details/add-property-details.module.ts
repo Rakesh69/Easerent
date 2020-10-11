@@ -8,6 +8,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { LightboxModule } from 'ngx-lightbox';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { WebcamModule } from 'ngx-webcam';
+import { NgbModalModule, NgbModule, NgbRootModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { WebcamModule } from 'ngx-webcam';
     PerfectScrollbarModule,
     LightboxModule,
     WebcamModule,
+    NgbModalModule,
+    NgbRootModule,
     AddPropertyDetailsRoutingModule
   ]
 })
