@@ -81,6 +81,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'referral',
+        loadChildren: () => import('./views/referral/referral.module').then(m => m.ReferralModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'changePassword',
         loadChildren: () => import('./views/change-password/change-password.module').then(m => m.ChangePasswordModule),
         canActivate: [AuthGuard],

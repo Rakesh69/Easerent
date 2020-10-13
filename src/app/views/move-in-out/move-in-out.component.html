@@ -1,5 +1,5 @@
-<div class="animated fadeIn h-100 bg-white rounded py-3" >
-    <div class="row">
+<div class="animated fadeIn h-100 bg-white rounded" >
+    <!-- <div class="row">
         <div class="col-12">
             <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
                 <div class="w-100 h4 m-0 mt-3">Are you ready to move-in your tenants ?</div>
@@ -19,7 +19,75 @@
                 <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="moveInOutModal.show()" >Move-In</button>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Property Image</th>
+                <th scope="col">Property Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\1.jpg" alt="Card image cap">
+                </td>
+                <td>Mark</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\2.jpg" alt="Card image cap">
+                </td>
+                <td>Jacob</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\3.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\4.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\5.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
