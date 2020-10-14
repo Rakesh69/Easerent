@@ -81,6 +81,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'billsUtilities',
+        loadChildren: () => import('./views/bills-utilities/bills-utilities.module').then(m => m.BillsUtilitiesModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'referral',
         loadChildren: () => import('./views/referral/referral.module').then(m => m.ReferralModule),
         canActivate: [AuthGuard],
@@ -88,6 +93,11 @@ export const routes: Routes = [
       {
         path: 'changePassword',
         loadChildren: () => import('./views/change-password/change-password.module').then(m => m.ChangePasswordModule),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'notificationSetting',
+        loadChildren: () => import('./views/notification-setting/notification-setting.module').then(m => m.NotificationSettingModule),
         canActivate: [AuthGuard],
       },
       {

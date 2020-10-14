@@ -95,7 +95,7 @@ import { WebcamModule } from 'ngx-webcam';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     SignupComponent,
-    TakePhotoModalComponent
+    TakePhotoModalComponent,
   ],
   entryComponents: [NgbdModalContentComponent, TakePhotoModalComponent],
   providers: [AuthGuard,LoginService,

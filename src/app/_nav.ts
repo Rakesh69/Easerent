@@ -40,21 +40,31 @@ export const navItems: NavData[] = [
   {
     name: 'Properties',
     url: '/properties',
-    icon: 'icon-speedometer',
+    icon: 'icon-home',
   },
   {
     name: 'Rent Payment',
     url: '/rentPayment',
-    icon: 'icon-speedometer',
+    icon: 'icon-note',
   },
   {
     name: 'Move-in/Move-Out',
     url: '/moveInOut',
-    icon: 'icon-speedometer',
+    icon: 'icon-directions',
+  },
+  {
+    name: 'Bills / Utilities',
+    url: '/billsUtilities',
+    icon: 'icon-energy',
+  },
+  {
+    name: 'Refer a Friend',
+    url: '/referral',
+    icon: 'icon-people',
   },
   {
     name: 'Documents',
     url: '/dashboard',
-    icon: 'icon-speedometer',
+    icon: 'icon-doc',
   },
 ];

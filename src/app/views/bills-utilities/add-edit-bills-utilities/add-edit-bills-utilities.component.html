@@ -1,0 +1,70 @@
+<div class="animated fadeIn bg-white rounded p-3" >
+    <div class="d-flex flex-row justify-content-center align-items-center border-bottom mb-3">
+        <h4 class="text-muted" >Bills / Utilities - Property #1</h4>
+    </div>
+    
+    <form class="fromData" role="form" [formGroup]="billForm" *ngIf="billForm"  (submit)="formSubmit()" autocomplete="off" >
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
+                <div class="form-group">
+                    <label for="name">Bill Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('name') }" placeholder="Enter bill name" maxlength="100" >
+                    
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('name')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('name', 'required')">Bill name is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <div class="form-group">
+                    <label for="type">Bill Type</label>
+                    <select class="form-control" id="type" formControlName="type" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('type') }">
+                        <option selected value="">Select bill type</option>
+                        <option value="Society Maintenance Bil">Society Maintenance Bill</option>
+                        <option value="Electrity Bill">Electrity Bill</option>
+                        <option value="Water Bill">Water Bill</option>
+                    </select>
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('type')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('type', 'required')">Bill type is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-4">
+                <div class="form-group">
+                    <label for="frequency">Frequency</label>
+                    <select class="form-control" id="frequency" formControlName="frequency" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('frequency') }">
+                        <option selected value="">Select frequency</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Quarterly">Quarterly</option>
+                        <option value="Annual">Annual</option>
+                    </select>
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('frequency')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('frequency', 'required')">Frequency is required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="memo">Memo / Detail</label>
+                    <textarea class="form-control" id="memo" formControlName="memo" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('memo') }" rows="3" placeholder="Enter memo/details"></textarea>
+                    <!-- <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('memo')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('memo', 'required')">Memo/detail is required.</div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
