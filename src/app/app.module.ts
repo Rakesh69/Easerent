@@ -40,7 +40,6 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
 
 import { LoginComponent } from './views/login/login.component';
 import { LoginService } from './views/login/login.service';
@@ -50,7 +49,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from 'angular2-datatable';
 import { NgbdModalContentComponent } from './shared/ngbd-modal-content/ngbd-modal-content.component';
 import { NgbDateCustomParserFormatter } from './common/dateformat';
-import {  NgxFileDropModule } from 'ngx-file-drop';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
@@ -70,7 +68,6 @@ import { WebcamModule } from 'ngx-webcam';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     ToasterModule.forRoot(),
@@ -79,7 +76,6 @@ import { WebcamModule } from 'ngx-webcam';
     FormsModule,
     DataTableModule,
     NgbModule,
-    NgxFileDropModule,
     ReactiveFormsModule,
     WebcamModule
     //NgbTypeaheadModule
