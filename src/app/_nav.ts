@@ -64,7 +64,7 @@ export const navItems: NavData[] = [
   },
   {
     name: 'Documents',
-    url: '/dashboard',
+    url: '/documents',
     icon: 'icon-doc',
   },
 ];

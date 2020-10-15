@@ -41,7 +41,6 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { TagInputModule } from 'ngx-chips';
 
 import { LoginComponent } from './views/login/login.component';
 import { LoginService } from './views/login/login.service';
@@ -81,7 +80,6 @@ import { WebcamModule } from 'ngx-webcam';
     DataTableModule,
     NgbModule,
     NgxFileDropModule,
-    TagInputModule,
     ReactiveFormsModule,
     WebcamModule
     //NgbTypeaheadModule
