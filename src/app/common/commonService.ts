@@ -4,12 +4,10 @@ import { HttpClient, HttpHeaders, HttpEvent, HttpHandler, HttpInterceptor, HttpR
 import * as CryptoJS from 'crypto-js';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError, of, Observer } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs/Rx';
-import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root',
@@ -23,7 +21,6 @@ export class CommonService {
 
     constructor(
         public http: HttpClient,
-        private _toastr: ToastrService,
         public router: Router,
         public spinner: NgxSpinnerService
     ) { }
@@ -80,13 +77,13 @@ export class CommonService {
         return new Date().getTimezoneOffset();
     }
 
-    public getUserDate() {
-        return (moment(new Date()).format('MM/DD/YYYY  HH:mm:ss'));
-    }
+    // public getUserDate() {
+    //     return (moment(new Date()).format('MM/DD/YYYY  HH:mm:ss'));
+    // }
 
-    public getUserTime() {
-        return (moment(new Date()).format('HH:mm:ss'));
-    }
+    // public getUserTime() {
+    //     return (moment(new Date()).format('HH:mm:ss'));
+    // }
     //use for not allow special  character in autocomplete - *,(,),+,?,\
     eventHandler(event: any) {
         if (event.keyCode == 92 || event.keyCode == 42 || event.keyCode == 40 || event.keyCode == 41 || event.keyCode == 43 || event.keyCode == 63 || event.keyCode == 91 || event.keyCode == 93) {
@@ -126,17 +123,17 @@ export class CommonService {
     };
 
 
-    public toastSuccessMsg(title: any, message: any, timeOut?: object) {
-        this._toastr.success(title, message, timeOut);
-    }
+    // public toastSuccessMsg(title: any, message: any, timeOut?: object) {
+    //     this._toastr.success(title, message, timeOut);
+    // }
 
-    public toastErrorMsg(title: any, message: any, timeOut?: object) {
-        this._toastr.error(title, message, timeOut);
-    }
+    // public toastErrorMsg(title: any, message: any, timeOut?: object) {
+    //     this._toastr.error(title, message, timeOut);
+    // }
 
-    public toastWarningMsg(title: any, message: any, timeOut?: object) {
-        this._toastr.warning(title, message, timeOut);
-    }
+    // public toastWarningMsg(title: any, message: any, timeOut?: object) {
+    //     this._toastr.warning(title, message, timeOut);
+    // }
 
     //show loader 
     public showLoading() {

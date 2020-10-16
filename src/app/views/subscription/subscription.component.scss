@@ -1,0 +1,17 @@
+#subscriptionCard {
+    .card {
+        transition: ease-in-out 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            transition: ease-in-out 0.3s;
+            transform: scale(1.05);
+        }
+
+        &.active {
+            transition: ease-in-out 0.3s;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+            transform: scale(1.09);
+        }
+    }
+}

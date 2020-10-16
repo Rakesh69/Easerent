@@ -6,10 +6,11 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import "rxjs/add/operator/do";
 import { messageConstant } from '../constant/messageConstant';
 import { CommonService } from '../common/commonService';
+import { ToasterService } from 'angular2-toaster';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor(private _router: Router, private _commonService: CommonService) {
+    constructor(private _router: Router, private _commonService: CommonService, private toasterService: ToasterService) {
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
@@ -36,7 +37,7 @@ export class JwtInterceptor implements HttpInterceptor {
                     return empty();
                 }
                 else if (err.status === 500) {
-                    this._commonService.toastErrorMsg(null, messageConstant.Common.UnAuthorized, null);
+                    this.toasterService.pop('error', 'Error', messageConstant.Common.UnAuthorized);
                 }
                 else
                     return throwError(err);

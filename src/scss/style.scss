@@ -8,9 +8,7 @@
 //@import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
 // If you want to add something do it here
 @import "custom";
-// Spinkit
-$spinkit-spinner-color: $body-color;
-@import '~spinkit/scss/spinkit.scss';
+
 @import 'node_modules/angular2-toaster/toaster';
 @import '~bs-stepper/dist/css/bs-stepper.min.css';
 

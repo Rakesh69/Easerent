@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { _ } from 'underscore';
 import { dataConstant } from '../../../constant/dataConstant';
 import { ProductCategoryService } from './product-category.service';
@@ -7,6 +6,7 @@ import { CommonService } from '../../../common/commonService';
 import { NgbModal, NgbModalOptions, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { error } from '@angular/compiler/src/util';
 import { NgbdModalContentComponent } from '../../../shared/ngbd-modal-content/ngbd-modal-content.component';
+import { ToasterService } from 'angular2-toaster';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class ProductCategoryComponent implements OnInit {
     private _ProductCategoryService: ProductCategoryService,
     private _CommonService: CommonService,
     private modalService: NgbModal,
-    private _ToastrService: ToastrService
+    private toasterService: ToasterService
   ) {
   }
 
@@ -57,7 +57,7 @@ export class ProductCategoryComponent implements OnInit {
       }
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -70,7 +70,7 @@ export class ProductCategoryComponent implements OnInit {
       }
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -101,15 +101,15 @@ export class ProductCategoryComponent implements OnInit {
           if (res) {
             if (res.status == 200) {
               this.GetSARProductCategoryList();
-              this._CommonService.toastSuccessMsg("Success", res.message)
+              this.toasterService.pop('sucess', 'Success', res.message);
             }
             else {
-              this._CommonService.toastErrorMsg("Error", res.message)
+              this.toasterService.pop('error', 'Error', res.message);
             }
           }
         }, error => {
           this._CommonService.hideLoading();
-          this._CommonService.toastErrorMsg("Error", error)
+          this.toasterService.pop('error', 'Error', error);
         })
       }
     });
@@ -128,15 +128,15 @@ export class ProductCategoryComponent implements OnInit {
           this._CommonService.hideLoading();
           this.GetSARProductCategoryList();
           this.modalReference.close();
-          this._CommonService.toastSuccessMsg("Success", res.message)
+          this.toasterService.pop('sucess', 'Success', res.message);
         }
         else {
-          this._CommonService.toastErrorMsg("Error", res.message)
+          this.toasterService.pop('error', 'Error', res.message);
         }
       }
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 }

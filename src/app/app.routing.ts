@@ -106,6 +106,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'subscription',
+        loadChildren: () => import('./views/subscription/subscription.module').then(m => m.SubscriptionModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'moveInOut',
         loadChildren: () => import('./views/move-in-out/move-in-out.module').then(m => m.MoveInOutModule),
         canActivate: [AuthGuard],

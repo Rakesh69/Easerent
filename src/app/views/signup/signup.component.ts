@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -12,4 +13,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  signUp(): void {
+    Swal.fire("Good job!", "You successfully sign up!", "success");
+  }
 }

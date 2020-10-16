@@ -1,6 +1,5 @@
 'use strict';
-
-import * as moment from 'moment';
+;
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 /**
  * This component is used to modified local data
@@ -152,25 +151,6 @@ export class Globals {
         } else {
             return strDate;
         }
-    }
-
-    static calculateAge(dob): string{
-        dob = moment(dob, 'DD/MM/YYYY'); 
-        dob = moment(dob).format('MM/DD/YYYY');
-        
-        const today = new Date();
-        const birthDate = new Date(dob);
-
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
-
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        if (m < 0){
-            m = 12 + m;
-        }
-        return age > 0 ? age + ' Years' : m + ' Month';     
     }
 
     /**

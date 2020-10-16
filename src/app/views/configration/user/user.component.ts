@@ -5,6 +5,7 @@ import { dataConstant } from '../../../constant/dataConstant';
 import { NgbdModalContentComponent } from '../../../shared/ngbd-modal-content/ngbd-modal-content.component';
 import { UserService } from './user.service';
 import { RoleService } from '../role/role.service';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-user',
@@ -38,6 +39,7 @@ export class UserComponent implements OnInit {
     private _CommonService: CommonService,
     private modalService: NgbModal,
     private _RoleService: RoleService,
+    private toasterService: ToasterService
   ) {
   }
 
@@ -55,7 +57,7 @@ export class UserComponent implements OnInit {
       this._CommonService.hideLoading();
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -68,7 +70,7 @@ export class UserComponent implements OnInit {
       this._CommonService.hideLoading();
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -101,16 +103,16 @@ export class UserComponent implements OnInit {
           if (res) {
             if (res.status == 200) {
               this.GetUserList();
-              this._CommonService.toastSuccessMsg("Success", res.message)
+              this.toasterService.pop('sucess', 'Success', res.message);
             }
             else {
-              this._CommonService.toastErrorMsg("Error", res.message)
+              this.toasterService.pop('error', 'Error', res.message);
               this._CommonService.hideLoading();
             }
           }
         }, error => {
           this._CommonService.hideLoading();
-          this._CommonService.toastErrorMsg("Error", error)
+          this.toasterService.pop('error', 'Error', error);
         })
       }
     });
@@ -133,16 +135,16 @@ export class UserComponent implements OnInit {
           this._CommonService.hideLoading();
           this.GetUserList();
           this.modalReference.close();
-          this._CommonService.toastSuccessMsg("Success", res.message)
+          this.toasterService.pop('sucess', 'Success', res.message);
         }
         else {
-          this._CommonService.toastErrorMsg("Error", res.message)
+          this.toasterService.pop('error', 'Error', res.message);
           this._CommonService.hideLoading();
         }
       }
     }, error => {
       this._CommonService.hideLoading();
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -154,7 +156,7 @@ export class UserComponent implements OnInit {
         this.userRoleList = res;
       }
     }, error => {
-      this._CommonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 

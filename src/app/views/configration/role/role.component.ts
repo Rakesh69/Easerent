@@ -6,6 +6,7 @@ import { dataConstant } from '../../../constant/dataConstant';
 import { NgbdModalContentComponent } from '../../../shared/ngbd-modal-content/ngbd-modal-content.component';
 import { debounce } from 'rxjs/operator/debounce';
 import { map } from 'rxjs/operators';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-role',
@@ -34,7 +35,9 @@ export class RoleComponent implements OnInit {
 
   constructor(private _roleService: RoleService,
     private _commonService: CommonService,
-    private modalService: NgbModal, ) { }
+    private modalService: NgbModal,
+    private toasterService: ToasterService
+  ) { }
 
   ngOnInit() {
     this.GetRoleList();
@@ -50,7 +53,7 @@ export class RoleComponent implements OnInit {
       }
     }, error => {
       this._commonService.hideLoading();
-      this._commonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -72,7 +75,7 @@ export class RoleComponent implements OnInit {
       }
     }, error => {
       this._commonService.hideLoading();
-      this._commonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -107,15 +110,15 @@ export class RoleComponent implements OnInit {
           if (res) {
             if (res.status == 200) {
               this.GetRoleList();
-              this._commonService.toastSuccessMsg("Success", res.message)
+              this.toasterService.pop('sucess', 'Success', res.message);
             }
             else {
-              this._commonService.toastErrorMsg("Error", res.message)
+              this.toasterService.pop('error', 'Error', res.message);
             }
           }
         }, error => {
           this._commonService.hideLoading();
-          this._commonService.toastErrorMsg("Error", error)
+          this.toasterService.pop('error', 'Error', error);
         })
       }
     });
@@ -148,15 +151,15 @@ export class RoleComponent implements OnInit {
           this._commonService.hideLoading();
           this.GetRoleList();
           this.modalReference.close();
-          this._commonService.toastSuccessMsg("Success", res.message)
+          this.toasterService.pop('sucess', 'Success', res.message);
         }
         else {
-          this._commonService.toastErrorMsg("Error", res.message)
+          this.toasterService.pop('error', 'Error', res.message);
         }
       }
     }, error => {
       this._commonService.hideLoading();
-      this._commonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 
@@ -173,7 +176,7 @@ export class RoleComponent implements OnInit {
       }
     }, error => {
       this._commonService.hideLoading();
-      this._commonService.toastErrorMsg("Error", error)
+      this.toasterService.pop('error', 'Error', error);
     })
   }
 

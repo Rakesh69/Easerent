@@ -44,7 +44,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LoginComponent } from './views/login/login.component';
 import { LoginService } from './views/login/login.service';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from 'angular2-datatable';
 import { NgbdModalContentComponent } from './shared/ngbd-modal-content/ngbd-modal-content.component';
@@ -69,7 +68,6 @@ import { WebcamModule } from 'ngx-webcam';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     HttpClientModule,
-    ToastrModule.forRoot(),
     ToasterModule.forRoot(),
     NgxSpinnerModule,
     HttpClientModule,
