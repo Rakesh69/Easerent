@@ -11,12 +11,20 @@ import { ResetPasswordComponent } from './views/reset-password/reset-password.co
 import { SignupComponent } from './views/signup/signup.component';
 import { PropertiesComponent } from './views/properties/properties.component';
 import { AccountAtivationComponent } from './views/account-ativation/account-ativation.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+  },
+  {
+    path: 'landing',
+    component: LandingPageComponent,
+    data: {
+      title: 'Landing Page'
+    },
   },
   {
     path: 'signup',
