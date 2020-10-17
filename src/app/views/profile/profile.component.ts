@@ -22,7 +22,8 @@ export class ProfileComponent implements OnInit {
 
   createForm(): void {
     this.profileForm = this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      firstName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      lastName: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       email: new FormControl('', [Validators.required, isValidEmail, Validators.maxLength(100)]),
       phoneNumber: new FormControl('', [Validators.required, isNumber, Validators.minLength(10),  Validators.maxLength(10)])
     })

@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { PropertiesComponent } from './views/properties/properties.component';
+import { AccountAtivationComponent } from './views/account-ativation/account-ativation.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,13 @@ export const routes: Routes = [
     component: ResetPasswordComponent,
     data: {
       title: 'Reset Password Page'
+    },
+  },
+  {
+    path: 'activeUser/:activationCode/:userId',
+    component: AccountAtivationComponent,
+    data: {
+      title: 'Account Activation'
     },
   },
   {

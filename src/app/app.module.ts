@@ -54,6 +54,7 @@ import { SignupComponent } from './views/signup/signup.component';
 import { ToasterModule } from 'angular2-toaster';
 import { TakePhotoModalComponent } from './shared/ngbd-modal-content/custom-components/take-photo-modal/take-photo-modal.component';
 import { WebcamModule } from 'ngx-webcam';
+import { AccountAtivationComponent } from './views/account-ativation/account-ativation.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -88,6 +89,7 @@ import { WebcamModule } from 'ngx-webcam';
     ResetPasswordComponent,
     SignupComponent,
     TakePhotoModalComponent,
+    AccountAtivationComponent,
   ],
   entryComponents: [NgbdModalContentComponent, TakePhotoModalComponent],
   providers: [AuthGuard,LoginService,

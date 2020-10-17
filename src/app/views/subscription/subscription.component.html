@@ -1,5 +1,5 @@
-<div class="animated fadeIn bg-white rounded p-3" id="subscriptionCard" >
-    <div class="card-deck text-center w-50 m-auto">
+<div class="animated fadeIn bg-white rounded" id="subscriptionCard" >
+    <!-- <div class="card-deck text-center w-50 m-auto">
         <div class="card my-4 box-shadow border border-info text-info" [ngClass]="{'active': isActive === 0}" (click)="isActive=0" >
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Pro</h4>
@@ -31,5 +31,74 @@
                 <button type="button" class="btn btn-lg btn-block btn-warning">Contact us</button>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Service</th>
+                <th scope="col">Basic</th>
+                <th scope="col">Premimum</th>
+                <th scope="col">Pro</th>
+                <th scope="col">Enterprise</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Monthly Pricing</td>
+                <td>₹99.00</td>
+                <td>₹299.00</td>
+                <td>₹499.00</td>
+                <td>Contact Sales</td>
+            </tr>
+
+            <tr>
+                <td># of Properties</td>
+                <td>1</td>
+                <td>2 - 4</td>
+                <td>5 - 8</td>
+                <td>Unlimited</td>
+            </tr>
+
+            <tr>
+                <td>Rent Payment</td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr>
+                <td>Security Deposit Payment / Refund</td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+            </tr>
+            
+            <tr>
+                <td>Brokerage Fee Colletion</td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr>
+                <td>Move In / Move Out</td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+            </tr>
+
+            <tr>
+                <td>Documents on Cloud</td>
+                <td>up to 2 GB</td>
+                <td>10 GB</td>
+                <td>25 GB</td>
+                <td><i class="fa fa-check fa-2x text-success" aria-hidden="true"></i></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
