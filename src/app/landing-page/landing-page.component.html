@@ -13,22 +13,26 @@
 
 
 <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
+<header class="header-area header-sticky" >
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">Training<em> Studio</em></a>
+                    <a href="index.html" class="logo">
+                        <img src="assets/mainlogo.png" alt="" srcset="" class="logoImg">
+                    </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="#features">About</a></li>
-                        <li class="scroll-to-section"><a href="#our-classes">Classes</a></li>
-                        <li class="scroll-to-section"><a href="#schedule">Schedules</a></li>
-                        <li class="scroll-to-section"><a href="#contact-us">Contact</a></li>
-                        <li class="main-button"><a href="#">Sign Up</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(aboutUs)" class="active">Home</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(aboutUs)" >About Us</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(howItsWork)" >How It's works</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(pricing)" >Pricing</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(faq)" >FAQ</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" >Contact Us</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" >Policy & Term</a></li>
+                        <li class="main-button"><a href="#">Sign In</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -42,15 +46,17 @@
 <!-- ***** Header Area End ***** -->
 
 <!-- ***** Main Banner Area Start ***** -->
-<div class="main-banner" id="top">
-    <video autoplay muted loop id="bg-video">
+<div class="main-banner" id="home" #home>
+    <!-- <video autoplay muted loop id="bg-video">
         <source src="assets/images/gym-video.mp4" type="video/mp4" />
-    </video>
+    </video> -->
+
+    <img id="bg-image" src="assets/images/home-getty.jpg" alt="" srcset="">
 
     <div class="video-overlay header-text">
         <div class="caption">
-            <h6>work harder, get stronger</h6>
-            <h2>easy with our <em>gym</em></h2>
+            <!-- <h6>work harder, get stronger</h6> -->
+            <h2>Ease <em>Rent</em></h2>
             <div class="main-button scroll-to-section">
                 <a href="#features">Become a member</a>
             </div>
@@ -59,8 +65,445 @@
 </div>
 <!-- ***** Main Banner Area End ***** -->
 
+<section class="section" id="aboutUs" #aboutUs>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="section-heading">
+                    <h2>About <em>Us</em></h2>
+                    <img src="assets/images/line-dec.png" alt="waves">
+                    <p class="text-left">Wherever you want to move – we are already there.” We are passionate about
+                        fulfilling even the most demanding property requests. Our experienced real estate agents are on
+                        hand in 34 countries on five continents. So no matter where you are, you can rely on us to take
+                        care of your property needs on an individual basis with the utmost professionalism. You are
+                        welcome to take us up on that!</p>
+                    <p class="text-left mt-3">
+                        At present, 99acres.com prides itself for having around nine lakh property listings spanning
+                        across 600+ cities in India. Of all, the website held over 5.7 lakh paid listings at the end of
+                        FY 2018-19. In addition to providing an online platform to real estate developers, brokers and
+                        property owners for listing their property for sale, purchase or rent, 99acres.com offers
+                        advertisement stints such as microsites, banners, home page links and project pages to the
+                        clients for better visibility and branding in the market.
+                        With the ever-evolving online search behaviour, 99acres.com shares updated information pertinent
+                        to real estate activities, assisting prospective buyers to make informed buying decision. We
+                        make online property search easier, quicker and smarter!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section bg-white" id="howItsWork" #howItsWork>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="section-heading">
+                    <h2>HOW IT'S <em>WORKS</em></h2>
+                    <img src="assets/images/line-dec.png" alt="waves">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="features-items">
+                    <div class="feature-item">
+                        <div class="left-icon">
+                            <div class="icon" >
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="right-content">
+                            <h4>Search for a Home</h4>
+                            <ol class="ml-3">
+                                <li>Sign up and search for a home for free</li>
+                                <li>We visit every property so each unit is verified</li>
+                                <li>If you like what you see, save the listing to your dashboard so you can compare your favourites later</li>
+                            </ol>
+                            <!-- <a href="#" class="text-button">Discover More</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="features-items">
+                    <div class="feature-item">
+                        <div class="left-icon">
+                            <div class="icon" >
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="right-content">
+                            <h4>Talk to Landlords</h4>
+                            <ol class="ml-3">
+                                <li>Message landlords as you search</li>
+                                <li>Setup a time to meet, see the apartment or just ask questions</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="features-items">
+                    <div class="feature-item">
+                        <div class="left-icon">
+                            <div class="icon" >
+                                <i class="fa fa-laptop" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="right-content">
+                            <h4>Manage Your Account</h4>
+                            <ol class="ml-3">
+                                <li>Visit your dashboard to check your messages from landlords</li>
+                                <li>Change account info</li>
+                                <li>Browse your saved apartments</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="features-items">
+                    <div class="feature-item">
+                        <div class="left-icon">
+                            <div class="icon" >
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="right-content">
+                            <h4>Home</h4>
+                            <ol class="ml-3">
+                                <li>Visit your dashboard to check your messages from landlords</li>
+                                <li>Change account info</li>
+                                <li>Browse your saved apartments</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="pricing" #pricing>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="section-heading mb-2">
+                    <h2>Our <em>Pricing</em></h2>
+                    <img src="assets/images/line-dec.png" alt="waves">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="snip1214">
+                    <div class="plan">
+                        <h3 class="plan-title">
+                            Starter
+                        </h3>
+                        <div class="plan-cost"><span class="plan-price">₹99</span><span class="plan-type">/
+                                Monthly</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Properties 1</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Rent Payment</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Security Deposit Payment /
+                                Refund</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Brokerage Fee Colletion</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Move In / Move Out</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Documents on Cloud Up To 2
+                                GB</li>
+                        </ul>
+                        <div class="plan-select"><a href="">Upgrade Plan</a></div>
+                    </div>
+                    <div class="plan">
+                        <h3 class="plan-title">
+                            Basic
+                        </h3>
+                        <div class="plan-cost"><span class="plan-price">₹299</span><span class="plan-type">/
+                                Monthly</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Properties 2 - 4</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Rent Payment</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Security Deposit Payment /
+                                Refund</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Brokerage Fee Colletion</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Move In / Move Out</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Documents on Cloud Up To 10
+                                GB</li>
+                        </ul>
+                        <div class="plan-select"><a href="">Upgrade Plan</a></div>
+                    </div>
+                    <div class="plan featured">
+                        <h3 class="plan-title">
+                            Professional
+                        </h3>
+                        <div class="plan-cost"><span class="plan-price">₹499</span><span class="plan-type">/
+                                Monthly</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Properties 5 - 8</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Rent Payment</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Security Deposit Payment /
+                                Refund</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Brokerage Fee Colletion</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Move In / Move Out</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Documents on Cloud Up To 25
+                                GB</li>
+                        </ul>
+                        <div class="plan-select"><a href="">Selected Plan</a></div>
+                    </div>
+                    <div class="plan">
+                        <h3 class="plan-title">
+                            Ultra
+                        </h3>
+                        <div class="plan-cost"><span class="plan-price">Contact</span><span class="plan-type">/
+                                Monthly</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Unlimmited</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Rent Payment</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Security Deposit Payment /
+                                Refund</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Brokerage Fee Colletion</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Move In / Move Out</li>
+                            <li><i class="fa fa-check text-warning " aria-hidden="true"></i>Unlimmited</li>
+                        </ul>
+                        <div class="plan-select"><a href="">Upgrade Plan</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-white" id="faq" #faq>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="section-heading mb-2">
+                    <h2>Frequently Asked <em>Questions</em></h2>
+                    <img src="assets/images/line-dec.png" alt="waves">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="mb-5">
+                    <div class="d-sm-flex align-items-start mb-2">
+                        <div class="d-none d-sm-flex flex-column align-items-center mr-4">
+                            <div class="p-3 bg-light rounded-circle">
+                                <i class="fa fa-question text-warning " aria-hidden="true"></i>
+                            </div>
+                            <small class="text-warning text-uppercase mt-2">Question</small>
+                        </div>
+                        <div class="p-3 rounded bg-light text-dark w-100">
+                            <p class="mb-0">HOW DO I APPLY FOR A HOME?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="p-3 rounded bg-dark w-100">
+                            <p class="mb-0 text-white">When you have found a home that you would like to apply for, make sure you take note of the street address and then click here to apply online.</p>
+                        </div>
+                        <div class="d-none d-sm-flex flex-column align-items-center ml-4">
+                            <div class="p-3 bg-dark rounded-circle">
+                                <i class="fa fa-life-ring text-success" aria-hidden="true"></i>
+                            </div>
+                            <small class="text-success text-uppercase mt-2">Answer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mx-auto">
+                <div class="mb-5">
+                    <div class="d-sm-flex align-items-start mb-2">
+                        <div class="d-none d-sm-flex flex-column align-items-center mr-4">
+                            <div class="p-3 bg-light rounded-circle">
+                                <i class="fa fa-question text-warning " aria-hidden="true"></i>
+                            </div>
+                            <small class="text-warning text-uppercase mt-2">Question</small>
+                        </div>
+                        <div class="p-3 rounded bg-light text-dark w-100">
+                            <p class="mb-0">WHAT ARE THE FEES?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="p-3 rounded bg-dark w-100">
+                            <p class="mb-0 text-white">There are no up-front fees to give you information or to show homes to you. Once you decide you would like to lease one of our properties there is a $45 application fee.</p>
+                        </div>
+                        <div class="d-none d-sm-flex flex-column align-items-center ml-4">
+                            <div class="p-3 bg-dark rounded-circle">
+                                <i class="fa fa-life-ring text-success" aria-hidden="true"></i>
+                            </div>
+                            <small class="text-success text-uppercase mt-2">Answer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mx-auto">
+                <div class="mb-5">
+                    <div class="d-sm-flex align-items-start mb-2">
+                        <div class="d-none d-sm-flex flex-column align-items-center mr-4">
+                            <div class="p-3 bg-light rounded-circle">
+                                <i class="fa fa-question text-warning " aria-hidden="true"></i>
+                            </div>
+                            <small class="text-warning text-uppercase mt-2">Question</small>
+                        </div>
+                        <div class="p-3 rounded bg-light text-dark w-100">
+                            <p class="mb-0">WHERE ARE HOMES AVAILABLE?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="p-3 rounded bg-dark w-100">
+                            <p class="mb-0 text-white">We have homes throughout the greater Kansas City metro with a focus on rental homes in Johnson County. This gives you plenty of options. Whether you are looking for a home in the suburbs or a place in the city, Home Rental Services has you covered. Our connections with many of the large corporations in the Kansas City area provide a constant supply of executive level homes throughout the area. The Kansas City area can be confusing. The Greater Kansas City area includes 2 states (Kansas and Missouri) and about 7 counties. We have properties in Overland Park, Lenexa, Leawood, Olathe, Shawnee, Shawnee Mission, Fairway, Mission Hills, Lee's Summit, Brookside, Kansas City and more. We specialize in Johnson County rental homes.</p>
+                        </div>
+                        <div class="d-none d-sm-flex flex-column align-items-center ml-4">
+                            <div class="p-3 bg-dark rounded-circle">
+                                <i class="fa fa-life-ring text-success" aria-hidden="true"></i>
+                            </div>
+                            <small class="text-success text-uppercase mt-2">Answer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            
+            <div class="col-md-8 mx-auto">
+                <div class="mb-5">
+                    <div class="d-sm-flex align-items-start mb-2">
+                        <div class="d-none d-sm-flex flex-column align-items-center mr-4">
+                            <div class="p-3 bg-light rounded-circle">
+                                <i class="fa fa-question text-warning " aria-hidden="true"></i>
+                            </div>
+                            <small class="text-warning text-uppercase mt-2">Question</small>
+                        </div>
+                        <div class="p-3 rounded bg-light text-dark w-100">
+                            <p class="mb-0">WHAT IS THE PRICE RANGE OF YOUR HOMES?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="p-3 rounded bg-dark w-100">
+                            <p class="mb-0 text-white">Our homes and townhomes range from $900 - $5,000 per month.</p>
+                        </div>
+                        <div class="d-none d-sm-flex flex-column align-items-center ml-4">
+                            <div class="p-3 bg-dark rounded-circle">
+                                <i class="fa fa-life-ring text-success" aria-hidden="true"></i>
+                            </div>
+                            <small class="text-success text-uppercase mt-2">Answer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+
+            <div class="col-md-8 mx-auto">
+                <div class="mb-5">
+                    <div class="d-sm-flex align-items-start mb-2">
+                        <div class="d-none d-sm-flex flex-column align-items-center mr-4">
+                            <div class="p-3 bg-light rounded-circle">
+                                <i class="fa fa-question text-warning " aria-hidden="true"></i>
+                            </div>
+                            <small class="text-warning text-uppercase mt-2">Question</small>
+                        </div>
+                        <div class="p-3 rounded bg-light text-dark w-100">
+                            <p class="mb-0">WHAT IS THE TYPICAL LENGTH OF LEASE?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="p-3 rounded bg-dark w-100">
+                            <p class="mb-0 text-white">The majority of our leases are for one year or longer. If you are looking for something shorter than a year, please call us to discuss your options.</p>
+                        </div>
+                        <div class="d-none d-sm-flex flex-column align-items-center ml-4">
+                            <div class="p-3 bg-dark rounded-circle">
+                                <i class="fa fa-life-ring text-success" aria-hidden="true"></i>
+                            </div>
+                            <small class="text-success text-uppercase mt-2">Answer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</section>
+
+
+<!-- ***** Contact Us Area Starts ***** -->
+<section class="section p-0" id="contactUs" #contactUs>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div id="map">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="contact-form">
+                    <form id="contact" action="" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    <input name="name" type="text" id="name" placeholder="Your Name*" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <fieldset>
+                                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
+                                        placeholder="Your Email*" required="">
+                                </fieldset>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <fieldset>
+                                    <input name="subject" type="text" id="subject" placeholder="Subject">
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <textarea name="message" rows="6" id="message" placeholder="Message"
+                                        required=""></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Contact Us Area Ends ***** -->
+
+
+
+<!-- ***** Footer Start ***** -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; 2020 Training Studio
+
+                    - Designed by <a rel="nofollow" href="https://templatemo.com" class="tm-text-link"
+                        target="_parent">TemplateMo</a></p>
+
+                <!-- You shall support us a little via PayPal to info@templatemo.com -->
+
+            </div>
+        </div>
+    </div>
+</footer>
+
 <!-- ***** Features Item Start ***** -->
-<section class="section" id="features">
+<!-- <section class="section" id="features">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
@@ -149,11 +592,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- ***** Features Item End ***** -->
 
 <!-- ***** Call to Action Start ***** -->
-<section class="section" id="call-to-action">
+<!-- <section class="section" id="call-to-action">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
@@ -168,11 +611,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- ***** Call to Action End ***** -->
 
 <!-- ***** Our Classes Start ***** -->
-<section class="section" id="our-classes">
+<!-- <section class="section" id="our-classes">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
@@ -247,10 +690,10 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- ***** Our Classes End ***** -->
 
-<section class="section" id="schedule">
+<!-- <section class="section" id="schedule">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
@@ -315,10 +758,10 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- ***** Testimonials Starts ***** -->
-<section class="section" id="trainers">
+<!-- <section class="section" id="trainers">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
@@ -390,73 +833,5 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- ***** Testimonials Ends ***** -->
-
-<!-- ***** Contact Us Area Starts ***** -->
-<section class="section" id="contact-us">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-xs-12">
-                <div id="map">
-                    <iframe
-                        src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                        width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-xs-12">
-                <div class="contact-form">
-                    <form id="contact" action="" method="post">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <fieldset>
-                                    <input name="name" type="text" id="name" placeholder="Your Name*" required="">
-                                </fieldset>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <fieldset>
-                                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
-                                        placeholder="Your Email*" required="">
-                                </fieldset>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <fieldset>
-                                    <input name="subject" type="text" id="subject" placeholder="Subject">
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <textarea name="message" rows="6" id="message" placeholder="Message"
-                                        required=""></textarea>
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-12">
-                                <fieldset>
-                                    <button type="submit" id="form-submit" class="main-button">Send Message</button>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ***** Contact Us Area Ends ***** -->
-
-<!-- ***** Footer Start ***** -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; 2020 Training Studio
-
-                    - Designed by <a rel="nofollow" href="https://templatemo.com" class="tm-text-link"
-                        target="_parent">TemplateMo</a></p>
-
-                <!-- You shall support us a little via PayPal to info@templatemo.com -->
-
-            </div>
-        </div>
-    </div>
-</footer>

@@ -53,4 +53,9 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  scrollToElement($element: HTMLElement): void {
+    console.log($element);
+    $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+  }
 }

@@ -24,6 +24,7 @@
                             <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
                             <div class="box-content">
                                 <h3 class="title">Bedroom</h3>
+                                <h3 class="number">{{addPropertyDetailForm.get('bedroom').value}}</h3>
                                 <ul class="social">
                                     <li><a [ngClass]="(addPropertyDetailForm.get('bedroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bedroom').setValue(addPropertyDetailForm.get('bedroom').value - 1)"><i class="fa fa-minus"></i></a></li>
                                     <li><span class="number-item">{{addPropertyDetailForm.get('bedroom').value}}</span></li>
@@ -39,6 +40,7 @@
                             <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><circle cx="7" cy="7" r="2"></circle><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z"></path></svg>
                             <div class="box-content">
                                 <h3 class="title">Bathroom</h3>
+                                <h3 class="number">{{addPropertyDetailForm.get('bathroom').value}}</h3>
                                 <ul class="social">
                                     <li><a [ngClass]="(addPropertyDetailForm.get('bathroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bathroom').setValue(addPropertyDetailForm.get('bathroom').value - 1)"><i class="fa fa-minus"></i></a></li>
                                     <li><span class="number-item">{{addPropertyDetailForm.get('bathroom').value}}</span></li>
@@ -88,6 +90,7 @@
                                         <svg class="MuiSvgIcon-root jss80" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Fan</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('fan').value}}</h3>
                                             <ul class="social">
                                                 <li><a [ngClass]="(addPropertyDetailForm.get('fan').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('fan').setValue(addPropertyDetailForm.get('fan').value - 1)"><i class="fa fa-minus"></i></a></li>
                                                 <li><span class="number-item">{{addPropertyDetailForm.get('fan').value}}</span></li>
@@ -102,6 +105,7 @@
                                         <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h1.33L4 19h1l.67-2h12.67l.66 2h1l.67-2H22v-5c0-1.1-.9-2-2-2zm-9 0H6V7h5v3zm7 0h-5V7h5v3z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Sofa</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('sofa').value}}</h3>
                                             <ul class="social">
                                                 <li><a [ngClass]="(addPropertyDetailForm.get('sofa').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('sofa').setValue(addPropertyDetailForm.get('sofa').value - 1)"><i class="fa fa-minus"></i></a></li>
                                                 <li><span class="number-item">{{addPropertyDetailForm.get('sofa').value}}</span></li>
@@ -116,6 +120,7 @@
                                         <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" aria-describedby="mui-80933"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">TV</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('tv').value}}</h3>
                                             <ul class="social">
                                                 <li><a [ngClass]="(addPropertyDetailForm.get('tv').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('tv').setValue(addPropertyDetailForm.get('tv').value - 1)"><i class="fa fa-minus"></i></a></li>
                                                 <li><span class="number-item">{{addPropertyDetailForm.get('tv').value}}</span></li>
@@ -130,6 +135,7 @@
                                         <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Bed</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('bed').value}}</h3>
                                             <ul class="social">
                                                 <li><a [ngClass]="(addPropertyDetailForm.get('bed').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bed').setValue(addPropertyDetailForm.get('bed').value - 1)"><i class="fa fa-minus"></i></a></li>
                                                 <li><span class="number-item">{{addPropertyDetailForm.get('bed').value}}</span></li>
