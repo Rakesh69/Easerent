@@ -13,7 +13,7 @@
 
 
 <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky" >
+<header class="header-area header-sticky" [ngClass]="{'background-header': 'home' !== currentActive}" >
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -25,13 +25,13 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(aboutUs)" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(aboutUs)" >About Us</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(howItsWork)" >How It's works</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(pricing)" >Pricing</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(faq)" >FAQ</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" >Contact Us</a></li>
-                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" >Policy & Term</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(home)" [ngClass]="{'active': 'home' === currentActive}">Home</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(aboutUs)" [ngClass]="{'active': 'aboutUs' === currentActive}" >About Us</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(howItsWork)" [ngClass]="{'active': 'howItsWork' === currentActive}" >How It's works</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(pricing)" [ngClass]="{'active': 'pricing' === currentActive}" >Pricing</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(faq)" [ngClass]="{'active': 'faq' === currentActive}" >FAQ</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" [ngClass]="{'active': 'contactUs' === currentActive}" >Contact Us</a></li>
+                        <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" [ngClass]="{'active': 'contactUs' === currentActive}" >Policy & Term</a></li>
                         <li class="main-button"><a href="#">Sign In</a></li>
                     </ul>
                     <a class='menu-trigger'>
