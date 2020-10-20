@@ -334,7 +334,7 @@ export class RentPaymentComponent implements OnInit {
 
     localStorage.setItem('rentPayment', JSON.stringify(rentPayment));
 
-    this.router.navigateByUrl('/rentPayment/summary');
+    this.router.navigateByUrl('/admin/rentPayment/summary');
   }
 
   deleteAttachment(i: number): void {

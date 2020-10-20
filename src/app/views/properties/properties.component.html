@@ -1,14 +1,14 @@
 <div class="animated fadeIn bg-white rounded p-3 h-100" *ngIf="PropertyData && PropertyData.length === 0"  >
   <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
     <div class="h3 text-muted text-capitalize" >no properties found please add.</div>
-    <button class="btn btn-primary" type="button" [routerLink]="['/properties/add']" >Add property</button>
+    <button class="btn btn-primary" type="button" [routerLink]="['/admin/properties/add']" >Add property</button>
   </div>
 </div>
 
 <div class="animated fadeIn bg-white rounded p-3" *ngIf="PropertyData && PropertyData.length > 0" >
   <div class="row">
     <div class="col-md-12 mb-10" style="text-align:right;margin-bottom:20px">
-      <button class="btn btn-primary" type="button" [routerLink]="['/properties/add']" >Add property</button>
+      <button class="btn btn-primary" type="button" [routerLink]="['/admin/properties/add']" >Add property</button>
     </div>
   </div>
 

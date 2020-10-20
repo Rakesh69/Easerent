@@ -34,37 +34,42 @@ export interface NavData {
 export const navItems: NavData[] = [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/admin/dashboard',
     icon: 'icon-speedometer',
   },
   {
     name: 'Properties',
-    url: '/properties',
+    url: '/admin/properties',
     icon: 'icon-home',
   },
   {
     name: 'Rent Payment',
-    url: '/rentPayment',
+    url: '/admin//rentPayment',
     icon: 'icon-note',
   },
   {
     name: 'Move-in/Move-Out',
-    url: '/moveInOut',
+    url: '/admin/moveInOut',
     icon: 'icon-directions',
   },
   {
     name: 'Bills / Utilities',
-    url: '/billsUtilities',
+    url: '/admin/billsUtilities',
     icon: 'icon-energy',
   },
   {
     name: 'Refer a Friend',
-    url: '/referral',
+    url: '/admin/referral',
     icon: 'icon-people',
   },
   {
     name: 'Documents',
-    url: '/documents',
+    url: '/admin/documents',
     icon: 'icon-doc',
+  },
+  {
+    name: 'Tenants',
+    url: '/admin/tenants',
+    icon: 'icon-user-following',
   },
 ];

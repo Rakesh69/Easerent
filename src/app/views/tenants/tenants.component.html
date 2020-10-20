@@ -1,0 +1,155 @@
+<div class="animated fadeIn h-100 bg-white rounded" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Property Image</th>
+                <th scope="col">Property Name</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\1.jpg" alt="Card image cap">
+                </td>
+                <td>Mark</td>
+                <td>
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="paymentModal.show()" >Pay</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\2.jpg" alt="Card image cap">
+                </td>
+                <td>Jacob</td>
+                <td>
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="paymentModal.show()" >Pay</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\3.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="paymentModal.show()" >Pay</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\4.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="paymentModal.show()" >Pay</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>
+                    <img class="card-img-top propertyImage img-thumbnail" src="assets\img\Properties\5.jpg" alt="Card image cap">
+                </td>
+                <td>Larry</td>
+                <td>
+                    <button type="button" class="btn btn-primary mt-3 mb-4" (click)="paymentModal.show()" >Pay</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div bsModal #paymentModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Payment</h4>
+                <button type="button" class="close" (click)="paymentModal.hide();paymentForm.reset();" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="fromData" role="form" [formGroup]="paymentForm" *ngIf="paymentForm"  (submit)="formSubmit()" autocomplete="off" >
+                    <div class="container">
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" placeholder="Valid Card Number"  formControlName="cardNumber" [ngClass]="{ 'isInvalid': isPaymentFormSubmittedAndError('cardNumber') }" maxlength="24" required/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <span class="fa fa-credit-card"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+    
+                                    <span class="required">*</span>
+                                    <div *ngIf="isPaymentFormSubmittedAndError('cardNumber')" class="invalid-feedback">
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cardNumber', 'required')">Card number is required.</div>
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cardNumber', 'isNumber', ['required'])">Card number is digit only.</div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label>EXPIRATION DATE</label>
+                                    <input type="tel" class="form-control" placeholder="MM / YY" [ngClass]="{ 'isInvalid': isPaymentFormSubmittedAndError('exprirationDate') }" maxlength="20" required />
+
+                                    <span class="required">*</span>
+                                    <div *ngIf="isPaymentFormSubmittedAndError('exprirationDate')" class="invalid-feedback">
+                                        <div *ngIf="isPaymentFormSubmittedAndError('exprirationDate', 'required')">Expriration date is required.</div>
+                                        <div *ngIf="isPaymentFormSubmittedAndError('exprirationDate', 'isNumber', ['required'])">Expriration date is digit only.</div>
+                                    </div>      
+                                </div>
+                            </div>
+
+                            <div class="col-xs-5 col-md-5 float-xs-right">
+                                <div class="form-group">
+                                    <label>CV CODE</label>
+                                    <input type="tel" class="form-control" placeholder="CVC" [ngClass]="{ 'isInvalid': isPaymentFormSubmittedAndError('cvCode') }" minlength="3" maxlength="3" required  />
+
+                                    <span class="required">*</span>
+                                    <div *ngIf="isPaymentFormSubmittedAndError('cvCode')" class="invalid-feedback">
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cvCode', 'required')">CVC code is required.</div>
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cvCode', 'isNumber', ['required'])">CVC code is digit only.</div>
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cvCode', 'minlength', ['required', 'isNumber'])">CVC code must be 3 digit.</div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>CARD OWNER</label>
+                                    <input type="text" class="form-control" placeholder="Card Owner Names"[ngClass]="{ 'isInvalid': isPaymentFormSubmittedAndError('cardOwnerName') }" maxlength="100" required />
+
+                                    <span class="required">*</span>
+                                    <div *ngIf="isPaymentFormSubmittedAndError('cardOwnerName')" class="invalid-feedback">
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cardOwnerName', 'required')">Card owner name is required.</div>
+                                        <div *ngIf="isPaymentFormSubmittedAndError('cardOwnerName', 'isAlphabet', ['required'])">Card owner name is alphabet only.</div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-warning btn-block">Process payment</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

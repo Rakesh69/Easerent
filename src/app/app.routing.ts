@@ -9,18 +9,17 @@ import { AuthGuard } from './common/auth.guard';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
 import { SignupComponent } from './views/signup/signup.component';
-import { PropertiesComponent } from './views/properties/properties.component';
 import { AccountAtivationComponent } from './views/account-ativation/account-ativation.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard',
+  //   pathMatch: 'full',
+  // },
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
-  {
-    path: 'landing',
     component: LandingPageComponent,
     data: {
       title: 'Landing Page'
@@ -62,12 +61,17 @@ export const routes: Routes = [
     },
   },
   {
-    path: '',
+    path: 'admin',
     component: DefaultLayoutComponent,
     data: {
       title: 'Home'
     },
     children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -107,6 +111,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'tenants',
+        loadChildren: () => import('./views/tenants/tenants.module').then(m => m.TenantsModule),
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'referral',
         loadChildren: () => import('./views/referral/referral.module').then(m => m.ReferralModule),
         canActivate: [AuthGuard],
@@ -136,13 +145,9 @@ export const routes: Routes = [
   // { path: '**', component: P404Component }
 ];
 
-const routerOptions: ExtraOptions = {
-  useHash: false,
-  anchorScrolling: 'enabled'
-};
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, routerOptions)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

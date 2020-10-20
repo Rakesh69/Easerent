@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     } else {
       this._CommonService.showLoading();
       localStorage.setItem('token', JSON.stringify("ASerfdsewrewrvnvjfkkfgfkdgfdgfdkgfdkg"));
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/admin/dashboard']);
       this._CommonService.hideLoading();
       //this._LoginService.login(this.authenticationData)
       //    .subscribe((response: any) => {
