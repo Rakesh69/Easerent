@@ -32,7 +32,7 @@
                         <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(faq)" [ngClass]="{'active': 'faq' === currentActive}" >FAQ</a></li>
                         <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" [ngClass]="{'active': 'contactUs' === currentActive}" >Contact Us</a></li>
                         <li class="scroll-to-section"><a href="javascript:;" (click)="scrollToElement(contactUs)" [ngClass]="{'active': 'contactUs' === currentActive}" >Policy & Term</a></li>
-                        <li class="main-button"><a href="#">Sign In</a></li>
+                        <li class="main-button"><a href="javascript:;" [routerLink]="['/login']">Sign In</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

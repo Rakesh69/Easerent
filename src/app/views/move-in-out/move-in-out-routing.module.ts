@@ -21,7 +21,14 @@ const routes: Routes = [
         path: 'moveIn',
         loadChildren: () => import('./move-in/move-in.module').then(m => m.MoveInModule),
         data: {
-          title: 'Move-Id'
+          title: 'Move-In'
+        }
+      },
+      {
+        path: 'moveOut',
+        loadChildren: () => import('./move-out/move-out.module').then(m => m.MoveOutModule),
+        data: {
+          title: 'Move-Out'
         }
       },
       {
@@ -29,6 +36,13 @@ const routes: Routes = [
         loadChildren: () => import('./move-in-summary/move-in-summary.module').then(m => m.MoveInSummaryModule),
         data: {
           title: 'Summary'
+        }
+      },
+      {
+        path: 'moveOutSummary',
+        loadChildren: () => import('./move-out-summary/move-out-summary.module').then(m => m.MoveOutSummaryModule),
+        data: {
+          title: 'Move Out Summary'
         }
       },
     ]

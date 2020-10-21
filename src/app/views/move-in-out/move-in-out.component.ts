@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoveInOutComponent implements OnInit {
 
+  isMoveIn: boolean = true;
   isEmailInvitestionSend: boolean = false;
   constructor() { }
 

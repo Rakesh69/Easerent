@@ -1,0 +1,154 @@
+<div class="animated fadeIn h-100 bg-white rounded p-3" >
+    <div  class="row">
+        <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 mb-3">
+            <div class="w-100 h4 m-0">Move-in Summary</div>
+        </div>
+
+        <table class="w-100 table table-bordered">
+            <tr>
+                <td class="w-20" ></td>
+                <td class="w-40" >
+                    <div (click)="next()" class="alert alert-info m-0 text-center rounded-lg h-100" role="alert">
+                        <h4 class="alert-heading">Move In Summary(For reference)</h4>
+                    </div>
+                </td>
+                <td class="w-40" >
+                    <div class="alert alert-info m-0 text-center rounded-lg h-100" role="alert">
+                        <h4 class="alert-heading">Move Out Summary </h4>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <h3>Living Room</h3>
+                    </div>
+                </th>
+                <td>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <i class="fa fa-check-square-o fa-5x text-success" aria-hidden="true"></i>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <i class="fa fa-check-square-o fa-5x text-success" aria-hidden="true"></i>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <h3>Kitchen</h3>
+                    </div>
+                </th>
+                <td>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <i class="fa fa-check-square-o fa-5x text-success" aria-hidden="true"></i>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column w-100 h-100" [perfectScrollbar] *ngIf="dangerAttachments && dangerAttachments.length > 0" >
+                        <div class="table-responsive w-100" >
+                            <table class="w-100 table-sm table-danger">
+                                <tbody>
+                                    <tr *ngFor="let attachment of dangerAttachments;let i = index" >
+                                        <td>{{attachment['comments']}}</td>
+                                        <td>{{attachment['repaingCost'] || 0}}rs</td>
+                                        <td>
+                                            <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, false);" ></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- <div class="form-group w-100 mt-1 mb-0">
+                            <div class="comments" *ngIf="attchmentComments[0] === false" (click)="attchmentComments[0] = true" >
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i> Enter your comments
+                            </div>
+
+                            <div *ngIf="attchmentComments[0] === true" >
+                                <textarea class="form-control w-100" rows="2">comments</textarea>
+                                <button class="btn btn-primary btn-sm mt-2" (click)="attchmentComments[0] = false" >Submit</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <h3>Bathroom</h3>
+                    </div>
+                </th>
+                <td>
+                    <div class="d-flex flex-column w-100 h-100" [perfectScrollbar] *ngIf="successAttachments && successAttachments.length > 0" >
+                        <div class="table-responsive w-100" >
+                            <table class="w-100 table-sm table-success">
+                                <tbody>
+                                    <tr *ngFor="let attachment of successAttachments;let i = index" >
+                                        <td>{{attachment['comments']}}</td>
+                                        <td>{{attachment['repaingCost'] || 0}}rs</td>
+                                        <td>
+                                            <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, false);" ></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex  flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <i class="fa fa-check-square-o fa-5x text-success" aria-hidden="true"></i>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100">
+                        <h3>Bedroom</h3>
+                    </div>
+                </th>
+                <td>
+                    <div class="d-flex flex-column w-100 h-100" [perfectScrollbar] *ngIf="successAttachments && successAttachments.length > 0" >
+                        <div class="table-responsive w-100" >
+                            <table class="w-100 table-sm table-success">
+                                <tbody>
+                                    <tr *ngFor="let attachment of successAttachments;let i = index" >
+                                        <td>{{attachment['comments']}}</td>
+                                        <td>{{attachment['repaingCost'] || 0}}rs</td>
+                                        <td>
+                                            <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, false);" ></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-column w-100 h-100" [perfectScrollbar] *ngIf="dangerAttachments && dangerAttachments.length > 0" >
+                        <div class="table-responsive w-100" >
+                            <table class="w-100 table-sm table-danger">
+                                <tbody>
+                                    <tr *ngFor="let attachment of dangerAttachments;let i = index" >
+                                        <td>{{attachment['comments']}}</td>
+                                        <td>{{attachment['repaingCost'] || 0}}rs</td>
+                                        <td>
+                                            <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, false);" ></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

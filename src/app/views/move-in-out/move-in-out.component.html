@@ -16,8 +16,8 @@
                 </td>
                 <td>Mark</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=false;moveInOutModal.show();" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=true;moveInOutModal.show();" >Move-In</button>
                 </td>
             </tr>
             <tr>
@@ -27,8 +27,8 @@
                 </td>
                 <td>Jacob</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=false;moveInOutModal.show();" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=true;moveInOutModal.show();" >Move-In</button>
                 </td>
             </tr>
             <tr>
@@ -38,8 +38,8 @@
                 </td>
                 <td>Larry</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=false;moveInOutModal.show();" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=true;moveInOutModal.show();" >Move-In</button>
                 </td>
             </tr>
             <tr>
@@ -49,8 +49,8 @@
                 </td>
                 <td>Larry</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=false;moveInOutModal.show();" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=true;moveInOutModal.show();" >Move-In</button>
                 </td>
             </tr>
             <tr>
@@ -60,8 +60,8 @@
                 </td>
                 <td>Larry</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-Out</button>
-                    <button type="button" class="btn btn-primary" (click)="moveInOutModal.show()" >Move-In</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=false;moveInOutModal.show();" >Move-Out</button>
+                    <button type="button" class="btn btn-primary" (click)="isMoveIn=true;moveInOutModal.show();" >Move-In</button>
                 </td>
             </tr>
         </tbody>
@@ -74,19 +74,36 @@
 
 
 
-<div bsModal #moveInOutModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+<div bsModal #moveInOutModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-body">
-            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend">
-                <div class="w-100 h4 m-0 mt-3">Code Logic - Ensure additional property details are entered already.</div>
-                <div class="w-100 h4 m-0 my-3">If no, show only button to add property details.</div>
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend && isMoveIn">
+                <!-- <div class="w-100 h4 m-0 mt-3">Code Logic - Ensure additional property details are entered already.</div>
+                <div class="w-100 h4 m-0 my-3">If no, show only button to add property details.</div> -->
                 <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/admin/properties/add']" >Add Property</button>
+
+                <div class="w-100 h4 m-0 mt-3">
+                    Let's get you Moved-In
+                </div>
+                <div class="w-100 h6 m-0 mt-3">
+                    Make sure to inspect your entire new house and capture any issues/concerns.
+                </div>
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="isEmailInvitestionSend = true" >
+                    Start Move-In
+                </button>
             </div>
 
-            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend">
-                <div class="w-100 h4 m-0 mt-3">If yes, show this button to start move-in or move-out (Code Logic - show move-in or move-out button based on what was clicked by user earlier)</div>
-                <button type="button" class="btn btn-primary mt-3 mb-4 w-50" (click)="isEmailInvitestionSend = true" >Kick-off Move-In/Move-Out</button>
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100" *ngIf="!isEmailInvitestionSend && !isMoveIn">
+                <div class="w-100 h4 m-0 mt-3">
+                    Let's complete your Tenant's Moved-Out
+                </div>
+                <div class="w-100 h6 m-0 mt-3">
+                    Make sure to inspect your entire house and capture any issues/concerns.
+                </div>
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-50"  [routerLink]="['/admin/moveInOut/moveOut']" >
+                    Start Move-Out
+                </button>
             </div>
 
             <div class="d-flex flex-column justify-content-start align-items-start w-100 h-100" *ngIf="isEmailInvitestionSend">
@@ -99,7 +116,8 @@
                 </ul>
 
                 <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 h-100"   >
-                    <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/admin/moveInOut/moveIn']" >Let's Go</button>
+                    <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/admin/moveInOut/moveIn']" *ngIf="isMoveIn" >Let's Go</button>
+                    <button type="button" class="btn btn-primary mt-3 mb-4 w-50" [routerLink]="['/admin/moveInOut/moveOut']" *ngIf="!isMoveIn" >Let's Go</button>
                 </div>
             </div>
         </div>

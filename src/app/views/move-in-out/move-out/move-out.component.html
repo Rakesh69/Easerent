@@ -1,0 +1,284 @@
+<div class="animated fadeIn h-100 bg-white rounded p-3" >
+    <div class="row" *ngIf="!isStartMoveIn">
+        <div class="col-12">
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100">
+                <div class="w-100 h4 m-0 mt-3">Let's get you Moved-In</div>
+                <div class="w-100 h4 m-0 my-3">Make sure to inspect your entire new house and capture any issues/concerns.</div>
+            </div>
+       
+            <div class="d-flex flex-column text-center justify-content-center align-items-center w-100">
+                <button type="button" class="btn btn-primary mt-3 mb-4 w-25" (click)="initStepper()" >Start Move-In</button>
+            </div>  
+        </div>
+    </div>
+
+    <div *ngIf="isStartMoveIn">
+        <div id="stepper1" class="bs-stepper">
+            <div class="bs-stepper-header d-none">
+                <div class="step" data-target="#livingRoom" tooltip="Living Room">
+                    <button class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label d-none">Living Room</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#kitchen" tooltip="kitchen">
+                    <button class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label d-none">Kitchen</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bs-stepper-content">
+                <div id="livingRoom" class="content">
+                    <div  class="row">
+                        <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 mb-3 border-bottom">
+                            <div class="w-100 h4 m-0 mt-3">Living Room</div>
+                            <div class="w-100 h6 m-0 my-3">Inspect Windows, Floor, Door knobs, Lights, Fans, Sockets etc</div>
+                        </div>
+            
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="w-100 h6 m-0 mb-3">Move In Summary (For reference)</div>
+                            <div (click)="next()" class="alert alert-success m-0 text-center rounded-lg" role="alert">
+                                <h4 class="alert-heading">Good</h4>
+                                <p class="mb-0" >Everything inspected !!</p>
+                            </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-lg-8 border-left">   
+                            <div class="w-100 h6 m-0 mb-3">Move Out Actions</div>
+
+                            <div  class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="alert alert-danger m-0 text-center rounded-lg" role="alert" (click)="isWarningModal = true;addAttachment.show()" >
+                                        <h4 class="alert-heading">Open Issues</h4>
+                                        <!-- <p class="mb-0" >Notifying, but okay with not being foxed</p> -->
+                                    </div>  
+
+                                    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100">
+                                        <button type="button" class="btn btn-primary mt-3 w-100" (click)="isWarningModal = true;addAttachment.show()" >Add Attachment</button>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="alert alert-success m-0 text-center rounded-lg" role="alert" (click)="next()">
+                                        <h4 class="alert-heading">No Issues</h4>
+                                        <!-- <p class="mb-0" >Notifying, but okay with not being foxed</p> -->
+                                    </div>  
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="warningAttachments && warningAttachments.length > 0" >
+                                <div class="table-responsive w-100" >
+                                    <table class="table table-hover bg-white table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Comments</th>
+                                                <th scope="col">Repair Cost</th>
+                                                <th scope="col">Attachment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let attachment of warningAttachments;let i = index" >
+                                                <th scope="row">{{i + 1}}</th>
+                                                <td>{{attachment['comments']}}</td>
+                                                <td>{{attachment['repairCost']}}</td>
+                                                <td>
+                                                    <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, true);" ></i>
+                                                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteAttachment(i, true);" ></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button (click)="isStartMoveIn = false" class="btn btn-primary mr-3">Previous</button>
+                            <button (click)="next()" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="kitchen" class="content">
+                    <div  class="row">
+                        <div class="d-flex flex-column text-center justify-content-center align-items-center w-100 mb-3 border-bottom">
+                            <div class="w-100 h4 m-0 mt-3">Kitchen</div>
+                            <div class="w-100 h6 m-0 my-3">Inspect Windows, Floor, Door knobs, Lights, Fans, Sockets, Sink, Faucets etc.</div>
+                        </div>
+            
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="w-100 h6 m-0 mb-3">Move In Summary (For reference)</div>
+
+                            <div class="alert alert-danger m-0 text-center rounded-lg" role="alert"  [routerLink]="['/admin/moveInOut/summary']" >
+                                <h4 class="alert-heading">Issues</h4>
+                                <p class="mb-0" >Issues acknowledged by you:</p>
+                            </div>
+
+                            <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar]  >
+                                <div class="table-responsive w-100" >
+                                    <table class="table table-hover bg-white table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Comments</th>
+                                                <th scope="col">Repaired</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr >
+                                                <th scope="row">1</th>
+                                                <td>Bathroom Door has minor crack</td>
+                                                <td><i class="fa fa-check text-success"></i></td>
+                                                <td>
+                                                    <i class="fa fa-eye text-primary" aria-hidden="true" ></i>
+                                                </td>
+                                            </tr>
+
+                                            <tr >
+                                                <th scope="row">2</th>
+                                                <td>Windows has glass crack</td>
+                                                <td><i class="fa fa-times text-danger"></i></td>
+                                                <td>
+                                                    <i class="fa fa-eye text-primary" aria-hidden="true" ></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="col-sm-12 col-lg-8 border-left"> 
+                            <div class="w-100 h6 m-0 mb-3">Move Out Actions</div>
+
+                            <div  class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="alert alert-danger m-0 text-center rounded-lg" role="alert" (click)="isWarningModal = true;addAttachment.show()" >
+                                        <h4 class="alert-heading">Open Issues</h4>
+                                        <!-- <p class="mb-0" >Notifying, but okay with not being foxed</p> -->
+                                    </div>  
+
+                                    <div class="d-flex flex-column text-center justify-content-center align-items-center w-100">
+                                        <button type="button" class="btn btn-primary mt-3 w-100" (click)="isWarningModal = true;addAttachment.show()" >Add Attachment</button>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="alert alert-success m-0 text-center rounded-lg" role="alert" (click)="next()">
+                                        <h4 class="alert-heading">No Issues</h4>
+                                        <!-- <p class="mb-0" >Notifying, but okay with not being foxed</p> -->
+                                    </div>  
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="warningAttachments && warningAttachments.length > 0" >
+                                <div class="table-responsive w-100" >
+                                    <table class="table table-hover bg-white table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Comments</th>
+                                                <th scope="col">Repair Cost</th>
+                                                <th scope="col">Attachment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let attachment of warningAttachments;let i = index" >
+                                                <th scope="row">{{i + 1}}</th>
+                                                <td>{{attachment['comments']}}</td>
+                                                <td>{{attachment['repairCost']}}</td>
+                                                <td>
+                                                    <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i, true);" ></i>
+                                                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteAttachment(i, true);" ></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button (click)="previous()" class="btn btn-primary mr-3">Previous</button>
+                            <button [routerLink]="['/admin/moveInOut/moveOutSummary']" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div bsModal #addAttachment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Attachment</h4>
+          <button type="button" class="close" (click)="addAttachment.hide();addAttachmentForm.reset();" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="addDocumentSubmit()" autocomplete="off" >
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addAttachmentForm.get('attachment').valid" >
+                    <img [src]="addAttachmentForm.get('attachment').value" alt="..." class="img-thumbnail selectedAttachmentImg">
+                </div>
+               
+                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="takePhotoModalOpen()" >
+                        <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                    </button>
+                    <!-- <webcam></webcam> -->
+
+                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="photoFromDevice.click()">
+                        <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device 
+                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
+                    </button>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <div class="form-group w-100 noLabel">
+                        <textarea class="form-control" id="comments" formControlName="comments" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('comments') }"  placeholder="Enter comments" maxlength="500"></textarea>
+                        
+                        <span class="required">*</span>
+                        <div *ngIf="isAddAttachmentFormSubmittedAndError('comments')" class="invalid-feedback">
+                            <div *ngIf="isAddAttachmentFormSubmittedAndError('comments', 'required')">Comments is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group w-100 noLabel">
+                        <!-- <label for="repairCost">Repair Cost</label> -->
+                        <input type="text" class="form-control" id="repairCost" formControlName="repairCost" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('repairCost') }"  placeholder="Repair Cost" maxlength="10">
+
+                        <span class="required">*</span>
+                        <div *ngIf="isAddAttachmentFormSubmittedAndError('comments')" class="invalid-feedback">
+                            <div *ngIf="isAddAttachmentFormSubmittedAndError('comments', 'required')">Comments is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                    <button type="button" class="btn btn-success w-100" [disabled]="addAttachmentForm.invalid" (click)="addDocumentSubmit()" >Upload</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="addAttachment.hide();addAttachmentForm.reset();">Close</button>
+          <button type="button" class="btn btn-primary" (click)="attachmentSubmit()" >Done</button>
+        </div>
+      </div>
+    </div>
+</div>
