@@ -1,19 +1,66 @@
 <div class="animated fadeIn bg-white rounded p-3" >
-    <form class="fromData" role="form" (submit)="formSubmit()" autocomplete="off" >
+    <!-- <form class="fromData" role="form" (submit)="formSubmit()" autocomplete="off" >
         <div class="row">
             <div class="col-12">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="emailNotification">
                     <label class="custom-control-label" for="emailNotification">Email Notification</label>
-                </div>  
-            </div>  
+                </div>
+            </div>
 
             <div class="col-12 mt-3">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="smsNotification">
                     <label class="custom-control-label" for="smsNotification">SMS Notification</label>
-                </div>  
-            </div>  
-        </div>   
-    </form>
+                </div>
+            </div>
+        </div>
+    </form> -->
+
+    <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Service</th>
+              <th scope="col">Email</th>
+              <th scope="col">SMS</th>
+
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Payment</td>
+              <td>
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="PaymentemailNotification">
+                    <label class="custom-control-label" for="PaymentemailNotification">Email Notification</label>
+                </div>
+            </td>
+              <td>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="PaymentsmsNotification">
+                  <label class="custom-control-label" for="PaymentsmsNotification">SMS Notification</label>
+              </div>
+              </td>
+
+          </tr>
+
+          <tr>
+            <td>Pending Payment</td>
+            <td>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="PendingPaymentemailNotification">
+                  <label class="custom-control-label" for="PendingPaymentemailNotification">Email Notification</label>
+              </div>
+          </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="PendingPaymentsmsNotification">
+                <label class="custom-control-label" for="PendingPaymentsmsNotification">SMS Notification</label>
+            </div>
+            </td>
+
+        </tr>
+
+      </tbody>
+  </table>
 </div>
