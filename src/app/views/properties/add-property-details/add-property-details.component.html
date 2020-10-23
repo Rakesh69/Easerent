@@ -1,13 +1,80 @@
-<div class="animated fadeIn">
-    <div class="row bg-white mx-0 py-3 rounded">
+<div class="animated fadeIn h-100 bg-white rounded p-3" >
+    <div class="row">
         <div class="col-12 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" (click)="addAttachment.show();tempAttachments = [];" >Add Attachments</button>
+            <button type="button" class="btn btn-primary" (click)="addAttachment.show();tempAttachments = [];" >Add Attachments</button>
         </div>
   
         <div class="col-sm-12 col-lg-8 border-right">
             <form class="fromData" role="form" [formGroup]="addPropertyDetailForm" *ngIf="addPropertyDetailForm"  (submit)="formSubmit()" autocomplete="off" >
                 <div class="row">
-                    <div class="col-12 d-flex flex-row my-3">
+                    <div class="col-12 my-3">
+                        <fieldset class="border p-3">
+                            <legend class="w-auto px-2 h6 text-muted mb-0">Rooms</legend>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="box16 category-box">
+                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+                                        <div class="box-content">
+                                            <h3 class="title">Living Room / Hall</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('livingRoom').value}}</h3>
+                                            <ul class="social">
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('livingRoom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('livingRoom').setValue(addPropertyDetailForm.get('livingRoom').value - 1)"><i class="fa fa-minus"></i></a></li>
+                                                <li><span class="number-item">{{addPropertyDetailForm.get('livingRoom').value}}</span></li>
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('livingRoom').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('livingRoom').setValue(addPropertyDetailForm.get('livingRoom').value + 1)"><i class="fa fa-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="box16 category-box">
+                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M12.5,12.5c0,0.83-0.67,1.5-1.5,1.5v4h-1v-4c-0.83,0-1.5-0.67-1.5-1.5v-3h1v3H10v-3h1v3h0.5v-3h1 V12.5z M15,18h-1v-3.5h-1v-3c0-1.1,0.9-2,2-2V18z"/></svg>
+                                        <div class="box-content">
+                                            <h3 class="title">Kitchen</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('kitchen').value}}</h3>
+                                            <ul class="social">
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('kitchen').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('kitchen').setValue(addPropertyDetailForm.get('kitchen').value - 1)"><i class="fa fa-minus"></i></a></li>
+                                                <li><span class="number-item">{{addPropertyDetailForm.get('kitchen').value}}</span></li>
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('kitchen').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('kitchen').setValue(addPropertyDetailForm.get('kitchen').value + 1)"><i class="fa fa-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="box16 category-box">
+                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M9.75,12.5c0.69,0,1.25,0.56,1.25,1.25S10.44,15,9.75,15S8.5,14.44,8.5,13.75S9.06,12.5,9.75,12.5z M17,18h-1v-1.5H8V18H7v-7h1v4.5h3.5V12H15c1.1,0,2,0.9,2,2V18z"/></svg>
+                                        <div class="box-content">
+                                            <h3 class="title">Bedroom</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('bedroom').value}}</h3>
+                                            <ul class="social">
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('bedroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bedroom').setValue(addPropertyDetailForm.get('bedroom').value - 1)"><i class="fa fa-minus"></i></a></li>
+                                                <li><span class="number-item">{{addPropertyDetailForm.get('bedroom').value}}</span></li>
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('bedroom').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bedroom').setValue(addPropertyDetailForm.get('bedroom').value + 1)"><i class="fa fa-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                    <div class="box16 category-box">
+                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><circle cx="7" cy="7" r="2"></circle><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z"></path></svg>
+                                        <div class="box-content">
+                                            <h3 class="title">Bathroom</h3>
+                                            <h3 class="number">{{addPropertyDetailForm.get('bathroom').value}}</h3>
+                                            <ul class="social">
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('bathroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bathroom').setValue(addPropertyDetailForm.get('bathroom').value - 1)"><i class="fa fa-minus"></i></a></li>
+                                                <li><span class="number-item">{{addPropertyDetailForm.get('bathroom').value}}</span></li>
+                                                <li><a [ngClass]="(addPropertyDetailForm.get('bathroom').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bathroom').setValue(addPropertyDetailForm.get('bathroom').value + 1)"><i class="fa fa-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <!-- <div class="col-12 d-flex flex-row my-3">
                         <div class="custom-control custom-checkbox mr-3">
                             <input type="checkbox" class="custom-control-input" id="isLivingRoom" formControlName="isLivingRoom" >
                             <label class="custom-control-label" for="isLivingRoom">Living Room / Hall</label>
@@ -17,38 +84,8 @@
                             <input type="checkbox" class="custom-control-input" id="isKitchen" formControlName="isKitchen" >
                             <label class="custom-control-label" for="isKitchen">Kitchen</label>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="box16 category-box">
-                            <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-                            <div class="box-content">
-                                <h3 class="title">Bedroom</h3>
-                                <h3 class="number">{{addPropertyDetailForm.get('bedroom').value}}</h3>
-                                <ul class="social">
-                                    <li><a [ngClass]="(addPropertyDetailForm.get('bedroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bedroom').setValue(addPropertyDetailForm.get('bedroom').value - 1)"><i class="fa fa-minus"></i></a></li>
-                                    <li><span class="number-item">{{addPropertyDetailForm.get('bedroom').value}}</span></li>
-                                    <li><a [ngClass]="(addPropertyDetailForm.get('bedroom').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bedroom').setValue(addPropertyDetailForm.get('bedroom').value + 1)"><i class="fa fa-plus"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="box16 category-box">
-                            <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><circle cx="7" cy="7" r="2"></circle><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z"></path></svg>
-                            <div class="box-content">
-                                <h3 class="title">Bathroom</h3>
-                                <h3 class="number">{{addPropertyDetailForm.get('bathroom').value}}</h3>
-                                <ul class="social">
-                                    <li><a [ngClass]="(addPropertyDetailForm.get('bathroom').value === 0 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bathroom').setValue(addPropertyDetailForm.get('bathroom').value - 1)"><i class="fa fa-minus"></i></a></li>
-                                    <li><span class="number-item">{{addPropertyDetailForm.get('bathroom').value}}</span></li>
-                                    <li><a [ngClass]="(addPropertyDetailForm.get('bathroom').value === 10 ) ? 'disabled':''" (click)="addPropertyDetailForm.get('bathroom').setValue(addPropertyDetailForm.get('bathroom').value + 1)"><i class="fa fa-plus"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-12 mt-3 additionalRooms" formArrayName="additionalRooms"  >
                         <div class="row">
@@ -82,7 +119,7 @@
 
                     <div class="col-12 my-3" *ngIf="addPropertyDetailForm.get('isFurnished').value" >
                         <fieldset class="border p-3">
-                            <legend class="w-auto px-2 h6 text-muted mb-0">Group Name</legend>
+                            <legend class="w-auto px-2 h6 text-muted mb-0">Furnished Items</legend>
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-3">
@@ -147,7 +184,7 @@
                             </div>
                         </fieldset>
                     </div>
-                </div>
+                </div>                
             </form>
         </div>
 
@@ -181,6 +218,12 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-end">
+            <button [routerLink]="['/admin/properties/list']" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </div>

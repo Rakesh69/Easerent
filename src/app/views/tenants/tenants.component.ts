@@ -12,12 +12,31 @@ export class TenantsComponent implements OnInit {
 
   paymentForm: FormGroup;
   isFormSubmitted: boolean = false;
+  propertyData: any = [];
 
   constructor(
     public formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    let imgCount = 1;
+    for (var i = 1; i <= 2; i++) {
+      var data = {
+        propertyImage: imgCount + ".jpg",
+        propertyName: "Property #" + i,
+        label1: "Label " + i,
+        label2: "Title " + i,
+        label3: "Detail " + i,
+        label4: "Data " + i
+      }
+      imgCount++;
+
+      if(imgCount > 6) {
+        imgCount = 1;
+      }
+      this.propertyData.push(data);
+    }
+
     this.createForm();
   }
 

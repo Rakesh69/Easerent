@@ -45,8 +45,8 @@ export class AddPropertyDetailsComponent implements OnInit {
   createForm(): void {
     this.addPropertyDetailForm = this.formBuilder.group({
       attachments: new FormControl([]),
-      isLivingRoom: new FormControl(true),
-      isKitchen: new FormControl(false),
+      livingRoom: new FormControl(1),
+      kitchen: new FormControl(1),
       bedroom: new FormControl(3),
       bathroom: new FormControl(1),
       additionalRooms: new FormArray([]),
