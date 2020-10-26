@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { HttpClient, HttpHeaders, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError, of, Observer } from 'rxjs';
+import { throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs/Rx';
+import { Globals } from '../globals';
 
 @Injectable({
     providedIn: 'root',
@@ -48,8 +48,8 @@ export class CommonService {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
         if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
+            const body = error.json() || {error: ''};
+            const err = JSON.stringify(body);
             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
         } else {
             errMsg = error.message ? error.message : error.toString();
@@ -186,6 +186,87 @@ export class CommonService {
         if (localStorage.getItem('user'))
             return JSON.parse(localStorage.getItem('user'));
         return null;
+    }
+
+
+
+
+    // get(api: string, reqBody: any = {}): Observable<any> {
+    //     const queryParam = Globals.jsonToQueryString(reqBody);
+    //     return this.http.get(api + '?' + queryParam);
+    // }
+    
+    getHtml(api: string, reqBody: any = {}): Observable<any> {
+        let contentHeaders = new HttpHeaders();
+        contentHeaders.append('Accept', 'html/text');
+        contentHeaders.append('Content-Type', 'html/text');
+    
+        const queryParam = Globals.jsonToQueryString(reqBody);
+        return this.http.get(api + '?' + queryParam, { headers: contentHeaders, responseType: 'text' });
+    }
+    
+    getAll(api: string, reqBody: any = {}): Observable<any> {
+        return this.http.post(api, reqBody);
+    }
+    
+    insert(api: string, reqBody: any = {}): Observable<any> {
+        return this.http.post(api, reqBody);
+    }
+    
+    insertWithProgress(api: string, reqBody: any): Observable<any> {
+        return this.http.post(api, reqBody, {
+        reportProgress: true,
+        observe: 'events'
+        }).pipe(
+        catchError(this.errorMgmt)
+        );
+    }
+    
+    update(api: string, reqBody: any = {}): Observable<any> {
+        return this.http.put(api, reqBody);
+    }
+    
+    getById(api: string, reqBody: any = {}): Observable<any> {
+        const queryParam = Globals.jsonToQueryString(reqBody);
+        return this.http.get(api + '?' + queryParam);
+    }
+    
+    // post(api: string, reqBody: any = {}): Observable<any> {
+    //     return this.insert(api, reqBody);
+    // }
+    
+    put(api: string, reqBody: any = {}): Observable<any> {
+        return this.update(api, reqBody);
+    }
+    
+    delete(api: string, id: String): Observable<any> {
+        return this.http.delete(api + '/' + id);
+    }
+    
+    
+    
+    download(api: string, reqBody: any = {}): Observable<any> {
+        const queryParam = Globals.jsonToQueryString(reqBody);
+        console.log('URL : ', api + '?' + queryParam);
+    
+        window.open(api + '?' + queryParam);
+    
+        return of(true);    
+    }
+    
+    patch(api: string, reqBody: any = {}): Observable<any> {
+        return this.http.patch(api, reqBody);
+    }
+    
+    errorMgmt(error: HttpErrorResponse) {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+        errorMessage = error.error.message;
+        } else {
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        console.log(errorMessage);
+        return throwError(errorMessage);
     }
 }
 

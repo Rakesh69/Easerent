@@ -94,16 +94,17 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     LandingPageComponent,
   ],
   entryComponents: [NgbdModalContentComponent, TakePhotoModalComponent],
-  providers: [AuthGuard,LoginService,
+  providers: [
+    AuthGuard, LoginService, BsModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi:true
     },
-    {provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter},
-    BsModalService
-    ],
-
+    {
+      provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter
+    },    
+  ],
   bootstrap: [ AppComponent ]
 
 })
