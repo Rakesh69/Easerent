@@ -19,23 +19,41 @@ export class TenantsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let imgCount = 1;
-    for (var i = 1; i <= 2; i++) {
-      var data = {
-        propertyImage: imgCount + ".jpg",
-        propertyName: "Property #" + i,
-        label1: "Label " + i,
-        label2: "Title " + i,
-        label3: "Detail " + i,
-        label4: "Data " + i
-      }
-      imgCount++;
+    // let imgCount = 1;
+    // for (var i = 1; i <= 2; i++) {
+    //   var data = {
+    //     propertyImage: imgCount + ".jpg",
+    //     propertyName: "Property #" + i,
+    //     label1: "Label " + i,
+    //     label2: "Title " + i,
+    //     label3: "Detail " + i,
+    //     label4: "Data " + i
+    //   }
+    //   imgCount++;
 
-      if(imgCount > 6) {
-        imgCount = 1;
-      }
-      this.propertyData.push(data);
-    }
+    //   if(imgCount > 6) {
+    //     imgCount = 1;
+    //   }
+    //   this.propertyData.push(data);
+    // }
+
+    this.propertyData = [{
+      propertyImage: "2.jpg",
+      propertyName: "A/445 Aamrapali Apts, Kharadi, Pune",
+      propertyDetail: "Welcome, Rahul. Hope you are all settled in and liking your new place. Your lease is all set up to Nov 2021",
+      automatedRentPayment: true,
+      additionalPropertyDetails: true,
+      securityDeposit: true,
+      bills: true
+    }, {
+      propertyImage: "3.jpg",
+      propertyName: "1230 Cornation Rd, Kolar, Banglore",
+      propertyDetail: "Welcome, Rahul. Hope you are all settled in and liking your new place. Your lease is all set up to Nov 2021",
+      automatedRentPayment: true,
+      additionalPropertyDetails: false,
+      securityDeposit: true,
+      bills: false
+    }]; 
 
     this.createForm();
   }

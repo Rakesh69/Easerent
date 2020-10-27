@@ -11,23 +11,28 @@ export class PropertiesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let imgCount = 1;
-    for (var i = 1; i <= 12; i++) {
-      var data = {
-        propertyImage: imgCount + ".jpg",
-        propertyName: "Property #" + i,
-        label1: "Label " + i,
-        label2: "Title " + i,
-        label3: "Detail " + i,
-        label4: "Data " + i
-      }
-      imgCount++;
-
-      if(imgCount > 6) {
-        imgCount = 1;
-      }
-      this.PropertyData.push(data);
-    }
+    this.PropertyData = [{
+      propertyImage: "2.jpg",
+      propertyName: "A/445 Aamrapali Apts, Kharadi, Pune",
+      automatedRentPayment: true,
+      additionalPropertyDetails: true,
+      securityDeposit: true,
+      bills: true
+    }, {
+      propertyImage: "3.jpg",
+      propertyName: "1230 Cornation Rd, Kolar, Banglore",
+      automatedRentPayment: true,
+      additionalPropertyDetails: false,
+      securityDeposit: true,
+      bills: false
+    }, {
+      propertyImage: "4.jpg",
+      propertyName: "C/20 Jyoti Park, Shahibaug, Ahmedabad",
+      automatedRentPayment: false,
+      additionalPropertyDetails: true,
+      securityDeposit: true,
+      bills: true
+    }];    
   }
 
 }
