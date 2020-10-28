@@ -43,14 +43,31 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
+                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password"
+                    required>
                 </div>
-                
+
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
+                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password"
+                    required>
+                </div>
+
+                <div class="row text-center">
+                  <div class="col-md-12">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" checked> <b>Owner</b>
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio"> <b>Property Manager</b>
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio"><b> Tanants</b>
+                    </label>
+                  </div>
+
                 </div>
 
 
@@ -61,11 +78,11 @@
                   </label>
                 </div>
 
-                <button type="button" class="btn btn-block btn-success" (click)="signUp()" >Create Account</button>
+                <button type="button" class="btn btn-block btn-success" (click)="signUp()">Create Account</button>
 
               </form>
             </div>
-            
+
           </div>
         </div>
       </div>

@@ -10,9 +10,9 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
 
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-6 mx-auto">
           <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
@@ -27,7 +27,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" [pattern]="emailPattren" id="Email" name="Email" placeholder="Username" autocomplete="username" required
+                    <input type="text" class="form-control" [pattern]="emailPattren" id="Email" name="Email" placeholder="Email" autocomplete="Email" required
                            [(ngModel)]="authenticationData.Email"
                            #Email="ngModel">
                   </div>
@@ -54,21 +54,26 @@
                   </div>
 
                   <div class="row mt-3">
-                    <div class="col-6">
-                      <button type="button" class="btn btn-primary px-4" (click)="onLoggedin(loginform)">Login</button>
+                    <div class="col-12 text-center">
+                      <button type="button" class="btn btn-success px-4" (click)="onLoggedin(loginform)">Login</button>
                     </div>
-                    <div class="col-6 text-right">
+
+                  </div>
+                  <br>
+                  <div class="row">
+
+                    <div class="col-8 text-center">
+                      Don't have account ? <button type="button" class="btn btn-warning " [routerLink]="['/signup']">Sign Up</button>
+                    </div>
+
+                    <div class="col-4 text-center">
                       <button type="button" class="btn btn-link px-0" [routerLink]="['/forgotPassword']">Forgot password?</button>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-6">
-                      <button type="button" class="btn btn-link px-0" [routerLink]="['/signup']">Sign Up</button>
-                    </div>
-                    <div class="col-12">
-                      <a class="btn btn-link px-0" [routerLink]="['/']">Security & Privacy Terms of Use Contact Support</a>
-                      <a class="btn btn-link px-0" [routerLink]="['/']"></a>
+                    <div class="col-12 text-center">
+                      <a class="btn btn-link px-0" [routerLink]="['/']">Security & Privacy  </a>
+                      <a class="btn btn-link px-0" [routerLink]="['/']"> | Terms of Use</a>
+                      <a class="btn btn-link px-0" [routerLink]="['/']"> | Contact Support</a>
                     </div>
 
                   </div>
@@ -79,7 +84,7 @@
           </div>
         </div>
 
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
       </div>
     </div>
   </main>
