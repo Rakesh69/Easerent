@@ -2,11 +2,12 @@ import { environment } from '../../environments/environment';
 
 export const urlConstant = {
     Auth: {
-        Login: environment.APIUrl + 'api/auth/login',
-        Registration: environment.APIUrl + 'api/auth/registrtion',
+        Login: environment.APIUrl + 'EaseRent/login',
+        Registration: environment.APIUrl + 'EaseRent/registration',
     },
-    Users: {
-        GetList: environment.APIUrl + 'api/Account/GetUserList',
-        FindByName:environment.APIUrl + 'User/FindUserByName'
-    },
+    Property: {
+        Add: environment.APIUrl + 'EaseRent/addProperty',
+        AddDetail: environment.APIUrl + 'EaseRent/addPropertyDetails',
+        ByUserId: environment.APIUrl + 'EaseRent/getPropertyByUserId',
+    }
 };

@@ -74,14 +74,14 @@
                     <div class="col-sm-12 col-lg-6">
                         <div class="form-group">
                             <label for="state">State</label>
-                            <select class="form-control" id="state" formControlName="state" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('state') }">
+                            <select class="form-control" id="state" formControlName="stateId" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('stateId') }">
                                 <option value="" >Select your state</option>
-                                <option [value]="state['id']" *ngFor="let state of states" >{{state['name']}}</option>
+                                <option [ngValue]="state" *ngFor="let state of states" >{{state['name']}}</option>
                             </select>
 
                             <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('state')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('state', 'required')">State name is required.</div>
+                            <div *ngIf="isFormSubmittedAndError('stateId')" class="invalid-feedback">
+                                <div *ngIf="isFormSubmittedAndError('stateId', 'required')">State name is required.</div>
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                             <label for="city">City</label>
                             <select class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }">
                                 <option value="" >Select your city</option>
-                                <option [value]="city['id']" *ngFor="let city of cities" >{{city['name']}}</option>
+                                <option [value]="city['name']" *ngFor="let city of cities" >{{city['name']}}</option>
                             </select>
                         
                             <span class="required">*</span>

@@ -39,6 +39,7 @@ export class JwtInterceptor implements HttpInterceptor {
             }
             else if (err.status === 500) {
                 this.toasterService.pop('error', 'Error', messageConstant.Common.UnAuthorized);
+                return throwError(err);
             }
             else {
                 return throwError(err);

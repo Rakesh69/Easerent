@@ -1,11 +1,11 @@
-<div class="animated fadeIn bg-white rounded p-3 h-100" *ngIf="PropertyData && PropertyData.length === 0"  >
+<div class="animated fadeIn bg-white rounded p-3 h-100" *ngIf="propertyData && propertyData.length === 0"  >
   <div class="d-flex flex-column justify-content-center align-items-center w-100 h-100">
     <div class="h3 text-muted text-capitalize" >no properties found please add.</div>
     <button class="btn btn-primary" type="button" [routerLink]="['/admin/properties/add']" >Add property</button>
   </div>
 </div>
 
-<div class="animated fadeIn bg-white rounded p-3" id="properties" *ngIf="PropertyData && PropertyData.length > 0" >
+<div class="animated fadeIn bg-white rounded p-3" id="properties" *ngIf="propertyData && propertyData.length > 0" >
   <div class="row">
     <div class="col-md-12 text-right">
       <button class="btn btn-primary" type="button" [routerLink]="['/admin/properties/add']" >Add property</button>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="d-flex flex-wrap justify-content-start">
-    <div class="card shadow-sm rounded-lg" *ngFor="let property of PropertyData; let i = index" >
+    <div class="card shadow-sm rounded-lg" *ngFor="let property of propertyData; let i = index" >
       <img class="card-img-top propertyImage" src="assets\img\Properties\{{property['propertyImage']}}" alt="Card image cap">
 
       <div class="card-body">

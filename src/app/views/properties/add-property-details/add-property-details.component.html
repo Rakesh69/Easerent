@@ -5,7 +5,7 @@
         </div>
   
         <div class="col-sm-12 col-lg-8 border-right">
-            <form class="fromData" role="form" [formGroup]="addPropertyDetailForm" *ngIf="addPropertyDetailForm"  (submit)="formSubmit()" autocomplete="off" >
+            <form class="fromData" role="form" [formGroup]="addPropertyDetailForm" *ngIf="addPropertyDetailForm"  (submit)="addPropertyDetailFormSubmit()" autocomplete="off" >
                 <div class="row">
                     <div class="col-12 my-3">
                         <fieldset class="border p-3">
@@ -107,17 +107,17 @@
 
                     <div class="col-12 mt-3">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="furnished" formControlName="isFurnished" [value]="true" class="custom-control-input">
+                            <input type="radio" id="furnished" formControlName="furnished" [value]="true" class="custom-control-input">
                             <label class="custom-control-label" for="furnished">Furnished</label>
                         </div>
                         
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="unfurnished" formControlName="isFurnished" [value]="false" class="custom-control-input">
+                            <input type="radio" id="unfurnished" formControlName="furnished" [value]="false" class="custom-control-input">
                             <label class="custom-control-label" for="unfurnished">Unfurnished</label>
                         </div>
                     </div>
 
-                    <div class="col-12 my-3" *ngIf="addPropertyDetailForm.get('isFurnished').value" >
+                    <div class="col-12 my-3" *ngIf="addPropertyDetailForm.get('furnished').value" >
                         <fieldset class="border p-3">
                             <legend class="w-auto px-2 h6 text-muted mb-0">Furnished Items</legend>
 
@@ -223,7 +223,7 @@
 
     <div class="row mt-4">
         <div class="col-12 d-flex justify-content-end">
-            <button [routerLink]="['/admin/properties/list']" class="btn btn-primary">Submit</button>
+            <button type="submit" (click)="addPropertyDetailFormSubmit()" class="btn btn-primary">Submit</button>
         </div>
     </div>
 </div>

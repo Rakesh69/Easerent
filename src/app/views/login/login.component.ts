@@ -4,6 +4,11 @@ import { dataConstant } from '../../constant/dataConstant';
 import { CommonService } from '../../common/commonService';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { isPassword, isValidEmail } from '../../shared/ngbd-modal-content/validators/custom.validator';
+import { Globals } from '../../globals';
+import { urlConstant } from '../../constant/urlConstant';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,61 +16,74 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginuserdetail: any;
-  authenticationData: any = {};
-  userData: any = {};
-  emailPattren = dataConstant.EmailPattren;
-  isSubmit = false;
+  loginForm: FormGroup;
 
-  constructor(public _CommonService: CommonService,
-    public _LoginService: LoginService,
-    public router: Router) { }
-
-  ngOnInit() {
-    // this._CommonService.showLoading();
+  constructor(
+    public _CommonService: CommonService,
+    public toasterService: ToasterService,
+    public formBuilder: FormBuilder,
+    public router: Router,
+  ) { 
+    this.createForm();
   }
 
-  onLoggedin(loginform) {
-    this.isSubmit = true;
-    if (loginform.form.invalid) {
+  ngOnInit() {
+    // this._CommonService.showLoading();        
+  }
+
+  createForm(): void {
+    this.loginForm = this.formBuilder.group({
+      "email": new FormControl('', [Validators.required, isValidEmail]),
+      "password": new FormControl('', [Validators.required]),
+      "isClicked": new FormControl(false),
+      "isSubmited": new FormControl(false),
+    });
+  }
+
+  get loginFormIsClicked(): FormControl {
+    return this.loginForm.get('isClicked') as FormControl;
+  }
+
+  get loginFormIsSubmmited(): FormControl {
+    return this.loginForm.get('isSubmited') as FormControl;
+  }
+
+  loginFormSubmit() {
+    this.loginFormIsClicked.setValue(true);
+
+    if (this.loginForm.invalid && this.loginFormIsSubmmited.value === false) {
       return;
     } else {
-      this._CommonService.showLoading();
-      localStorage.setItem('token', JSON.stringify("ASerfdsewrewrvnvjfkkfgfkdgfdgfdkgfdkg"));
-      this.router.navigate(['/admin/dashboard']);
-      this._CommonService.hideLoading();
-      //this._LoginService.login(this.authenticationData)
-      //    .subscribe((response: any) => {
-      //        this._CommonService.hideLoading();
-      //        if (response && response.data) {
-      //            var token = response.data.token; //response;
-      //            var user = response.data.user;
-      //            localStorage.setItem('token', JSON.stringify(token));
-      //            localStorage.setItem('user', JSON.stringify(user));
-      //            localStorage.setItem('roleRights',JSON.stringify(response.data.roleRights))
-      //            this.router.navigate(['/dashboard']);
-      //        }
-      //        else {
-      //            this.isSubmit = false;
-      //            this._CommonService.toastErrorMsg(null, response.message, null);
-      //        }
+      this.loginFormIsSubmmited.setValue(true);
+      this._CommonService.showLoading();      
 
-      //    }, error => {
-      //        this.isSubmit = false;
-      //        this._CommonService.hideLoading();
-      //        if (error != null) {
-      //            if (error.status == 400) {
-      //                this._CommonService.toastErrorMsg(null, messageConstant.Common.Invalid, null);
-      //            }
-      //            else if (error.status == 401) {
-      //                this._CommonService.toastErrorMsg(null, messageConstant.Common.UnAuthorized, null);
-      //            }
-      //            else {
-      //                this._CommonService.toastErrorMsg(null, error.message, null);
-      //            }
-      //        }
-      //    });
+      this._CommonService.post(urlConstant.Auth.Login, this.loginForm.value).subscribe((res) => {        
+        if (!!res && res['Status'] === "200") {
+          // console.log("res['UserDetails'] : ", JSON.parse (res['UserDetails'].replace('UserDetails', '').replace("=", ":").trim()));
+          
+          localStorage.setItem('token', res['accessToken']);
+          localStorage.setItem('user', res['UserDetails']);
+          localStorage.setItem('role', res['RoleDeatails']);
+          this.toasterService.pop('success', 'Success', res.Message);
+          this.router.navigate(['/admin/dashboard']);                
+        } else {          
+          this.toasterService.pop('error', 'Error', res.Message);
+        }
+      }, (error) => {
+        console.log('error : ', error);
+        
+        if (error != null) {
+          this.toasterService.pop('error', 'Error', error.message);
+        }      
+      }).add(() => {
+        this.loginFormIsClicked.setValue(false);
+        this.loginFormIsSubmmited.setValue(false);
+        this._CommonService.hideLoading();
+      });
     }
   }
 
+  isFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
+    return Globals.isFormSubmittedAndError(this.loginForm, this.loginForm.get('isClicked').value, controlName, errorName, notError);
+  }
 }

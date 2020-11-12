@@ -72,10 +72,4 @@ export const navItems: NavData[] = [
     url: '/admin/tenants',
     icon: 'icon-user-following',
   },
-
-  {
-    name: 'Payment',
-    url: '/admin/payments',
-    icon: 'fa fa-money fa-fw',
-  },
 ];

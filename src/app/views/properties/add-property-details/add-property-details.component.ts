@@ -9,6 +9,9 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TakePhotoModalComponent } from '../../../shared/ngbd-modal-content/custom-components/take-photo-modal/take-photo-modal.component';
+import { CommonService } from '../../../common/commonService';
+import { Router } from '@angular/router';
+import { urlConstant } from '../../../constant/urlConstant';
 
 @Component({
   selector: 'app-add-property-details',
@@ -35,7 +38,9 @@ export class AddPropertyDetailsComponent implements OnInit {
     public toasterService: ToasterService,
     public lightbox: Lightbox,
     public sanitizer: DomSanitizer,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public _CommonService: CommonService,
+    public router: Router,
   ) { }
 
   ngOnInit() {
@@ -49,20 +54,41 @@ export class AddPropertyDetailsComponent implements OnInit {
       kitchen: new FormControl(1),
       bedroom: new FormControl(3),
       bathroom: new FormControl(1),
+      additionalRoom: new FormControl(2),
       additionalRooms: new FormArray([]),
-      isFurnished: new FormControl(true),
+      furnished: new FormControl(true),
       fan: new FormControl(3),
       sofa: new FormControl(2),
       tv: new FormControl(1),
-      bed: new FormControl(3)
+      bed: new FormControl(3),
+      isClicked: new FormControl(false),
+      isSubmited: new FormControl(false),
     })
 
     this.addAttachmentForm = this.formBuilder.group({
       attachment: new FormControl('', [Validators.required]),
-      roomType: new FormControl('', [Validators.required])
+      roomType: new FormControl('', [Validators.required]),
+      isClicked: new FormControl(false),
+      isSubmited: new FormControl(false),
     });
 
     this.addAditionalRoomCtrl();
+  }
+
+  get addPropertyDetailFormIsClicked(): FormControl {
+    return this.addPropertyDetailForm.get('isClicked') as FormControl;
+  }
+
+  get addPropertyDetailFormIsSubmmited(): FormControl {
+    return this.addPropertyDetailForm.get('isSubmited') as FormControl;
+  }
+
+  get addAttachmentFormIsClicked(): FormControl {
+    return this.addAttachmentForm.get('isClicked') as FormControl;
+  }
+
+  get addAttachmentFormIsSubmmited(): FormControl {
+    return this.addAttachmentForm.get('isSubmited') as FormControl;
   }
 
   addAditionalRoomCtrl(): void {
@@ -70,7 +96,7 @@ export class AddPropertyDetailsComponent implements OnInit {
 
     if(additionalRooms.valid && additionalRooms.length < 10) {
       additionalRooms.push(
-        new FormControl('', [Validators.required])
+        new FormControl('')
       );
     } else {
       if(additionalRooms.invalid) {
@@ -82,27 +108,25 @@ export class AddPropertyDetailsComponent implements OnInit {
   }
 
   formSubmit(): void {
-    this.isFormSubmitted = true;
-    console.log('addAttachmentForm : ', this.addAttachmentForm.value);
-    
-    if(this.addAttachmentForm.valid) {
-      // this.attachments.push(this.addAttachmentForm.value);
+    this.addAttachmentFormIsClicked.setValue(true);
 
+    if(this.addAttachmentForm.valid && this.addAttachmentFormIsSubmmited.value === false) {      
       this.tempAttachments.push(this.addAttachmentForm.value);
       this.addAttachmentForm.reset();
-      this.isFormSubmitted = false;
+      this.addAttachmentFormIsSubmmited.setValue(false);
     } else {
       this.toasterService.pop('error', 'Error', 'Please select attachment.');
     }
   }
 
   attachmentSubmit(): void {
-    this.isFormSubmitted = true;
-    
-    if(this.addAttachmentForm.valid || this.tempAttachments.length > 0) {
+    if((this.addAttachmentForm.valid || this.tempAttachments.length > 0)) {
       this.isFormSubmitted = false;
       this.addAttachment.hide();
       this.attachments = [...this.attachments, ...this.tempAttachments];
+      this.tempAttachments = [];
+
+      this.addPropertyDetailForm.get('attachments').setValue(this.attachments);
       // this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
     } else {
       this.toasterService.pop('error', 'Error', 'Please select attachment.');
@@ -110,36 +134,50 @@ export class AddPropertyDetailsComponent implements OnInit {
   }
 
   addPropertyDetailFormSubmit(): void {
-    this.isFormSubmitted = true;
-    console.log('addPropertyDetailForm : ', this.addPropertyDetailForm.value);
+    this.addPropertyDetailFormIsClicked.setValue(true);
     
-    if(this.addPropertyDetailForm.valid) {
-      // this.attachments.push(this.addAttachmentForm.value);
+    console.log('this.addPropertyDetailForm : ', this.addPropertyDetailForm.value);
+    console.log('this.addPropertyDetailForm invalid : ', this.addPropertyDetailForm.invalid);
+    
+    if (this.addPropertyDetailForm.invalid && this.addPropertyDetailFormIsSubmmited.value === false) {
+      this.toasterService.pop('error', 'Error', 'Please enter valid values.');
+      return;
+    } else {
+      this.addPropertyDetailFormIsSubmmited.setValue(true);
+      this._CommonService.showLoading();      
+      const reqData = {
+        "propertyDetails": this.addPropertyDetailForm.value
+      };
 
-      this.addPropertyDetailForm.reset();
-      this.isFormSubmitted = false;
-      
-      this.toasterService.pop('success', 'Success', 'Attachment data added successfully.');
+      this._CommonService.post(urlConstant.Property.AddDetail, reqData).subscribe((res) => {        
+        if (!!res) {
+          this.toasterService.pop('success', 'Success', res.message);
+          this.router.navigate(['/admin/properties/list']);   
+        } else {          
+          this.toasterService.pop('error', 'Error', res.message);
+          this.router.navigate(['/admin/properties/list']);   
+        }
+      }, (error) => {
+        if (error != null) {
+          this.toasterService.pop('error', 'Error', error.message);
+        }            
+        this.router.navigate(['/admin/properties/list']);   
+      }).add(() => {
+        this.addPropertyDetailForm.reset();
+        this.addPropertyDetailFormIsClicked.setValue(false);
+        this.addPropertyDetailFormIsSubmmited.setValue(false);
+        this._CommonService.hideLoading();
+      });
     }
   }
 
-  
+
   isAddAttachmentFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
-    const otherError: any = this.addAttachmentForm.controls[controlName].errors;
-    
-    if (this.isFormSubmitted && otherError) {
-        return errorName == '' ? true : (otherError ? !Object.keys(otherError).some(err => notError.includes(err)) : true) ? this.addAttachmentForm.controls[controlName].hasError(errorName) : false;
-    } 
-    return false;                
+    return Globals.isFormSubmittedAndError(this.addAttachmentForm, this.addPropertyDetailFormIsClicked.value, controlName, errorName, notError);
   }
 
   isFormSubmittedAndError(controlName: string, errorName: string = '', notError: Array<string> = new Array()): any {
-    const otherError: any = this.addPropertyDetailForm.controls[controlName].errors;
-    
-    if (this.isFormSubmitted && otherError) {
-        return errorName == '' ? true : (otherError ? !Object.keys(otherError).some(err => notError.includes(err)) : true) ? this.addPropertyDetailForm.controls[controlName].hasError(errorName) : false;
-    } 
-    return false;                
+    return Globals.isFormSubmittedAndError(this.addPropertyDetailForm, this.addPropertyDetailFormIsClicked.value, controlName, errorName, notError);
   }
 
   deleteAttachment(i: number): void {

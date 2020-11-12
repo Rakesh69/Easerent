@@ -5,84 +5,209 @@
         <div class="col-md-6 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-              <form>
-                <div class="text-center" style="margin-bottom: 10px;">
-                  <img class="center" src="./assets/mainlogo.png" style="width: 200px;">
+              <form role="form" *ngIf="signUpForm" appInvalidFormFocus [formGroup]="signUpForm"
+                (ngSubmit)="signUpFormSubmit()" autocomplete="off" novalidate>
+                <div class="text-center" style="margin-bottom: 10px">
+                  <img class="center" src="./assets/mainlogo.png" style="width: 200px" />
                 </div>
                 <h1>Register</h1>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" id="firstName" name="firstName" formControlName="firstName" [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('firstName')
+                      }" placeholder="First name" class="form-control" required />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('firstName')" class="invalid-feedback">
+                      <div *ngIf="isFormSubmittedAndError('firstName', 'required')">
+                        Please enter first name.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('firstName', 'isAlphabet', [
+                            'required'
+                          ])
+                        ">
+                        Please enter valid first name.
+                      </div>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="First Name " autocomplete="username" required>
                 </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" id="lastName" name="lastName" formControlName="lastName" [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('lastName')
+                      }" placeholder="Last name" class="form-control" required />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('lastName')" class="invalid-feedback">
+                      <div *ngIf="isFormSubmittedAndError('lastName', 'required')">
+                        Please enter last name.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('lastName', 'isAlphabet', [
+                            'required'
+                          ])
+                        ">
+                        Please enter valid last name.
+                      </div>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="Last Name" autocomplete="username" required>
                 </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-envelope"></i></span>
+                    </div>
+                    <input type="email" id="email" name="email" formControlName="email" [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('email')
+                      }" placeholder="Email" class="form-control" required />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('email')" class="invalid-feedback">
+                      <div *ngIf="isFormSubmittedAndError('email', 'required')">
+                        Please enter email.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('email', 'isValidEmail', [
+                            'required'
+                          ])
+                        ">
+                        Please enter valid email.
+                      </div>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
                 </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-phone"></i></span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-phone"></i></span>
+                    </div>
+                    <input type="text" id="number" name="number" formControlName="number" [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('number')
+                      }" placeholder="Phone number" class="form-control" required minlength="10" maxlength="10" />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('number')" class="invalid-feedback">
+                      <div *ngIf="isFormSubmittedAndError('number', 'required')">
+                        Please enter phone number.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('number', 'isNumber', [
+                            'required'
+                          ])
+                        ">
+                        Please enter valid phone number.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('number', 'minlength', [
+                            'required',
+                            'isNumber'
+                          ])
+                        ">
+                        Phone number is must be 10 digits.
+                      </div>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="Phone Number " autocomplete="username" required>
                 </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" id="password" name="password" formControlName="password" [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('password')
+                      }" placeholder="Password" class="form-control" required />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('password')" class="invalid-feedback">
+                      <div *ngIf="isFormSubmittedAndError('password', 'required')">
+                        Please enter password.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError('password', 'isNumber', [
+                            'required'
+                          ])
+                        ">
+                        Please enter valid password.
+                      </div>
+                    </div>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password"
-                    required>
                 </div>
 
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                <div class="form-group noLabel">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword"
+                      [ngClass]="{
+                        isInvalid: isFormSubmittedAndError('confirmPassword')
+                      }" placeholder="Confirm password" class="form-control" required />
+
+                    <span class="required">*</span>
+                    <div *ngIf="isFormSubmittedAndError('confirmPassword')" class="invalid-feedback">
+                      <div *ngIf="
+                          isFormSubmittedAndError('confirmPassword', 'required')
+                        ">
+                        Please enter password.
+                      </div>
+                      <div *ngIf="
+                          isFormSubmittedAndError(
+                            'confirmPassword',
+                            'mustMatch',
+                            ['required']
+                          )
+                        ">
+                        The password and confirmation password do not match.
+                      </div>
+                    </div>
                   </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password"
-                    required>
                 </div>
 
                 <div class="row text-center">
                   <div class="col-md-12">
                     <label class="radio-inline">
-                      <input type="radio" name="optradio" checked> <b>Owner</b>
+                      <input type="radio" formControlName="roleId" value="111" checked > <b>Owner</b>
                     </label>
                     <label class="radio-inline">
-                      <input type="radio" name="optradio"> <b>Property Manager</b>
+                      <input type="radio" formControlName="roleId" value="222" > <b>Property Manager</b>
                     </label>
                     <label class="radio-inline">
-                      <input type="radio" name="optradio"><b> Tanants</b>
+                      <input type="radio" formControlName="roleId" value="333" ><b> Tanants</b>
                     </label>
                   </div>
 
                 </div>
 
-
-                <div class="form-check form-check-inline" style="margin-bottom:20px">
-                  <input class="form-check-input" type="checkbox" id="inline-checkbox1" value="option1">
-                  <label class="form-check-label" for="inline-checkbox1">
-                    I agree to the <a href="#">Terms of Use </a>and <a href="">Privacy Policy</a>.
+                <div class="form-check form-check-inline" style="margin-bottom: 20px">
+                  <input class="form-check-input" type="checkbox" id="isTermAccepted" [value]="true"
+                    formControlName="isTermAccepted" />
+                  <label class="form-check-label" for="isTermAccepted">
+                    I agree to the <a href="#">Terms of Use </a>and
+                    <a href="">Privacy Policy</a>.
                   </label>
                 </div>
 
-                <button type="button" class="btn btn-block btn-success" (click)="signUp()">Create Account</button>
+                <button type="submit" class="btn btn-block btn-success">
+                  Create Account
+                </button>
 
+                <button [routerLink]="['/login']" class="btn btn-block btn-primary">
+                  Back To Login
+                </button>
               </form>
             </div>
-
           </div>
         </div>
       </div>

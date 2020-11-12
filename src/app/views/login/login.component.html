@@ -1,10 +1,3 @@
-<ngx-spinner bdColor="rgba(51,51,51,0.8)"
-             size="medium"
-             color="#fff"
-             loadingText="Please wait"
-             type="ball-spin-fade">
-  <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
 <div class="app-body">
   <main class="main d-flex align-items-center">
 
@@ -16,46 +9,50 @@
           <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
-                <form role="form" #loginform="ngForm" autocomplete="off" novalidate>
+                <form role="form" *ngIf="loginForm" appInvalidFormFocus [formGroup]="loginForm"
+                  (ngSubmit)="loginFormSubmit()" autocomplete="off" novalidate>
                   <div class="text-center" style="margin-bottom: 10px;">
-                    <img class="center" src="./assets/mainlogo.png" style="width: 200px;" >
+                    <img class="center" src="./assets/mainlogo.png" style="width: 200px;">
                   </div>
                   <h2>
                     Sign in to EaseRent
                   </h2>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
+
+                  <div class="form-group noLabel">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-user"></i></span>
+                      </div>
+                      <input type="email" id="email" name="email" formControlName="email" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('email') }" placeholder="Email" class="form-control" required autocomplete="username">
+
+                      <span class="required">*</span>
+                      <div *ngIf="isFormSubmittedAndError('email')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('email', 'required')">Please enter email.</div>
+                        <div *ngIf="isFormSubmittedAndError('email', 'isValidEmail', ['required'])">Please enter valid email.</div>
+                      </div>
                     </div>
-                    <input type="text" class="form-control" [pattern]="emailPattren" id="Email" name="Email" placeholder="Email" autocomplete="Email" required
-                           [(ngModel)]="authenticationData.Email"
-                           #Email="ngModel">
-                  </div>
-                  <div *ngIf="Email.invalid && (Email.dirty || isSubmit)" class="text-left cm-login-mt">
-                    <span *ngIf="Email.errors.required" class="text-red">
-                      Please enter User Name
-                    </span>
-                    <span *ngIf="Email.errors.pattern" class="text-red">
-                      please enter valid email
-                    </span>
                   </div>
 
-                  <div class="input-group mt-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                  <div class="form-group noLabel">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" id="password" name="password" formControlName="password"
+                        [ngClass]="{ 'isInvalid': isFormSubmittedAndError('password') }" placeholder="Password"
+                        class="form-control" required autocomplete="password">
+
+                      <span class="required">*</span>
+                      <div *ngIf="isFormSubmittedAndError('password')" class="invalid-feedback">
+                        <div *ngIf="isFormSubmittedAndError('password', 'required')">Please enter password.</div>
+                        <!-- <div *ngIf="isFormSubmittedAndError('password', 'isPassword', ['required'])">Please enter valid password.</div> -->
+                      </div>
                     </div>
-                    <input type="Password" id="Password" name="Password" class="form-control" placeholder="Password" autocomplete="current-password" required
-                           required #Password="ngModel" [(ngModel)]="authenticationData.Password">
-                  </div>
-                  <div *ngIf="Password.invalid && (Password.dirty || isSubmit)" class="text-left cm-login-mt">
-                    <span *ngIf="Password.errors.required" class="text-red">
-                      Please enter Password
-                    </span>
                   </div>
 
                   <div class="row mt-3">
                     <div class="col-12 text-center">
-                      <button type="button" class="btn btn-success px-4" (click)="onLoggedin(loginform)">Login</button>
+                      <button type="submit" class="btn btn-success px-4" >Login</button>
                     </div>
 
                   </div>
@@ -63,7 +60,7 @@
                   <div class="row">
 
                     <div class="col-8 text-center">
-                      Don't have account ? <button type="button" class="btn btn-warning " [routerLink]="['/signup']">Sign Up</button>
+                      Don't have account ? <button type="button" class="btn btn-warning "  [routerLink]="['/signup']">Sign Up</button>
                     </div>
 
                     <div class="col-4 text-center">
@@ -78,6 +75,26 @@
 
                   </div>
 
+                  <!-- <div class="row mt-3">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary px-4">Login</button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0" [routerLink]="['/forgotPassword']">Forgot
+                        password?</button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-link px-0" [routerLink]="['/signup']">Sign Up</button>
+                    </div>
+                    <div class="col-12">
+                      <a class="btn btn-link px-0" [routerLink]="['/']">Security & Privacy Terms of Use Contact
+                        Support</a>
+                      <a class="btn btn-link px-0" [routerLink]="['/']"></a>
+                    </div>
+                  </div> -->
                 </form>
               </div>
             </div>
@@ -89,4 +106,3 @@
     </div>
   </main>
 </div>
-
