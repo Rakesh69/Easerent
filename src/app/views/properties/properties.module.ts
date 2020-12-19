@@ -7,10 +7,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PropertiesComponent } from './properties.component';
 import { LightboxModule } from 'ngx-lightbox';
+//import { ViewPropertyComponent } from './view-property/view-property.component';
 
 @NgModule({
   declarations: [
-    PropertiesComponent
+    PropertiesComponent,
+    //ViewPropertyComponent
   ],
   imports: [
     CommonModule,

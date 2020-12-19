@@ -54,7 +54,7 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'activeUser/:activationCode/:userId',
+    path: 'activeUser',
     component: AccountAtivationComponent,
     data: {
       title: 'Account Activation'

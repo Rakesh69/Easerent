@@ -18,7 +18,10 @@ export class DefaultLayoutComponent implements OnDestroy {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
-  constructor(public router: Router, @Inject(DOCUMENT) _document?: any, ) {
+  loginUser = this._commonService.getLoggedInUser();
+  userShortName = null;
+  public username = null;
+  constructor(public router: Router, public _commonService: CommonService, @Inject(DOCUMENT) _document?: any, ) {
 
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = _document.body.classList.contains('sidebar-minimized');
@@ -28,6 +31,16 @@ export class DefaultLayoutComponent implements OnDestroy {
       attributes: true,
       attributeFilter: ['class']
     });
+
+    if (!this.loginUser) {
+      this.router.navigate(['/login']);
+    }
+
+    this.username = this.loginUser.firstName + (this.loginUser.lastName ? ' ' + this.loginUser.lastName : ' ');
+
+    const matches = this.username.match(/\b(\w)/g);
+    this.userShortName = matches.join('');
+
   }
 
   ngOnDestroy(): void {

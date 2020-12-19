@@ -1,159 +1,319 @@
 <div class="animated fadeIn">
-    <form class="fromData bg-white p-3 rounded" role="form" [formGroup]="addProperty" *ngIf="addProperty"  (submit)="formSubmit()" autocomplete="off" >
-        <div class="row">
-            <div class="col-sm-12 col-lg-4">
-                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mb-3 mt-2">
-                    <input type="file" hidden #propertyCoverImage (change)="onChangePropertyCoverImage($event)" accept="image/*" >
-        
-                    <button type="button" class="btn btn-labeled btn-outline-primary mx-2 btn-lg propertyCoverImageBtn" (click)="propertyCoverImage.click()" *ngIf="!addProperty.get('coverImage').value">
-                        <span class="btn-label"><i class="fa fa-home"></i></span><br/>Upload a Cover Image 
-                    </button>
-        
-                    <img [src]="addProperty.get('coverImage').value" *ngIf="addProperty.get('coverImage').value" (click)="propertyCoverImage.click()" alt="..." class="img-thumbnail propertyCoverImage">
-                </div>        
-            </div>
+  <form class="fromData bg-white p-3 rounded" role="form" [formGroup]="addProperty" *ngIf="addProperty"
+    autocomplete="off">
+    <div class="row">
+      <div class="col-sm-12 col-lg-4">
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mb-3 mt-2">
+          <input type="file" hidden #propertyCoverImage (change)="onChangePropertyCoverImage($event)" accept="image/*">
 
-            <div class="col-sm-12 col-lg-8">
-                <div class="row">
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="propertyName">Property Name</label>
-                            <input type="text" class="form-control" id="propertyName" formControlName="propertyName" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyName') }" placeholder="Enter your property name" maxlength="100" >
-                            
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('propertyName')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('propertyName', 'required')">Property name is required.</div>
-                            </div>
-                        </div>
-                    </div>
+          <button type="button" class="btn btn-labeled btn-outline-primary mx-2 btn-lg propertyCoverImageBtn"
+            (click)="propertyCoverImage.click()" *ngIf="!addProperty.get('coverImage').value">
+            <span class="btn-label"><i class="fa fa-home"></i></span><br />Upload a Cover Image
+          </button>
 
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="propertyType">Property Type</label>
-                            <select class="form-control" id="propertyType" formControlName="propertyType" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyType') }">
-                                <option value="" >Select your property type</option>
-                                <option value="House/Villa" >House/Villa</option>
-                                <option value="Commercial Property" >Commercial Property</option>
-                                <option value="Office" >Office</option>
-                                <option value="Retail" >Retail</option>
-                                <option value="Storage" >Storage</option>
-                                <option value="Hospitality" >Hospitality</option>
-                            </select>
-
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('propertyType')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('propertyType', 'required')">Property type is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="addressLine1">Address Line 1</label>
-                            <input type="text" class="form-control" id="addressLine1" formControlName="addressLine1" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('addressLine1') }" placeholder="Enter your address line 1" maxlength="300" >
-
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('addressLine1')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('addressLine1', 'required')">Address line 1 is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="addressLine2">Address Line 2</label>
-                            <input type="text" class="form-control" id="addressLine2" formControlName="addressLine2" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('addressLine2') }" placeholder="Enter your address line 2" maxlength="300" >
-
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('addressLine2')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('addressLine2', 'required')">Address line 2 is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <select class="form-control" id="state" formControlName="stateId" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('stateId') }">
-                                <option value="" >Select your state</option>
-                                <option [ngValue]="state" *ngFor="let state of states" >{{state['name']}}</option>
-                            </select>
-
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('stateId')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('stateId', 'required')">State name is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="city">City</label>
-                            <select class="form-control" id="city" formControlName="city" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }">
-                                <option value="" >Select your city</option>
-                                <option [value]="city['name']" *ngFor="let city of cities" >{{city['name']}}</option>
-                            </select>
-                        
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('city')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('city', 'required')">City name is required.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="pincode">Pincode</label>
-                            <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'isInvalid': isFormSubmittedAndError('pincode') }" placeholder="Enter your pincode" minlength="6" maxlength="6">
-
-                            <span class="required">*</span>
-                            <div *ngIf="isFormSubmittedAndError('pincode')" class="invalid-feedback">
-                                <div *ngIf="isFormSubmittedAndError('pincode', 'required')">Pincode is required.</div>
-                                <div *ngIf="isFormSubmittedAndError('pincode', 'minlength', ['required'])">Pincode is must be 6 digit.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary" >Add Property</button>
-            </div>
+          <img [src]="addProperty.get('coverImage').value" *ngIf="addProperty.get('coverImage').value"
+            (click)="propertyCoverImage.click()" alt="..." class="img-thumbnail propertyCoverImage">
         </div>
-    </form>
+      </div>
+
+      <div class="col-sm-12 col-lg-8">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="propertyName">Property Name</label>
+              <input type="text" class="form-control" id="propertyName" formControlName="propertyName"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyName') }"
+                placeholder="Enter your property name" maxlength="100">
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('propertyName')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('propertyName', 'required')">Property name is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="propertyType">Property Type</label>
+              <select class="form-control" id="propertyType" formControlName="propertyType"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('propertyType') }">
+                <option value="">Select your property type</option>
+                <option value="House/Villa">House/Villa</option>
+                <option value="Commercial Property">Commercial Property</option>
+                <option value="Office">Office</option>
+                <option value="Retail">Retail</option>
+                <option value="Storage">Storage</option>
+                <option value="Hospitality">Hospitality</option>
+              </select>
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('propertyType')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('propertyType', 'required')">Property type is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="addressLine1">Address Line 1</label>
+              <input type="text" class="form-control" id="addressLine1" formControlName="addressLine1"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('addressLine1') }"
+                placeholder="Enter your address line 1" maxlength="300">
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('addressLine1')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('addressLine1', 'required')">Address line 1 is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="addressLine2">Address Line 2</label>
+              <input type="text" class="form-control" id="addressLine2" formControlName="addressLine2"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('addressLine2') }"
+                placeholder="Enter your address line 2" maxlength="300">
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('addressLine2')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('addressLine2', 'required')">Address line 2 is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="state">State</label>
+              <select class="form-control" id="state" formControlName="stateId"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('stateId') }">
+                <option value="">Select your state</option>
+                <option [ngValue]="state" *ngFor="let state of states">{{state['name']}}</option>
+              </select>
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('stateId')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('stateId', 'required')">State name is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="city">City</label>
+              <select class="form-control" id="city" formControlName="city"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('city') }">
+                <option value="">Select your city</option>
+                <option [value]="city['name']" *ngFor="let city of cities">{{city['name']}}</option>
+              </select>
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('city')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('city', 'required')">City name is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="pincode">Pincode</label>
+              <input type="text" class="form-control" id="pincode" formControlName="pincode"
+                [ngClass]="{ 'isInvalid': isFormSubmittedAndError('pincode') }" placeholder="Enter your pincode"
+                minlength="6" maxlength="6">
+
+              <span class="required">*</span>
+              <div *ngIf="isFormSubmittedAndError('pincode')" class="invalid-feedback">
+                <div *ngIf="isFormSubmittedAndError('pincode', 'required')">Pincode is required.</div>
+                <div *ngIf="isFormSubmittedAndError('pincode', 'minlength', ['required'])">Pincode is must be 6 digit.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end">
+        <button type="button" (click)="formSubmit()" class="btn btn-primary">Add Property</button>
+        <!-- <button type="button" (click)="showModel()" class="btn btn-primary">Add Property</button> -->
+      </div>
+    </div>
+  </form>
 </div>
 
 
 
 
-<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-success" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title text-center w-100">Success! You added Property #1</h4>
-          <!-- <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button> -->
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-12 col-lg-6 d-flex flex-column text-center justify-content-between align-items-stretch">
-                    <div class="w-100 h4 mt-4">Add Details</div>
-                    <div class="w-100 h5 text-justify text-muted">Add more property details</div>
-                    <button type="button" class="btn btn-primary w-100 mt-3 mb-4" [routerLink]="['/admin/properties/addPropertyDetails']" >Add More Details</button>
-                </div>
+<div bsModal [config]="{backdrop: 'static',  keyboard: false}" #successModal="bs-modal" class="modal fade" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center w-100">Success! You added Property</h4>
+        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6 d-flex flex-column text-center justify-content-between align-items-stretch">
+            <div class="w-100 h4 mt-4">Add Details</div>
+            <div class="w-100 h5 text-justify text-muted">Add more property details</div>
+            <button type="button" class="btn btn-primary w-100 mt-3 mb-4" (click)="addPropertyDetail()">Add More
+              Details</button>
+          </div>
 
-                <div class="col-sm-12 col-lg-6 d-flex flex-column text-center justify-content-between align-items-stretch">
-                    <div class="w-100 h4 mt-4">Collect Rent</div>
-                    <div class="w-100 h5 text-justify text-muted">Set up payments, connect your bank account and invite your tenants to pay rent.</div>
-                    <button type="button" class="btn btn-primary w-100 mt-3 mb-4" [routerLink]="['/admin/rentPayment/start']" >Start Rent Collection</button>
-                </div>
-            </div>
+          <div class="col-sm-12 col-lg-6 d-flex flex-column text-center justify-content-between align-items-stretch">
+            <div class="w-100 h4 mt-4">Collect Rent</div>
+            <div class="w-100 h5 text-justify text-muted">Set up payments, connect your bank account and invite your
+              tenants to pay rent.</div>
+            <button type="button" class="btn btn-primary w-100 mt-3 mb-4"
+              [routerLink]="['/admin/rentPayment/start']">Start Rent Collection</button>
+          </div>
         </div>
 
-        <!-- <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-12 col-lg-3 d-flex flex-column text-center justify-content-between align-items-stretch">
+          </div>
+          <div class="col-sm-12 col-lg-6 d-flex flex-column text-center justify-content-between align-items-stretch">
+            <button type="button" class="btn btn-primary w-100 mt-3 mb-4" (click)="inviteUser()">Invite User for
+              property</button>
+          </div>
+          <div class="col-sm-12 col-lg-3 d-flex flex-column text-center justify-content-between align-items-stretch">
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
         </div> -->
-      </div>
     </div>
+  </div>
+</div>
+
+<div bsModal [config]="{backdrop: 'static',  keyboard: false}" #InviteUserModal="bs-modal" class="modal fade"
+  tabindex="-1" role="dialog" aria-labelledby="InviteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-success modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center w-100">Invite User Detail</h4>
+        <button type="button" class="close" (click)="InviteUserModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #inviteuserForm="ngForm">
+          <div class="row">
+
+            <div class="form-group col-sm-12 col-lg-6">
+              <label>Firstname <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control" id="firstName" placeholder="Enter first name" name="firstName"
+                #firstName="ngModel" [(ngModel)]="inviteUserDetail.firstName" required>
+              <div *ngIf="firstName.errors?.required && (firstName.touched || isSubmitted)" class="text-danger">
+                Firstname is required.</div>
+            </div>
+
+            <div class="form-group col-sm-12 col-lg-6">
+              <label>Lastname <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"
+                #lastName="ngModel" [(ngModel)]="inviteUserDetail.lastName" required>
+              <div *ngIf="lastName.errors?.required && (lastName.touched || isSubmitted)" class="text-danger">
+                LastName is required.</div>
+            </div>
+
+            <div class="form-group col-sm-12 col-lg-6">
+              <label>Email <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control" id="emailAddress" placeholder="Enter last name" name="emailAddress"
+                #emailAddress="ngModel" [(ngModel)]="inviteUserDetail.emailAddress" required>
+              <div *ngIf="emailAddress.errors?.required && (emailAddress.touched || isSubmitted)" class="text-danger">
+                Email is required.</div>
+            </div>
+
+            <div class="form-group col-sm-12 col-lg-6">
+              <label>Phone <span class="text-danger"> *</span></label>
+              <input type="text" class="form-control" id="phoneNumber" placeholder="Enter last name" name="phoneNumber"
+                #phoneNumber="ngModel" [(ngModel)]="inviteUserDetail.phoneNumber" required>
+              <div *ngIf="phoneNumber.errors?.required && (phoneNumber.touched || isSubmitted)" class="text-danger">
+                Phone number is required.</div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-md-12">
+              <label class="radio-inline">
+                <input type="radio"  name="radio"
+                [(ngModel)]="inviteUserDetail.userRole"
+                value="Owner" > <b>Owner</b>
+              </label>
+              <label class="radio-inline">
+                <input  name="radio" type="radio" [(ngModel)]="inviteUserDetail.userRole"
+                value="Property Manager"> <b>Property Manager</b>
+              </label>
+              <label class="radio-inline">
+                <input  name="radio" type="radio" [(ngModel)]="inviteUserDetail.userRole"
+                value="Tanants"><b> Tanants</b>
+              </label>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-3">
+              <button type="button" class="btn btn-block btn-success mt-1 mb-3"
+              (click)="SaveInviteUserDetail(inviteuserForm)">
+                Invite User
+              </button>
+            </div>
+            <div class="col-md-5"></div>
+
+          </div>
+        </form>
+
+        <div class="table-responsive w-100">
+          <table class="table table-hover bg-white">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of inveteUserList;let i = index">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{item.firstName}} {{item.lastName}}</td>
+                <td>{{item.emailAddress}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.userRole}}</td>
+
+                <td>
+                  <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteInviteUser(i)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row" *ngIf="inveteUserList.length > 0">
+          <div class="col-md-4"></div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-block btn-success mt-1 mb-3"
+            (click)="submitInviteUserDetail()">
+              Submit
+            </button>
+          </div>
+          <div class="col-md-5"></div>
+
+        </div>
+      </div>
+
+
+      <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
+        </div> -->
+    </div>
+  </div>
 </div>

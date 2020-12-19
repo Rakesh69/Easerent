@@ -44,7 +44,7 @@
     .webcam-wrapper {
         width: 100%;
         height: auto;
-        
+
         video {
             width: 100%;
             height: auto;
@@ -96,6 +96,13 @@
         height: auto;
         fill: #20a8d8;
     }
+
+    .box17  {
+      width: 100%;
+      height: auto;
+      fill: gray !important;
+  }
+
     .box16 .post {
         display: block;
         padding: 8px 0;
@@ -176,7 +183,7 @@
         font-size: 16px;
         transform: translateY(7px);
     }
-    .category-box:hover h3.number { 
+    .category-box:hover h3.number {
         transform: translateY(25px);
         animation: seconds 0.2s forwards;
         animation-iteration-count: 1;
@@ -376,7 +383,7 @@
                 width: 100%;
             }
         }
-    }  
+    }
 
     @keyframes seconds {
         0% {
@@ -384,7 +391,7 @@
         }
         100% {
           opacity: 0;
-          left: -9999px; 
+          left: -9999px;
         }
     }
 

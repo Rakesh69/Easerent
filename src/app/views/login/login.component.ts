@@ -23,12 +23,12 @@ export class LoginComponent implements OnInit {
     public toasterService: ToasterService,
     public formBuilder: FormBuilder,
     public router: Router,
-  ) { 
+  ) {
     this.createForm();
   }
 
   ngOnInit() {
-    // this._CommonService.showLoading();        
+    // this._CommonService.showLoading();
   }
 
   createForm(): void {
@@ -55,26 +55,26 @@ export class LoginComponent implements OnInit {
       return;
     } else {
       this.loginFormIsSubmmited.setValue(true);
-      this._CommonService.showLoading();      
+      this._CommonService.showLoading();
 
-      this._CommonService.post(urlConstant.Auth.Login, this.loginForm.value).subscribe((res) => {        
-        if (!!res && res['Status'] === "200") {
+      this._CommonService.post(urlConstant.Auth.Login, this.loginForm.value).subscribe((res) => {
+        if (!!res && res['Status'] === '200') {
           // console.log("res['UserDetails'] : ", JSON.parse (res['UserDetails'].replace('UserDetails', '').replace("=", ":").trim()));
-          
+
           localStorage.setItem('token', res['accessToken']);
-          localStorage.setItem('user', res['UserDetails']);
-          localStorage.setItem('role', res['RoleDeatails']);
+          localStorage.setItem('user', JSON.stringify(res.data.UserDetails));
+          localStorage.setItem('role', JSON.stringify(res.data.UserDetails.roles));
           this.toasterService.pop('success', 'Success', res.Message);
-          this.router.navigate(['/admin/dashboard']);                
-        } else {          
+          this.router.navigate(['/admin/dashboard']);
+        } else {
           this.toasterService.pop('error', 'Error', res.Message);
         }
       }, (error) => {
         console.log('error : ', error);
-        
+
         if (error != null) {
           this.toasterService.pop('error', 'Error', error.message);
-        }      
+        }
       }).add(() => {
         this.loginFormIsClicked.setValue(false);
         this.loginFormIsSubmmited.setValue(false);

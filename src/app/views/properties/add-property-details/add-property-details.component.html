@@ -3,7 +3,7 @@
         <div class="col-12 d-flex justify-content-end">
             <button type="button" class="btn btn-primary" (click)="addAttachment.show();tempAttachments = [];" >Add Attachments</button>
         </div>
-  
+
         <div class="col-sm-12 col-lg-8 border-right">
             <form class="fromData" role="form" [formGroup]="addPropertyDetailForm" *ngIf="addPropertyDetailForm"  (submit)="addPropertyDetailFormSubmit()" autocomplete="off" >
                 <div class="row">
@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('livingRoom').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Living Room / Hall</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('livingRoom').value}}</h3>
@@ -29,7 +29,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M12.5,12.5c0,0.83-0.67,1.5-1.5,1.5v4h-1v-4c-0.83,0-1.5-0.67-1.5-1.5v-3h1v3H10v-3h1v3h0.5v-3h1 V12.5z M15,18h-1v-3.5h-1v-3c0-1.1,0.9-2,2-2V18z"/></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('kitchen').value === 0 ) ? 'box17':'box16'" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M12.5,12.5c0,0.83-0.67,1.5-1.5,1.5v4h-1v-4c-0.83,0-1.5-0.67-1.5-1.5v-3h1v3H10v-3h1v3h0.5v-3h1 V12.5z M15,18h-1v-3.5h-1v-3c0-1.1,0.9-2,2-2V18z"/></svg>
                                         <div class="box-content">
                                             <h3 class="title">Kitchen</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('kitchen').value}}</h3>
@@ -44,7 +44,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M9.75,12.5c0.69,0,1.25,0.56,1.25,1.25S10.44,15,9.75,15S8.5,14.44,8.5,13.75S9.06,12.5,9.75,12.5z M17,18h-1v-1.5H8V18H7v-7h1v4.5h3.5V12H15c1.1,0,2,0.9,2,2V18z"/></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('bedroom').value === 0 ) ? 'box17':'box16'" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="black" width="18px" height="18px"><rect fill="none" height="24" width="24"/><path d="M12,3L4,9v12h16V9L12,3z M9.75,12.5c0.69,0,1.25,0.56,1.25,1.25S10.44,15,9.75,15S8.5,14.44,8.5,13.75S9.06,12.5,9.75,12.5z M17,18h-1v-1.5H8V18H7v-7h1v4.5h3.5V12H15c1.1,0,2,0.9,2,2V18z"/></svg>
                                         <div class="box-content">
                                             <h3 class="title">Bedroom</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('bedroom').value}}</h3>
@@ -59,7 +59,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><circle cx="7" cy="7" r="2"></circle><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z"></path></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('bathroom').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><circle cx="7" cy="7" r="2"></circle><path d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Bathroom</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('bathroom').value}}</h3>
@@ -96,7 +96,7 @@
 
                         <div class="row mb-2" *ngFor="let control of addPropertyDetailForm.get('additionalRooms').controls;let i = index;let last = last;" >
                             <div class="col-sm-10 col-lg-10">
-                                <input class="form-control" [id]="'additionalRoom' + i" [name]="'additionalRoom' + i" [formControl]="control" />                            
+                                <input class="form-control" [id]="'additionalRoom' + i" [name]="'additionalRoom' + i" [formControl]="control" />
                             </div>
 
                             <div class="col-sm-2 col-lg-2 d-flex justify-content-start d-flex align-items-end">
@@ -110,7 +110,7 @@
                             <input type="radio" id="furnished" formControlName="furnished" [value]="true" class="custom-control-input">
                             <label class="custom-control-label" for="furnished">Furnished</label>
                         </div>
-                        
+
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="unfurnished" formControlName="furnished" [value]="false" class="custom-control-input">
                             <label class="custom-control-label" for="unfurnished">Unfurnished</label>
@@ -124,7 +124,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12z"></path></svg>
+                                        <svg  [ngClass]="(addPropertyDetailForm.get('fan').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Fan</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('fan').value}}</h3>
@@ -139,7 +139,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h1.33L4 19h1l.67-2h12.67l.66 2h1l.67-2H22v-5c0-1.1-.9-2-2-2zm-9 0H6V7h5v3zm7 0h-5V7h5v3z"></path></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('sofa').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h1.33L4 19h1l.67-2h12.67l.66 2h1l.67-2H22v-5c0-1.1-.9-2-2-2zm-9 0H6V7h5v3zm7 0h-5V7h5v3z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Sofa</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('sofa').value}}</h3>
@@ -154,7 +154,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" aria-describedby="mui-80933"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('tv').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" aria-describedby="mui-80933"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">TV</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('tv').value}}</h3>
@@ -169,7 +169,7 @@
 
                                 <div class="col-sm-12 col-md-6 col-lg-3">
                                     <div class="box16 category-box">
-                                        <svg class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"></path></svg>
+                                        <svg [ngClass]="(addPropertyDetailForm.get('bed').value === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false" viewBox="0 0 24 24" aria-hidden="true" title="fontSize large"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"></path></svg>
                                         <div class="box-content">
                                             <h3 class="title">Bed</h3>
                                             <h3 class="number">{{addPropertyDetailForm.get('bed').value}}</h3>
@@ -184,40 +184,8 @@
                             </div>
                         </fieldset>
                     </div>
-                </div>                
+                </div>
             </form>
-        </div>
-
-        <div class="col-sm-12 col-lg-4">
-            <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="attachments && attachments.length === 0" >
-                <div class="h6 text-muted">
-                    Please select attachment.
-                </div>
-            </div>
-
-            <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="attachments && attachments.length > 0" >
-                <div class="table-responsive w-100" >
-                    <table class="table table-hover bg-white">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Room Type</th>
-                                <th scope="col">Attachment</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let attachment of attachments;let i = index" >
-                                <th scope="row">{{i + 1}}</th>
-                                <td>{{attachment['roomType']}}</td>
-                                <td>
-                                    <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showLigthBox(i);" ></i>
-                                    <i class="fa fa-trash text-danger" aria-hidden="true" (click)="deleteAttachment(i);" ></i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -232,7 +200,7 @@
 
 
 <div bsModal #addAttachment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Add Attachment</h4>
@@ -241,47 +209,76 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="formSubmit()" autocomplete="off" >
-                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addAttachmentForm.get('attachment').valid" >
-                    <img [src]="addAttachmentForm.get('attachment').value" alt="..." class="img-thumbnail selectedAttachmentImg">
-                </div>
-               
-                <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 h-100 mt-3">
-                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="takePhotoModalOpen()" >
-                        <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
-                    </button>
-                    <!-- <webcam></webcam> -->
+          <div class="row">
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <form class="fromData" role="form" [formGroup]="addAttachmentForm" *ngIf="addAttachmentForm"  (submit)="formSubmit()" autocomplete="off" >
+                  <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100" *ngIf="addAttachmentForm.get('attachment').valid" >
+                      <img [src]="addAttachmentForm.get('attachment').value" alt="..." class="img-thumbnail selectedAttachmentImg">
+                  </div>
 
-                    <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="photoFromDevice.click()">
-                        <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device 
-                        <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
-                    </button>
-                </div>
+                  <div class="d-flex flex-row flex-wrap justify-content-between align-items-center w-100 h-100 mt-3">
+                      <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="takePhotoModalOpen()" >
+                          <span class="btn-label"><i class="fa fa-camera"></i></span> Take Photo
+                      </button>
+                      <!-- <webcam></webcam> -->
 
-                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
-                    <div class="form-group w-100 noLabel">
-                        <select class="form-control" id="roomType" formControlName="roomType" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('roomType') }">
-                            <option value="" >Please select room type</option>
-                            <option value="bedroom" >Bedroom</option>
-                            <option value="bathroom" >Bathroom</option>
-                            <option value="additionalRooms" >Additional Rooms</option>
-                            <option value="fan" >Fan</option>
-                            <option value="sofa" >Sofa</option>
-                            <option value="tv" >Tv</option>
-                            <option value="bed" >Bed</option>                           
-                        </select>
+                      <button type="button" class="btn btn-labeled btn-primary attachmentBtn" (click)="photoFromDevice.click()">
+                          <span class="btn-label"><i class="fa fa-desktop"></i></span> Photo From Device
+                          <input type="file" hidden #photoFromDevice (change)="onChangePhotoFromDevice($event)" accept="image/*" >
+                      </button>
+                  </div>
 
-                        <span class="required">*</span>
-                        <div *ngIf="isAddAttachmentFormSubmittedAndError('roomType')" class="invalid-feedback">
-                            <div *ngIf="isAddAttachmentFormSubmittedAndError('roomType', 'required')">Room type is required.</div>
-                        </div>
-                    </div>
-                </div>
+                  <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                      <div class="form-group w-100 noLabel">
+                          <!-- <select class="form-control" id="roomType" formControlName="roomType" [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('roomType') }">
+                              <option value="" >Please select room type</option>
+                              <option value="bedroom" >Bedroom</option>
+                              <option value="bathroom" >Bathroom</option>
+                              <option value="additionalRooms" >Additional Rooms</option>
+                              <option value="fan" >Fan</option>
+                              <option value="sofa" >Sofa</option>
+                              <option value="tv" >Tv</option>
+                              <option value="bed" >Bed</option>
+                          </select> -->
+                          <textarea class="form-control" placeholder="comment" rows="5" formControlName="comment" id="comment"  [ngClass]="{ 'isInvalid': isAddAttachmentFormSubmittedAndError('comment') }"></textarea>
+                          <span class="required">*</span>
+                          <div *ngIf="isAddAttachmentFormSubmittedAndError('comment')" class="invalid-feedback">
+                              <div *ngIf="isAddAttachmentFormSubmittedAndError('comment', 'required')">comment is required.</div>
+                          </div>
+                      </div>
+                  </div>
 
-                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
-                    <button type="button" class="btn btn-success w-100" [disabled]="addAttachmentForm.invalid" (click)="formSubmit()" >Upload</button>
-                </div>
-            </form>
+                  <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mt-3">
+                      <button type="button" class="btn btn-success w-100" [disabled]="addAttachmentForm.invalid" (click)="formSubmit()" >Upload</button>
+                  </div>
+              </form>
+              </div>
+              <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="d-flex w-100 h-100 mt-3" [perfectScrollbar] *ngIf="tempAttachments && tempAttachments.length > 0" >
+                  <div class="table-responsive w-100" >
+                      <table class="table table-hover bg-white">
+                          <thead>
+                              <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Room Type</th>
+                                  <th scope="col">Attachment</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let attachment of uploadAttachmentList;let i = index" >
+                                  <th scope="row">{{i + 1}}</th>
+                                  <td>{{attachment.comment}}</td>
+                                  <td>
+                                      <i class="fa fa-eye text-primary" aria-hidden="true" (click)="showTempLigthBox(i);" ></i>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              </div>
+          </div>
+
         </div>
 
         <div class="modal-footer">

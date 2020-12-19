@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
       "number": new FormControl('', [Validators.required, isNumber, Validators.minLength(10), Validators.maxLength(10)]),
       "password": new FormControl('', [Validators.required]),
       "roleId": new FormControl('111', [Validators.required]),
-      "confirmPassword": new FormControl('', [Validators.required]),            
+      "confirmPassword": new FormControl('', [Validators.required]),
       "isTermAccepted": new FormControl(false),
       "isClicked": new FormControl(false),
       "isSubmited": new FormControl(false),
@@ -57,7 +57,7 @@ export class SignupComponent implements OnInit {
 
   signUpFormSubmit(): void {
     this.signUpFormIsClicked.setValue(true);
-  
+
     if (this.signUpForm.invalid && this.signUpFormIsSubmmited.value === false) {
       return;
     } else {
@@ -65,28 +65,35 @@ export class SignupComponent implements OnInit {
         this.toasterService.pop('error', 'Error', "Please accept terms of use and privacy policy");
         return;
       }
-      
+
       this.signUpFormIsSubmmited.setValue(true);
-      this._CommonService.showLoading();      
+      this._CommonService.showLoading();
 
-      let signUpData = this.signUpForm.value;
+      const signUpData = this.signUpForm.value;
       signUpData['userName'] = signUpData['email'];
-      signUpData['createdBy'] = "y";
+      signUpData['createdBy'] = 'y';
       const reqData = {
-        "signup": signUpData
+        createdBy: signUpData.createdBy,
+        email: signUpData.email,
+        firstName: signUpData.firstName,
+        lastName: signUpData.lastName,
+        number: signUpData.number,
+        password: signUpData.password,
+        roleId: signUpData.roleId,
+        username: signUpData.userName
       };
-
-      this._CommonService.post(urlConstant.Auth.Registration, reqData).subscribe((res) => {        
+      this._CommonService.post(urlConstant.Auth.Registration, JSON.stringify(reqData)).subscribe((res) => {
+        debugger
         if (res && res['Status'] === "200") {
-          this.toasterService.pop('success', 'Success', res.Message);
-          this.router.navigate(['/login']);                
-        } else {          
-          this.toasterService.pop('error', 'Error', res.Message);
+          this.toasterService.pop('success', 'Success', res.message);
+          this.router.navigate(['/login']);
+        } else {
+          this.toasterService.pop('error', 'Error', res.message);
         }
       }, (error) => {
         if (error != null) {
           this.toasterService.pop('error', 'Error', error.message);
-        }       
+        }
       }).add(() => {
         this.signUpFormIsClicked.setValue(false);
         this.signUpFormIsSubmmited.setValue(false);

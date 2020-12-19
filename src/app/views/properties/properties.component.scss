@@ -1,9 +1,9 @@
 #properties {
   .card {
     width: 300px;
-    margin: 1rem;
+    margin: 5px;
     transition: ease-in-out 0.2s;
-    
+
     &:hover {
       transition: ease-in-out 0.2s;
       box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
@@ -11,7 +11,7 @@
 
     .propertyImage {
       width: calc(100% - 16px);
-      height: calc(300px - 16px);
+      height: calc(200px - 16px);
       /* box-shadow: 1px 1px 10px #20a8d8; */
       margin: 8px;
       border: 1px solid #ccc;

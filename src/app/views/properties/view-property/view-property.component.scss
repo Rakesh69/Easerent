@@ -1,0 +1,45 @@
+.propertyCoverImageBtn, .propertyCoverImage  {
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 300px;
+  max-height: 300px;
+
+  .btn-label {
+      .fa {
+          font-size: 10rem;
+          padding-bottom: 1rem;
+      }
+  }
+}
+
+
+.attachmentBtn {
+  width: 48%;
+}
+
+.selectedAttachmentImg {
+   width: 200px;
+   height: 200px;
+}
+
+.table {
+   .fa {
+       cursor: pointer;
+   }
+}
+
+.additionalRooms {
+   .fa.fa-plus-circle {
+       font-size: 35px !important;
+
+       &:hover {
+           cursor: pointer;
+       }
+   }
+}
+
+.box17 svg {
+ width: 100%;
+ height: auto;
+ fill: gray !important;
+}

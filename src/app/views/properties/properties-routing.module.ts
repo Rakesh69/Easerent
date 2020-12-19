@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'list',
         component: PropertiesComponent,
         data: {
-          title: 'Property list'
+          title: 'Properties'
         }
       },
       {
@@ -39,6 +39,10 @@ const routes: Routes = [
       {
         path: 'addPropertyDetails',
         loadChildren: () => import('./add-property-details/add-property-details.module').then(m => m.AddPropertyDetailsModule)
+      },
+      {
+        path: 'viewProperty',
+        loadChildren: () => import('./view-property/view-property.module').then(m => m.ViewPropertyModule)
       }
     ]
   }

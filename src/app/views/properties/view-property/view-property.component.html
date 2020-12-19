@@ -1,0 +1,477 @@
+<!-- <div class="animated fadeIn bg-white rounded p-3">
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-4">
+            <img class="card-img-top propertyImage" src="assets\img\Properties\6.jpg" alt="Card image cap">
+        </div>
+        <div class="col-sm-12 col-lg-8">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="propertyName">Property Name</label>
+                        <input type="text" class="form-control" id="propertyName" [(ngModel)]="propertyData.propertyName" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="propertyType">Property Type</label>
+                        <input type="text" class="form-control" id="propertyType" [(ngModel)]="propertyData.propertyType" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1</label>
+                        <input type="text" class="form-control" id="addressLine1" [(ngModel)]="propertyData.addressLine1" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="addressLine2">Address Line 2</label>
+                        <input type="text" class="form-control" id="addressLine2" [(ngModel)]="propertyData.addressLine2" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" [(ngModel)]="propertyData.state" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" [(ngModel)]="propertyData.city" disabled>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="pincode">Pin Code</label>
+                        <input type="text" class="form-control" id="pincode" [(ngModel)]="propertyData.pincode" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3" *ngFor="let propertyDet of propertyData.propertyDetails; let i = index">
+        <div class="card-header" (click)="propertyDet.isCollapsed = !propertyDet.isCollapsed">
+            Property Details
+        </div>
+        <div class="card-body" (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="propertyDet.isCollapsed">
+            <div class="row align-items-center">
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Living Room: <b>{{propertyDet.livingRoom}}</b>
+                </div>
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Bed Room: <b>{{propertyDet.bedRoom}}</b>
+                </div>
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Kitchen: <b>{{propertyDet.kitchen}}</b>
+                </div>
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Furniture: <b><span class="text-success" *ngIf="propertyDet.furnished">Yes</span><span class="text-danger" *ngIf="!propertyDet.furnished">No</span></b>
+                </div>
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Bath Room: <b>{{propertyDet.bathRoom}}</b>
+                </div>
+                <div class="col-12 col-xl mb-3 mb-xl-0">
+                    Additional Room: <b>{{propertyDet.additionalRoom}}</b>
+                </div>
+            </div>
+            <div class="card mt-3" *ngFor="let addPropertyDet of propertyDet.additionalPropertyDetails; let j = index">
+                <div class="card-header" (click)="addPropertyDet.isCollapsed = !addPropertyDet.isCollapsed">
+                    Additional Property Details {{j+1}}
+                </div>
+                <div class="card-body" (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="addPropertyDet.isCollapsed">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-xl mb-3 mb-xl-0">
+                            {{addPropertyDet.propertyAddtionalKey}} ({{addPropertyDet.propertyAddtionalType}}): <b>{{addPropertyDet.propertyAddtionalValue}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="animated fadeIn">
+  <form  #PropertyDetailForm="ngForm" class="fromData bg-white p-3 rounded" role="form" autocomplete="off">
+    <div class="row">
+      <div class="col-sm-12 col-lg-4">
+        <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100 mb-3 mt-2">
+          <input type="file" hidden accept="image/*">
+
+          <button type="button" class="btn btn-labeled btn-outline-primary mx-2 btn-lg propertyCoverImageBtn">
+            <span class="btn-label"><i class="fa fa-home"></i></span><br />Upload a Cover Image
+          </button>
+
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-lg-8">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="propertyName">Property Name</label>
+              <input type="text" class="form-control" id="propertyName" placeholder="Enter your property name"
+                maxlength="100" name="propertyName"
+                #propertyName="ngModel" [(ngModel)]="propertyDetailModel.propertyName" required>
+                <div *ngIf="propertyName.errors?.required && (propertyName.touched || isSubmitted)" class="text-danger">
+                  Property name is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="propertyType">Property Type</label>
+              <select class="form-control" id="propertyType" [(ngModel)]="propertyDetailModel.propertyType" name="propertyType" required
+              #propertyType="ngModel">
+                <option [ngValue]="undefined">Select your property type</option>
+                <option *ngFor="let item of propertyTypeList" [ngValue]="item">{{item}}</option>
+              </select>
+              <div *ngIf="propertyType.errors?.required && (propertyType.touched || isSubmitted)" class="text-danger">
+                Property type is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="addressLine1">Address Line 1</label>
+              <input type="text" class="form-control" id="addressLine1" placeholder="Enter your address line 1"
+              #addressLine1="ngModel"  name="addressLine1" [(ngModel)]="propertyDetailModel.addressLine1" required
+                maxlength="300">
+                <div *ngIf="addressLine1.errors?.required && (addressLine1.touched || isSubmitted)" class="text-danger">
+                  Addressline1 is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="addressLine2">Address Line 2</label>
+              <input type="text" class="form-control" id="addressLine2" placeholder="Enter your address line 2"
+                maxlength="300"  #addressLine2="ngModel"  name="addressLine2" [(ngModel)]="propertyDetailModel.addressLine2" required>
+
+                <div *ngIf="addressLine2.errors?.required && (addressLine2.touched || isSubmitted)" class="text-danger">
+                  Addressline2 is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="state">State</label>
+              <select class="form-control" id="state" [(ngModel)]="propertyDetailModel.state" name="state" required
+              #state="ngModel">
+                <option [ngValue]="undefined">Select your state</option>
+                <option [ngValue]="state['name']" *ngFor="let state of states">{{state['name']}}</option>
+              </select>
+              <div *ngIf="state.errors?.required && (state.touched || isSubmitted)" class="text-danger">
+                State  is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="city">City</label>
+              <select class="form-control" id="city"
+              [(ngModel)]="propertyDetailModel.city" name="city" required
+              #city="ngModel">
+                <option value="">Select your city</option>
+                <option [value]="city['name']" *ngFor="let city of cities">{{city['name']}}</option>
+              </select>
+              <div *ngIf="city.errors?.required && (city.touched || isSubmitted)" class="text-danger">
+                City  is required.</div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="pincode">Pincode</label>
+              <input type="text" class="form-control" id="pincode" minlength="6" maxlength="6"
+              #pincode="ngModel"  name="pincode" [(ngModel)]="propertyDetailModel.pincode" required>
+              <div *ngIf="pincode.errors?.required && (pincode.touched || isSubmitted)" class="text-danger">
+                Pincode is required.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="col-12">
+      <div class="card mt-3 col-12">
+        <div class="card-header">
+          Property Details
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <!-- <div class="col-12 d-flex justify-content-end">
+              <button type="button" class="btn btn-primary" (click)="addAttachment.show();tempAttachments = [];">Add
+                Attachments</button>
+            </div> -->
+
+            <div class="col-sm-12 col-lg-12">
+
+              <div class="row">
+                <div class="col-12 my-3">
+                  <fieldset class="border p-3">
+                    <legend class="w-auto px-2 h6 text-muted mb-0">Rooms</legend>
+
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="box16 category-box">
+                          <svg [ngClass]="(propertyDetailModel.livingRoom === 0 ) ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false"
+                            viewBox="0 0 24 24" aria-hidden="true" title="fontSize large">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+                          </svg>
+                          <div class="box-content">
+                            <h3 class="title">Living Room / Hall</h3>
+                            <h3 class="number">{{propertyDetailModel.livingRoom}}</h3>
+                            <ul class="social">
+                              <li><a [ngClass]="propertyDetailModel.livingRoom=== 0  ? 'disabled':''" (click)="removeLivingRoom()"><i class="fa fa-minus"></i></a></li>
+                              <li ><span class="number-item">{{propertyDetailModel.livingRoom}}</span></li>
+                              <li><a [ngClass]="propertyDetailModel.livingRoom === 10 ? 'disabled':''" (click)="addLivingRoom()"><i class="fa fa-plus"></i></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="box16 category-box">
+                          <svg [ngClass]="propertyDetailModel.kitchen === 0 ? 'box17':'box16'"  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
+                            fill="black" width="18px" height="18px">
+                            <rect fill="none" height="24" width="24" />
+                            <path
+                              d="M12,3L4,9v12h16V9L12,3z M12.5,12.5c0,0.83-0.67,1.5-1.5,1.5v4h-1v-4c-0.83,0-1.5-0.67-1.5-1.5v-3h1v3H10v-3h1v3h0.5v-3h1 V12.5z M15,18h-1v-3.5h-1v-3c0-1.1,0.9-2,2-2V18z" />
+                          </svg>
+                          <div class="box-content">
+                            <h3 class="title">Kitchen</h3>
+                            <h3  class="number"> {{propertyDetailModel.kitchen}}</h3>
+                            <ul class="social">
+                              <li><a [ngClass]="propertyDetailModel.kitchen === 0  ? 'disabled':''" (click)="removeKitchen()"><i class="fa fa-minus"></i></a></li>
+                              <li ><span class="number-item">{{propertyDetailModel.kitchen}}</span></li>
+                              <li><a [ngClass]="propertyDetailModel.kitchen === 10 ? 'disabled':''" (click)="addKitchen()"><i class="fa fa-plus"></i></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="box16 category-box">
+                          <svg [ngClass]="propertyDetailModel.bedRoom === 0  ? 'box17':'box16'" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
+                            fill="black" width="18px" height="18px">
+                            <rect fill="none" height="24" width="24" />
+                            <path
+                              d="M12,3L4,9v12h16V9L12,3z M9.75,12.5c0.69,0,1.25,0.56,1.25,1.25S10.44,15,9.75,15S8.5,14.44,8.5,13.75S9.06,12.5,9.75,12.5z M17,18h-1v-1.5H8V18H7v-7h1v4.5h3.5V12H15c1.1,0,2,0.9,2,2V18z" />
+                          </svg>
+                          <div class="box-content">
+                            <h3 class="title">Bedroom</h3>
+                            <h3 class="number">{{propertyDetailModel.bedRoom}}</h3>
+                            <ul class="social">
+                              <li><a [ngClass]="propertyDetailModel.bedRoom === 0  ? 'disabled':''" (click)="removeBedroom()"><i class="fa fa-minus"></i></a></li>
+                              <li ><span class="number-item">{{propertyDetailModel.bedRoom}}</span></li>
+                              <li><a [ngClass]="propertyDetailModel.bedRoom === 10 ? 'disabled':''" (click)="addBedroom()"><i class="fa fa-plus"></i></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12 col-md-6 col-lg-3">
+                        <div class="box16 category-box">
+                          <svg  [ngClass]="propertyDetailModel.bathRoom === 0  ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false"
+                            viewBox="0 0 24 24" aria-hidden="true" title="fontSize large">
+                            <circle cx="7" cy="7" r="2"></circle>
+                            <path
+                              d="M20 13V4.83C20 3.27 18.73 2 17.17 2c-.75 0-1.47.3-2 .83l-1.25 1.25c-.16-.05-.33-.08-.51-.08-.4 0-.77.12-1.08.32l2.76 2.76c.2-.31.32-.68.32-1.08 0-.18-.03-.34-.07-.51l1.25-1.25c.15-.15.36-.24.58-.24.46 0 .83.37.83.83V13h-6.85c-.3-.21-.57-.45-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.31-.15-.65-.23-1-.23C6 10.01 5 11.01 5 12.25V13H2v6c0 1.1.9 2 2 2 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 1.1 0 2-.9 2-2v-6h-2z">
+                            </path>
+                          </svg>
+                          <div class="box-content">
+                            <h3 class="title">Bathroom</h3>
+                            <h3 class="number">{{propertyDetailModel.bathRoom}}</h3>
+                            <ul class="social">
+                              <li><a [ngClass]="propertyDetailModel.bathRoom === 0  ? 'disabled':''" (click)="removeBathroom()"><i class="fa fa-minus"></i></a></li>
+                              <li ><span class="number-item">{{propertyDetailModel.bathRoom}}</span></li>
+                              <li><a [ngClass]="propertyDetailModel.bathRoom === 10 ? 'disabled':''" (click)="addBathroom()"><i class="fa fa-plus"></i></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+
+
+                  <div class="col-12 mt-3 additionalRooms">
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="additionalRooms">Additional Rooms</label>
+                      </div>
+                    </div>
+
+                    <div class="row mb-2" *ngFor="let control of propertyDetailModel.additionalPropertyDetailsList;let i = index;let last = last;" >
+                      <div class="col-sm-10 col-lg-10">
+                          <input class="form-control" [id]="'additionalRoom' + i" [name]="'additionalRoom' + i"    [(ngModel)]="control.propertyAddtionalType"/>
+                      </div>
+
+                      <div class="col-sm-2 col-lg-2 d-flex justify-content-start d-flex align-items-end">
+                          <i class="fa fa-plus-circle text-primary" aria-hidden="true" *ngIf="last && i !== 9" (click)="addAditionalRoomCtrl()" ></i>
+                      </div>
+                  </div>
+
+                    <!-- <div class="row mb-2">
+                      <div class="col-sm-10 col-lg-10">
+                        <input class="form-control" />
+                      </div>
+
+                      <div class="col-sm-2 col-lg-2 d-flex justify-content-start d-flex align-items-end">
+                        <i class="fa fa-plus-circle text-primary" aria-hidden="true"></i>
+                      </div>
+                    </div> -->
+                  </div>
+
+                  <div class="col-12 mt-3">
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="furnished" [value]="true" [(ngModel)]="propertyDetailModel.furnished" name="furnished" class="custom-control-input">
+                      <label class="custom-control-label" for="furnished">Furnished</label>
+                    </div>
+
+                    <div class="custom-control custom-radio custom-control-inline">
+                      <input type="radio" id="unfurnished" name="furnished" [value]="false" [(ngModel)]="propertyDetailModel.furnished" class="custom-control-input">
+                      <label class="custom-control-label" for="unfurnished">Unfurnished</label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 my-3" *ngIf="propertyDetailModel.furnished">
+                    <fieldset class="border p-3">
+                      <legend class="w-auto px-2 h6 text-muted mb-0">Furnished Items</legend>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                          <div class="box16 category-box">
+                            <svg [ngClass]="propertyDetailModel.fan === 0  ? 'box17':'box16'" class="MuiSvgIcon-root jss80" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                              <path
+                                d="M12 12c0-3 2.5-5.5 5.5-5.5S23 9 23 12H12zm0 0c0 3-2.5 5.5-5.5 5.5S1 15 1 12h11zm0 0c-3 0-5.5-2.5-5.5-5.5S9 1 12 1v11zm0 0c3 0 5.5 2.5 5.5 5.5S15 23 12 23V12z">
+                              </path>
+                            </svg>
+                            <div class="box-content">
+                              <h3 class="title">Fan</h3>
+                              <h3 class="number">{{propertyDetailModel.fan}}</h3>
+                              <ul class="social">
+                                <li><a [ngClass]="propertyDetailModel.fan === 0  ? 'disabled':''" (click)="removeFan()"><i class="fa fa-minus"></i></a></li>
+                                <li ><span class="number-item">{{propertyDetailModel.fan}}</span></li>
+                                <li><a [ngClass]="propertyDetailModel.fan === 10 ? 'disabled':''" (click)="addFan()"><i class="fa fa-plus"></i></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                          <div class="box16 category-box">
+                            <svg [ngClass]="propertyDetailModel.sofa === 0  ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false"
+                              viewBox="0 0 24 24" aria-hidden="true" title="fontSize large">
+                              <path
+                                d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h1.33L4 19h1l.67-2h12.67l.66 2h1l.67-2H22v-5c0-1.1-.9-2-2-2zm-9 0H6V7h5v3zm7 0h-5V7h5v3z">
+                              </path>
+                            </svg>
+                            <div class="box-content">
+                              <h3 class="title">Sofa</h3>
+                              <h3 class="number">{{propertyDetailModel.sofa}}</h3>
+                              <ul class="social">
+                                <li><a [ngClass]="propertyDetailModel.sofa === 0  ? 'disabled':''" (click)="removeSofa()"><i class="fa fa-minus"></i></a></li>
+                                <li ><span class="number-item">{{propertyDetailModel.sofa}}</span></li>
+                                <li><a [ngClass]="propertyDetailModel.sofa === 10 ? 'disabled':''" (click)="addSofa()"><i class="fa fa-plus"></i></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                          <div class="box16 category-box">
+                            <svg [ngClass]="propertyDetailModel.tv === 0  ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false"
+                              viewBox="0 0 24 24" aria-hidden="true" aria-describedby="mui-80933">
+                              <path
+                                d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z">
+                              </path>
+                            </svg>
+                            <div class="box-content">
+                              <h3 class="title">TV</h3>
+                              <h3 class="number">{{propertyDetailModel.tv}}</h3>
+                              <ul class="social">
+                                <li><a [ngClass]="propertyDetailModel.tv === 0  ? 'disabled':''" (click)="removeTV()"><i class="fa fa-minus"></i></a></li>
+                                <li ><span class="number-item">{{propertyDetailModel.tv}}</span></li>
+                                <li><a [ngClass]="propertyDetailModel.tv === 10 ? 'disabled':''" (click)="addTV()"><i class="fa fa-plus"></i></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                          <div class="box16 category-box">
+                            <svg [ngClass]="propertyDetailModel.bed === 0  ? 'box17':'box16'" class="MuiSvgIcon-root jss80 MuiSvgIcon-fontSizeLarge" focusable="false"
+                              viewBox="0 0 24 24" aria-hidden="true" title="fontSize large">
+                              <path
+                                d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z">
+                              </path>
+                            </svg>
+                            <div class="box-content">
+                              <h3 class="title">Bed</h3>
+                              <h3 class="number">{{propertyDetailModel.bed}}</h3>
+                              <ul class="social">
+                                <li><a [ngClass]="propertyDetailModel.bed === 0  ? 'disabled':''" (click)="removeBed()"><i class="fa fa-minus"></i></a></li>
+                                <li ><span class="number-item">{{propertyDetailModel.bed}}</span></li>
+                                <li><a [ngClass]="propertyDetailModel.bed === 10 ? 'disabled':''" (click)="addBed()"><i class="fa fa-plus"></i></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- <div class="col-sm-12 col-lg-4">
+                <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100 h-100"
+                  >
+                  <div class="h6 text-muted">
+                    Please select attachment.
+                  </div>
+                </div>
+
+                <div class="d-flex w-100 h-100 mt-3">
+                  <div class="table-responsive w-100">
+                    <table class="table table-hover bg-white">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">comment</th>
+                          <th scope="col">Attachment</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row"></th>
+                          <td></td>
+                          <td>
+                            <i class="fa fa-eye text-primary" aria-hidden="true"></i>
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" (click)="UpdatePropertyDetail(inviteuserForm)">Update Property</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -5,7 +5,7 @@ import { AddOwnerBrokerRoutingModule } from './add-owner-broker-routing.module';
 import { AddOwnerBrokerComponent } from './add-owner-broker.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AddOwnerBrokerComponent
@@ -14,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    AddOwnerBrokerRoutingModule
+    AddOwnerBrokerRoutingModule,
+    FormsModule
   ]
 })
 export class AddOwnerBrokerModule { }
