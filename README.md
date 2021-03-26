@@ -27,7 +27,6 @@ Update guide - see: [https://update.angular.io](https://update.angular.io)
 
 ``` bash
 # clone the repo
-$ git clone https://github.com/coreui/coreui-pro-angular-admin-template.git my-project
 
 # go into app's directory
 $ cd my-project
@@ -36,17 +35,7 @@ $ cd my-project
 $ npm install
 ```
 
-### Copy and Paste
 
-Copy all your files to your project folder and then,
-
-``` bash
-# go into app's directory
-$ cd my-project
-
-# install app's dependencies
-$ npm install
-```
 
 ## Usage
 
@@ -58,54 +47,5 @@ $ ng serve
 $ ng build
 ```
 
-## What's included
 
-Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
 
-```
-coreui-pro-angular-admin-template/
-├── e2e/
-├── src/
-│   ├── app/
-│   ├── assets/
-│   ├── environments/
-│   ├── scss/
-│   ├── index.html
-│   └── ...
-├── .angular.json
-├── ...
-├── package.json
-└── ...
-```
-
-## Documentation
-
-The documentation for the CoreUI Pro Angular Admin Template is hosted at our website [CoreUI](https://coreui.io/angular/)
-
-## Versioning
-
-For transparency into our release cycle and in striving to maintain backward compatibility,CoreUI Pro Admin Template is maintained under [the Semantic Versioning guidelines](http://semver.org/).
-
-See [the Releases section of our project](https://github.com/coreui/coreui-pro-angular-admin-template/releases) for changelogs for each release version.
-
-## Creators
-
-**Łukasz Holeczek**
-
-* <https://twitter.com/lukaszholeczek>
-* <https://github.com/mrholek>
-
-**Andrzej Kopański**
-
-* <https://github.com/xidedix>
-
-## Community
-
-Get updates on CoreUI's development and chat with the project maintainers and community members.
-
-- Follow [@core_ui on Twitter](https://twitter.com/core_ui).
-- Read and subscribe to [CoreUI Blog](https://coreui.ui/blog/).
-
-## Copyright and license
-
-copyright 2019 creativeLabs Łukasz Holeczek.
